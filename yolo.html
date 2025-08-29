@@ -8,7 +8,7 @@
         .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
         .robo:hover{transform:scale(1.2);}
         .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center; font-style:italic; color:black; background-color:white;
-            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);}       
+            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);display:block; border-style:none;}       
         body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/} 
         .title{color:yellow;}
         .title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos
@@ -27,11 +27,12 @@
         .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;font-style:italic;}
         .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
         hr{margin:20px 0;}
-        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
-        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:50px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center; font-size:30px; display: inline-block; border-style:solid; border-color:rgb(243, 170, 170);}
         .discription {color:black; background-color:rgb(222, 222, 247); padding:10px;}
-        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;}
-
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;text-align:center; border-style:solid; border-color:rgb(176, 176, 232);}
+        .discription, .works, .usage, .development, .videos {text-align: center;}
+       
         @media (max-width: 768px) {
             .robo {
             width: 100px; /* 기본 크기보다 줄이기 */
@@ -97,19 +98,21 @@
     </h2>
     </div>
   
-    <div class="main1">
+    <div class="main">
 
     <div class="works">
     <h2>How it works</h2>
     <p> 
+        <img src="YOLO_part_09.jpg" width="400px" loading="lazy" decoding="async"><br/>
+        This is header for operating YOLO v5<br/>
         <b>//BACKBONE</b><br/>
         Backbone is where image is inputted and analyze the image by pizels.
-        Fist we should get images from where it is stored.
-        <img src="YOLO_part_01_re.webp"><br/>
+        Fist we should get images from where it is stored.<br/>
+        <img src="YOLO_part_01_re.webp" loading="lazy" decoding="async"><br/><br/>
         This picture shows the first part of Backbone structure.
         "img_path" indicates where the image is stored.<br/>
         "img" indicates where yolo should get image from, and make the image by 640 X 640 pixels, change the image into 3 channels(images) by red, blue and green.</br>
-        "transform and tensor" is the process that change the input image into tensor, which is the matrix of numbers. This helps image suitable to put into YOLO.<br/>
+        "transform to tensor" is the process that change the input image into tensor, which is the matrix of numbers. This helps image to be suitable to put into YOLO.<br/>
         <b>import torch, from PIL import Image, import torchvision.transforms as T</b> these are headers that is needed for codes above.<br/><br/>
        
         Next you can see the first CBS block. Input_tensor is the result of previous process.<br/>
@@ -124,29 +127,30 @@
         Bottleneck is processed like this.First the C3 block gets tensor.It reduces the channel in order to do fast calculation. After that the conv block makes deeper feature map. In the end, C3 block raises the channel of the feature map to the original number.
         <br/>This makes deeper feature map.In addition, C3 block combines this feature map with original inputted tensor. This mehtod is good because it is faster and it enables more powerful feature map.<br/>
         "n=3" means this block will do this bottleneck process 3 times.<br/>
-        <img src="YOLO_part_04.webp" width="400px"><br/> This picture shows the structure of bottleneck. The RELU is an activation function which is used to make the model learn more complicated functions. Usually YOLO uses SILU instead as activation function.<br/>
-        <img src="YOLO_part_05.webp"><br/>we repeat the CBS block and C3 block. After one CBS block, the tensor gets twice higher channel and half of the previous pixel. After C3 block, nothing changes in number of channels and pixels.<br/>
+        <img src="YOLO_part_04.webp" width="400px" loading="lazy" decoding="async"><br/> This picture shows the structure of bottleneck. The RELU is an activation function which is used to make the model learn more complicated functions. Usually YOLO uses SILU instead as activation function.<br/>
+        <img src="YOLO_part_05.webp" loading="lazy" decoding="async"><br/>we repeat the CBS block and C3 block. After one CBS block, the tensor gets twice higher channel and half of the previous pixel. After C3 block, nothing changes in number of channels and pixels.<br/>
         After 5 CBS and 4 C3 blocks tensor ,which was 3 channels and 640X640 pixels in the fist place, <b>changed into 1024 channels and 20X20 pixels.</b></br>
-        The next block is SPPF block. SPPF is a fater version of origin SPP block. This block consists of CBS, MAXPOOL, CONCAT layer.<br/>
-        First, tensors are inputted in this block. Then, tesors go through CBS block. After that, the tensor goes through MAXPOOL layre. MAXPOOL makes a new feature map by choosing the biggest number in certatin area.
+        <img src="YOLO_part_11.jpg" width="800px" loading="lazy" decoding="async"><br/>
+        The next block is SPPF block. SPPF is a fater version of original SPP block. This block consists of CBS, MAXPOOL, CONCAT layer.<br/>
+        First, tensors are inputted in this block. Then, tesors go through CBS block. After that, the tensor goes through MAXPOOL layer. MAXPOOL makes a new feature map by choosing the biggest number in certatin area.
         This helps the model to reduce the noise as well as calculation. This helps model to recognize objects easily.<br/>After processing 3 MAXPOOL layers, it combines(more apecifically concat) each results from each MAXPOOL layers. The result goes into CBS in the end.<br/>
-        <img src="YOLO_part_07.webp" width="800px"><br/>This is the structure of SPP and SPPF. In SPPF, MAXPOOL layers are connected in a series shape, which makes the layer faster. It concats all 4 results from each maxpool layers. therefore the result tensor gets 4 times higher channel number.In CBS layer, the channel number is reduced to the original state.
-        <img src="YOLO_part_06.webp"><br/>
+        <img src="YOLO_part_07.webp" width="500px" loading="lazy" decoding="async"><br/>This is the structure of SPP and SPPF. In SPPF, MAXPOOL layers are connected in a series shape, which makes the layer faster. It concats all 4 results from each maxpool layers. therefore the result tensor gets 4 times higher channel number.In CBS layer, the channel number is reduced to the original state.
+        <img src="YOLO_part_06.webp" loading="lazy" decoding="async"><br/>
         This is the result of backbone. We started from one image and there are 1024 channels now.<br/>
         <b>//NECK</b><br/>
         Neck is where you make more profound tensors. Neck consists of "Feature Fusion block"<br/>
-        <img src="YOLO_part_08_re.webp" ><br/>
+        <img src="YOLO_part_08_re.webp" loading="lazy" decoding="async" ><br/>
         This picture shows whole NECK.
         The first block is feature fusion block. This block consists of 4 layers. convolution, upsampling, concatination and c3.<br/>
         Fist, tensor is inputted into convolution layer. Convolution layer makes the channel into half. After that, it goes into upsampling layer. In this layer, the pixel of tensor changes from 20 to 40.<br/>
         This enables the tensor to be combined with other tensor that have 40X40 pixel. After that, the tensor is combined with X3 tensor wich is [1, 512 ,40,40]. The X3 has 1 batch, 512 channels, 40X40 pixels.<br/>
-        After concatination, it becomes 1024 channels(512+512), 40X40 pixels. In the end C3 layer makes the tensor into [1,512,40,40] and make new feature map. The conv and c3 layers are brought by ultralytics using headr <b>from ultralytics.nn.modules import Conv</b> and <b>from ultralytics.nn.modules import C3</b><br/>
+        After concatination, it becomes 1024 channels(512+512), 40X40 pixels. In the end C3 layer makes the tensor into [1,512,40,40] and make new feature map. The conv and c3 layers are brought by ultralytics using header <b>from ultralytics.nn.modules import Conv</b> and <b>from ultralytics.nn.modules import C3</b><br/>
         upsample layer is built in function at pytorch using header,<b>import torch.nn as nn</b> and torch.cat layer is a built in function in pytorch that only needs header,<b>imprt torch</b><br/><br/>
 
         We repeat this Feature fusion block 4 times.<br/>
         This neck process is actually combining different feature maps and making more profound and meaningful feature maps. First block combines X3 and X5 , Second one combiens h4(result of first block) and X2, third block combines h3(result of second block) and h4.
         Fourth block combines X5 and m4(result of third block).<br/>
-        <img src="YOLO_part_10.webp" width="500px"><br/>These are 1024 feature maps with 20X20 pixels each. These are the final result of bottleneck and neck process.<br/>
+        <img src="YOLO_part_10.webp" width="500px" loading="lazy" decoding="async"><br/>These are 1024 feature maps with 20X20 pixels each. These are the final result of bottleneck and neck process.<br/>
         Remember these feature maps all started from just one image. and now it became 1024 feature maps.<br/>
     </p>
     </div>

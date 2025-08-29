@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center; font-style:italic; color:black; background-color:white;
+            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);display:block; border-style:none;}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/} 
+        
+        .title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos
+        {
+        margin-bottom:50px;
+        /*서서히 효과*/
+        opacity:0;/*기본 설정은 안보이게*/
+        transform: translateY(50px);
+        transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;font-style:italic;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        hr{margin:20px 0;}
+        h1{text-align:center;border-radius:10px;font-size:50px;border-style:solid;border-color:rgb(121, 121, 196);}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center; font-size:30px; display: inline-block; border-style:solid; border-color:rgb(243, 170, 170);}
+        .discription {color:black; background-color:rgb(222, 222, 247); padding:10px;}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;text-align:center; border-style:solid; border-color:rgb(176, 176, 232);}
+        .discription, .works, .usage, .development, .videos {text-align: center; }
+
+        @media (max-width: 768px) {
+            .robo {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 50px; /* 아래 여백도 줄이기 */
+               }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            /* 모든 이미지가 부모 폭을 넘지 않도록 */
+            img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* 가로 스크롤/줄바꿈 이슈 줄이기 위해 권장 */
+            margin: 0 auto;   /* 좌우 자동 여백 → 가로 가운데 정렬 */
+            }
+
+            
+        }
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <h1 class="title">"A Review of Computer Vision for Railways"</h1>
+    <h2 class="subtitle">How can we improve railroad safety using camera?</h2>
+    
+    <div class="heading">
+    <img src="IMG_0014.png" width="200" class="picture">
+    <h2 class="discription">
+       This paper describes everything that is needed for detection in railroads.<br/>
+       1. camera hardware and data requirements <br/>
+       2. camera setup types<br/>
+       3. image processing argorithms<br/>
+       4. applications<br/>
+    </h2>
+    </div>
+  
+    <div class="main">
+
+    <div class="works">
+    <h2>How it works</h2>
+    <p> 
+        <img src="paper_yolo_001.png" width="1000" loading="lazy" decoding="async"><br/>
+        <img src="paper_yolo_004.png" width="1000" loading="lazy" decoding="async"><br/>
+        <b>Neck structure improvement</b><br/>
+        <i>1. Neck structure</i><br/>
+        Goal of Neck structure is to transfer and share features that is extracted in backbone step accross different layers in order to make it recognize all big and small features.
+        FPN(yolo v5 nano's neck layer) has leakage of information during transfer of datas.<br/>
+        <img src="paper_yolo_003.png" width="800" loading="lazy" decoding="async"><br/>
+        <i>2. GOLD YOLO</i><br/>
+        -> Original YOLO v5 nano's neck structure is called FPN. FPN has a problem. During the transfer of information accross layers process, information loss happens.<br/>
+        Therefore, it is important to solve this problem. This is called GOLD-YOLO. Gold yolo globally fuses multi-layer features and globally injects information into higher layers.<br/>
+        -> Structure : Gold YOLO consists of 3 main modules, FAM(Feature Alignment Module), IFM(Information Fashion Module), IJM(Information Injection Module)<br/>
+        - FAM aligns features from each level.<br/>
+        - IFM fuses the aligned features to generate global information. It fuse(integrate) aligned features and make unified global featrues and distribute fused results to diffent levels.<br/>
+        - IJM distributes it to each level, using two branches Low GD, High GD. <br/><br/>
+
+        <b>Backbone improvement</b><br/>
+        <img src="paper_yolo_002.png" width="300" loading="lazy" decoding="async"><br/>
+        <i>1. C3CA (CA module)</i><br/>
+        C3CA is an attention mechanism module. Attention module helps model focus on specific area that is expected for an object to exist.
+        using C3CA has follwing adventages.<br/> a. capture cross channel infromation and direction-aware , position aware information<br/> b. it has very small neumber of parameters that can be flexibly embedded into the network.<br/> c. it has good scalability.<br/>
+        Therefore it is cross channel, direction and position awareable, and it is small so good for small models.<br/>
+        To sum up, C3CA module helps the model focus on important feature channels, thereby improve detection performance. C3CA does not significantly increase computational overhead, making it capable of improving model performance while maintaining computational efficiency.<br/>
+        <i>2. Dynamic Snake Convolution</i><br/>
+        Kernel: it is a pattern measurement tool.<br/>
+        Convolution: when it adapts kernel on an image, it does convolution as calcultion.Convolution is a calcultaion that finds edge of an object using kernel on an image.<br/>
+        YOLO can not detect steel surface defects with complex shapes. therefore we use active contour model. Kernel sample is same. What is different is that it decides where to adapt the kernel. It decides the next location to adapt kernel. In conclusion the model adapts covolution on the area following edge of objects. This makes the model easily detect the objects' edge in a short time because it doesn't have to adapt the kernel on all areas of the image.<br/>
+        <br/>
+        <b>Loss function improvement(SIOU loss function)</b><br/>
+        Loss function is a function that calculates the difference between real value and estimated value.<br/>
+        YOLO v5 adapts CIOU as a loss function. However this loss function has higher computational complexity and limited effect on small target detection. Therefore it has slow regression speed.<br/>
+        SIOU loss function takes into account 4 things.<br/>
+        a. angle loss: It calculates the difference in angle between real box and estimated box.<br/>
+        b. distance loss: It calculates the differece int distance between minimum outer rectangle of true frame and predicted frame.<br/>
+        c. Shape loss: It calculates the shpae difference.<br/>
+        d. IOU loss: It calculates the difference in intersection and concurrency ratio(겹친 면적)<br/>
+        <img src="paper_yolo_005.png" width="1000" loading="lazy" decoding="async"><br/>
+        The final SIOU loss function is calculated as above. Delta means angular loss and distance loss, Omega means shape loss.<br/>
+    </p>
+    </div>
+
+
+
+
+    <div class="usage">
+    <h2>My understanding</h2>
+    <p>
+       YOLO can be used everywhere. In cctv, autonomous vehicle etc. We realized the fact that YOLO has limitations. and We can improve this limitations by adding and changing blocks.
+    </p>
+    </div>
+ 
+    <div class="development">
+    <h2>Future development</h2>
+    <p>
+       I am planning to improve my understanding about YOLO.
+    </p>
+    </div>
+
+    <div class="videos">
+    <h2>Videos</h2>
+    
+    </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
