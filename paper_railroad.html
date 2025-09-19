@@ -91,7 +91,7 @@
     <h2 class="subtitle">How can we improve railroad safety using camera?</h2>
     
     <div class="heading">
-    <img src="IMG_0014.png" width="200" class="picture">
+    <img src="paper_railroad_001.png" width="400" class="picture">
     <h2 class="discription">
        This paper describes everything that is needed for detection in railroads.<br/>
        1. camera hardware and data requirements <br/>
@@ -106,43 +106,7 @@
     <div class="works">
     <h2>How it works</h2>
     <p> 
-        <img src="paper_yolo_001.png" width="1000" loading="lazy" decoding="async"><br/>
-        <img src="paper_yolo_004.png" width="1000" loading="lazy" decoding="async"><br/>
-        <b>Neck structure improvement</b><br/>
-        <i>1. Neck structure</i><br/>
-        Goal of Neck structure is to transfer and share features that is extracted in backbone step accross different layers in order to make it recognize all big and small features.
-        FPN(yolo v5 nano's neck layer) has leakage of information during transfer of datas.<br/>
-        <img src="paper_yolo_003.png" width="800" loading="lazy" decoding="async"><br/>
-        <i>2. GOLD YOLO</i><br/>
-        -> Original YOLO v5 nano's neck structure is called FPN. FPN has a problem. During the transfer of information accross layers process, information loss happens.<br/>
-        Therefore, it is important to solve this problem. This is called GOLD-YOLO. Gold yolo globally fuses multi-layer features and globally injects information into higher layers.<br/>
-        -> Structure : Gold YOLO consists of 3 main modules, FAM(Feature Alignment Module), IFM(Information Fashion Module), IJM(Information Injection Module)<br/>
-        - FAM aligns features from each level.<br/>
-        - IFM fuses the aligned features to generate global information. It fuse(integrate) aligned features and make unified global featrues and distribute fused results to diffent levels.<br/>
-        - IJM distributes it to each level, using two branches Low GD, High GD. <br/><br/>
-
-        <b>Backbone improvement</b><br/>
-        <img src="paper_yolo_002.png" width="300" loading="lazy" decoding="async"><br/>
-        <i>1. C3CA (CA module)</i><br/>
-        C3CA is an attention mechanism module. Attention module helps model focus on specific area that is expected for an object to exist.
-        using C3CA has follwing adventages.<br/> a. capture cross channel infromation and direction-aware , position aware information<br/> b. it has very small neumber of parameters that can be flexibly embedded into the network.<br/> c. it has good scalability.<br/>
-        Therefore it is cross channel, direction and position awareable, and it is small so good for small models.<br/>
-        To sum up, C3CA module helps the model focus on important feature channels, thereby improve detection performance. C3CA does not significantly increase computational overhead, making it capable of improving model performance while maintaining computational efficiency.<br/>
-        <i>2. Dynamic Snake Convolution</i><br/>
-        Kernel: it is a pattern measurement tool.<br/>
-        Convolution: when it adapts kernel on an image, it does convolution as calcultion.Convolution is a calcultaion that finds edge of an object using kernel on an image.<br/>
-        YOLO can not detect steel surface defects with complex shapes. therefore we use active contour model. Kernel sample is same. What is different is that it decides where to adapt the kernel. It decides the next location to adapt kernel. In conclusion the model adapts covolution on the area following edge of objects. This makes the model easily detect the objects' edge in a short time because it doesn't have to adapt the kernel on all areas of the image.<br/>
-        <br/>
-        <b>Loss function improvement(SIOU loss function)</b><br/>
-        Loss function is a function that calculates the difference between real value and estimated value.<br/>
-        YOLO v5 adapts CIOU as a loss function. However this loss function has higher computational complexity and limited effect on small target detection. Therefore it has slow regression speed.<br/>
-        SIOU loss function takes into account 4 things.<br/>
-        a. angle loss: It calculates the difference in angle between real box and estimated box.<br/>
-        b. distance loss: It calculates the differece int distance between minimum outer rectangle of true frame and predicted frame.<br/>
-        c. Shape loss: It calculates the shpae difference.<br/>
-        d. IOU loss: It calculates the difference in intersection and concurrency ratio(겹친 면적)<br/>
-        <img src="paper_yolo_005.png" width="1000" loading="lazy" decoding="async"><br/>
-        The final SIOU loss function is calculated as above. Delta means angular loss and distance loss, Omega means shape loss.<br/>
+        <a href="A review of computer vision for railways.pdf" target="_blank">PDF : "A Review of computer vision for railways"</a>
     </p>
     </div>
 
@@ -152,14 +116,25 @@
     <div class="usage">
     <h2>My understanding</h2>
     <p>
-       YOLO can be used everywhere. In cctv, autonomous vehicle etc. We realized the fact that YOLO has limitations. and We can improve this limitations by adding and changing blocks.
+        Rail road detection is one of the field that needs to transfer man power based detection to AI based detection.<br/>
+        In this process we should discuss how we can improve computre vision in order to achieve AI algorithm.<br/>
+        This paper suggests lots of ways regarding rail road field.<br/>
+        <img src="paper_railroad_001.png" width="800" class="picture"><br/>
+        This picture shows all methods. Satellite, drones, trains, way-side cameras,trolley can be used. Each methods have positive effects and challenges.<br/>
+        1. Satellites can easily recognize big issues. Forexample when a bridge starts to sink, which can be a signal of collapse, satellite can notice it by comparing two images taken in different time.<br/>
+        2. Drones are efficient in surveillence railroads. However short battery life is a chellenge.<br/>
+        3. Train borne cameras are also good way. Cameras that are mounted under train can detect railroad crack or railroad defects. While cameras that are mounted on the roof can detect over head lines, pantograph and catenary. THis is effiecient because it can easily detect long rail roads.<br/>
+        4. way-side cameras can detect cracks on railroads. It needs to be installed firmly in order to endure vibrations.<br/>
+        5. Trolley borne camera is final way to detect railroads. It can detect entird railroads in a low cost. However unlike train borne method it needs special scheduling for operation.<br/>
+
     </p>
     </div>
  
     <div class="development">
     <h2>Future development</h2>
     <p>
-       I am planning to improve my understanding about YOLO.
+        Rail road is a field that needs AI in the process of transfering man power into automation.<br/>
+        Therefore I'd like to search for a usage where I can easily adapt AI in order to substitute people.
     </p>
     </div>
 

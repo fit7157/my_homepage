@@ -8,9 +8,9 @@
         .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
         .robo:hover{transform:scale(1.2);}
         .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center; font-style:italic; color:black; background-color:white;
-            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);}       
+            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);display:block; border-style:none;}       
         body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/} 
-        .title{color:yellow;}
+        
         .title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos
         {
         margin-bottom:50px;
@@ -27,10 +27,11 @@
         .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;font-style:italic;}
         .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
         hr{margin:20px 0;}
-        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
-        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center;}
+        h1{text-align:center;border-radius:10px;font-size:50px;border-style:solid;border-color:rgb(121, 121, 196);}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center; font-size:30px; display: inline-block; border-style:solid; border-color:rgb(243, 170, 170);}
         .discription {color:black; background-color:rgb(222, 222, 247); padding:10px;}
-        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;text-align:center; border-style:solid; border-color:rgb(176, 176, 232);}
+        .discription, .works, .usage, .development, .videos {text-align: center; }
 
         @media (max-width: 768px) {
             .robo {
@@ -58,6 +59,14 @@
             }
             h1{font-size:25px;}
             h2{font-size:20px;}
+            /* 모든 이미지가 부모 폭을 넘지 않도록 */
+            img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* 가로 스크롤/줄바꿈 이슈 줄이기 위해 권장 */
+            margin: 0 auto;   /* 좌우 자동 여백 → 가로 가운데 정렬 */
+            }
+
             
         }
 
@@ -78,17 +87,14 @@
 
 <body>
     <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
-    <h1 class="title">Rider Guard</h1>
-    <h2 class="subtitle">Can we prevent crash in personal mobilities?</h2>
+    <h1 class="title">"Edge assisted framework for instant anomaly detection and cloud based anomaly recognization in smart surveillance"</h1>
+    <h2 class="subtitle">How is AI cctv operated?</h2>
     
     <div class="heading">
-    <img src="IMG_0009.png" width="200" class="picture">
+    <img src="IMG_0016.png" width="400" class="picture">
     <h2 class="discription">
-        This is a safety gear using ultrasonic sensors.
-        There are 3 functions.<br/>
-        1. LEDs notify drivers where obstacles are and how close they are.<br/>
-        2. Buzzer is activated when obstacles are too close.<br/>
-        3. Headlight warns pedestrians nearby or other drivers by blinking it that it is coming toward them.<br/>
+       This paper focuses on a method that can create the edge AI camera.<br/>
+
     </h2>
     </div>
   
@@ -97,49 +103,33 @@
     <div class="works">
     <h2>How it works</h2>
     <p> 
-        There are 3 ultrasonic sensors facing front, left and right. What they do is detecting the obstacles.
-        Using Arduino nano, this device can calculate distance between obstacles.
-        LEDs which are attatched at the top light up. Color of the LEDs depends on the distance.<br/>
-        -distance over 5m --> green<br/>
-        -distance between 5m and 3m --> blue<br/>
-        -distance between 3m and 1m --> yellow<br/>
-        -distance under 1m --> red and warning sound<br/>
-        Driver can recognize two information.</br>
-        - How close obstacles are around.</br>
-        - Which direction obstacles exists at.</br>
-        What makes this unique is the fact that this product is independent sothat it can be attatched on any mobilties. Safety sensors have been basically built-in on many mobilities.
-        However, sensors are quiet expensive. This is the main reason for not having sensors on personal mobilties. Consumers don't want to afford high price just because there are sensors attatched.
-        Therefore, RiderGuard can give them a solution. With one RiderGuard, it is possible to utilize the safety device on every situations, bikes,e-bikes, e-scooters and even motorcycles.
-
+        <a href="A review of computer vision for railways.pdf" target="_blank">PDF : "A Review of computer vision for railways"</a>
     </p>
     </div>
 
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/rxczXVfRPNo" allowfullscreen>
-        </iframe>
-    </div>
+
 
 
     <div class="usage">
-    <h2>Future usage</h2>
+    <h2>Do we need edge AI CCTV in subway in Korea?</h2>
     <p>
-        You can use this device in all personal mobilities like mototcycle, bicycle, e-scooter and e-bikes.<br/>
-        What this product does is giving warnings to the driver about the nearby obstacles. So that the driver can react quickly before crash.<br/>
+        1. According to the railroad plan 2024, It is said that korail is planning to make the AI CCTV on subways.<br/>
+        2. Until now CCTV was for recording the accidents for post-accident investigation.<br/>
+        3. In 2025 a terror happened in subway line 5. People was under threat of fire in the subway. This made people feel threat and anxiety.<br/>
+        4. Edge AI can protect peoples's privacy. It can also reduce the computation of the device.<br/>
     </p>
     </div>
  
     <div class="development">
-    <h2>Future development</h2>
+    <h2>My understanding</h2>
     <p>
-        We are planning to obtain a patent for this design and functionality. After that, we will make the exact design we showed above into a real product using CAD and 3D printer. <br/>
-        We want to demonstrate that this product can be produced for under 30pounds. We will show our product to electric kickboard companies or bicycle gear companies to highlight the effect and achievement that Rider Guard can make. <br/>
-        This can pave a way to make this product for commercial purposes. In the long term, even some regulations that all drivers should use this gear while driving personal mobilities can be introduced.
+        
     </p>
     </div>
 
     <div class="videos">
     <h2>Videos</h2>
-    <a href="https://www.youtube.com/watch?v=rxczXVfRPNo">video</a></br>
+    
     </div>
 
     </div>

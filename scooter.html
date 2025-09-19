@@ -4,83 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="style.css" type="text/css" rel="stylesheet" />
-    <style>
-        body{
-        padding:0 20px;
-            /*서서히 효과*/
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center; font-style:italic; color:black; background-color:white;
+            text-decoration:underline;text-decoration-color:rgb(0, 0, 0);}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/} 
+        .title{color:yellow;}
+        .title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos
+        {
+        margin-bottom:50px;
+        /*서서히 효과*/
         opacity:0;/*기본 설정은 안보이게*/
         transform: translateY(50px);
-        transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/}
-        .fade-in {
+        transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
             opacity: 1 !important;  
             transform: translateY(0) !important;
         }
-        
-        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
-        .robo:hover{transform:scale(1.2);}/*바나나로고 커지는 효과*/
-        h1{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;}
-        @media (max-width: 768px) 
-        {
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;font-style:italic;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        hr{margin:20px 0;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; margin-bottom:5px;text-align:center;}
+        .discription {color:black; background-color:rgb(222, 222, 247); padding:10px;}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px; margin-top:5px;}
+
+        @media (max-width: 768px) {
             .robo {
             width: 100px; /* 기본 크기보다 줄이기 */
             margin-bottom: 50px; /* 아래 여백도 줄이기 */
                }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            
         }
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
     </style>
 </head>
 
 <body>
     <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <h1 class="title">The smart school cafetaria system</h1>
+    <h2 class="subtitle">How can we improve convenience in school cafeteria?</h2>
+    
     <div class="heading">
-    <h1>Why is electric-scooter so dangerous?</h1>
-    <p>There were lots of cases for electric-scooter <b>accidents.</b></p>
-    <ol>
-        <li>It overturns.</li>
-        <li>It falls aside.</li>
-        <li><a href="https://www.youtube.com/watch?v=D5LTeNlrpdc&list=WL&index=7">videos</a></li>
-    </ol>
-    <h2>But, overturning gives the most critical impact to the driver.</h2>
-   <p>If overturn happens, the driver usually hurts a lot.<br>
-    Therefore, <b class="topic">I decided to discover the way to stop overturn.</b></p>
+    <img src="IMG_0015.jpg" width="200" class="picture">
+    <h2 class="discription">
+       We as a team discussed how we could improve school cafeteria system. We concluded 3 functions.<br/>
+        1. Notify empty seats before students go into the cafeteria.<br/>
+        2. Notify whether my food is prepared more conveniently compared to previous TV screen notification.<br/>
+        3. Automatically opening trashcan  without physical touch.<br/>
+        4. Smoke notification system.<br/>
+    </h2>
     </div>
-<hr/>
-    <div id="body">
-        <h1>Why e-scooter is easy to overturn.</h1>
-        <p>first of all I thought about why e-sooters easily go overturn compared to bicycles/<br>
-        The main reason that I thought was the fact that the center of mass of the scooter is too high. 
-    THe difference between bicycle and e-scooter is that people ride the scooter while they are standing.
-This makes the center of mass in high position and this is why the scooter is easy to overturn. </p>
+  
+    <div class="main">
 
-<h1>How can we solve it?</h1>
-<p>How can we solve this problem? I thought that it is important for us to lower the center of mass.
-    But if we have to ride the scooter while sitting, people will consider it uncomfotable, because 
-    people want a scooter that is easy to ride. Standing is one of the key feature of e-scooter so, if we make the 
-    scooter that can be operated while sitted, this will hinder the e-scooter's convenience.
-    Therefore I decided that I should make the people sit only before the crash.
-    This will lower the center of mass suddenly and disturb the oversturn.
-</p>
-<h1>How to prove it</h1>
-<p>We are going to prove this idea by doing little experiment. 
-    By using Arduino, we want to prove that this can work in the real life.
-</p>
-<img src="IMG_0267.jpg" width="300" height="300" algint="left">
-<p>This picture shows the idea. We are going to make a belt and put it to the driver.
-    The belt will be connected to the motor at the rear. This motor is the key.
-    The moter will operate by the information of ultra-sonic sensor. Ultra-sonic sensor recognizes the distance 
-    between the scooter and outside obstalcles. If the distance is too close, and the scooter is running in fast speed,
-    the scooter will consider the situation as dangerous and the moter will rotate backward. 
-    This will tighten the rope that is connected to the driver. As a result, the driver will be pulled to the rear and fall behind.
-    the driver will automatically fall, which makes the center of mass to be lowered. 
-    As you can see, the center of mass(G) will be (G') which is lowered compared to the (G).
+    <div class="works">
+    <h2>How it works</h2>
+    <p> 
+        <b>function 1 : Seat availability notification system.</b><br/>
+        Problem: It was difficult to recognize whether there are empty seats available because the fodd ordering Kiosk located outside of the cafeteria, which menas it was impossible to know available seats when ordering fodd.
+        Solution: We installed a ultra-sonic sensor at each seats and made a LED board that can turn red lights on in order to indicate ocuupied seats.<br/>
+        <b>function 2 : Ready to serve food  notification system</b><br/>
+        Problem: It was difficult to notice whether my food was cooked and ready to serve because students had to keep watching TV screene in order to know their number appears on the screen.</b><br/>
+        Solution: We solved this problem in 3 steps. First  students get two cards after choosing food and seat on Kiosk. One card contains menu information and the other contains seat number.-> Next, the student taps those two cards on RFID machine.
+        Then, the information of menu and seat are sent to kitchen.->Finally when the food is ready to serve, the cook enlights LED of the seat that belongs to the food using IR remote control. This can be done based on the seat and menu information that are sent to the kitchen.<br/>
+        Now, the student easily recognizes that his food is ready just by seeing LED light that is located at each table.<br/>
+        <b>function 3 : Touchless trash can</b><br/>
+        Problem: Trashcan is located on the dish return place. However every students are actually holding their dishes when they try to use the trashcan.<br/>
+        Solution: We used ultra-sonic sensor to indicate whether there is an obstacle in front of the trashcan. This enabled to open the trashcan just by waving hands on the trashcan.<br/>
+        <b>function 4 : Smoking detection</b><br/>
+        Problem: There is smoking area on the way out of the cafeteria. If there is an indicater that can identify whethere someone is smoking in the area, students may be able to take other route to go out.<br/>
+        Solution: This was solved by using MQ2 sensor. when smoke is recognized in that area by MQ2 sensor, red LED turns on and students can see the LED before going to that area. They can choose other routes.<br/>
+    </p>
+    </div>
 
-</p>
-<h1>Experiment</h1>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/9Rs_icS5C_I" allowfullscreen>
+        </iframe>
+    </div>
+
+
+    <div class="usage">
+    <h2>specification</h2>
+    <p>
+        This project was done as a team consiting of 4 members. It took 4 month to finish the whole process.
+    </p>
+    </div>
+
+
+    <div class="videos">
+    <h2>Videos</h2>
+    <a href="https://www.youtube.com/embed/9Rs_icS5C_I">video</a></br>
+    </div>
+
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll("body");
+            const fadeElements = document.querySelectorAll(".title, .subtitle, .heading, .works, .video-container, .usage, .development, .videos");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
