@@ -97,7 +97,7 @@
             height: auto;
             border-radius: 100px;
             transition: transform 0.3s ease;
-            border-style:solid;
+            border-style:none; /*이미지 테두리 변경하려면 여기서 변경*/
             border-width:10px;
             border-color:rgb(184, 215, 184);
             filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));
@@ -131,8 +131,8 @@
         }
 
 
-        /*me 부분 조정------------------------------*/
-        .me
+        /*me 와 awards 부분 조정------------------------------*/
+        .me, .awards
         {
             display: flex;
             flex-direction: column;
@@ -146,11 +146,10 @@
             transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
             border-radius:500px;
             margin-bottom:150px;
-            background-color: rgb(237, 237, 235);
-
+           
         }
 
-        .me .picture100 {
+        .me .picture100, .awards .picture101 {
             border-radius:1000px;
             max-width: 80%;
             height: auto;
@@ -160,7 +159,7 @@
         }
 
 
-        .me .dis100
+        .me .dis100, .awards .dis101
         {
             display: flex;
             flex-direction: column;
@@ -168,7 +167,7 @@
             text-align:center;
         }
 
-        .me .title100
+        .me .title100, .awards .title101
         {
             font-size: 5vw;  /* 반응형으로 글씨 크기 조정 */
             margin-bottom: 10px;
@@ -189,11 +188,11 @@
             height: auto;
             
         }
-        .me img{
+        .me img, .awards .img{
             width: 300px;
-            border-style:solid;
+            border-style:none;
             border-width:5px;
-            border-color:pink;
+    
         }
     
 
@@ -273,18 +272,18 @@
               }
             .heading2{
                 font-weight:900;
-                font-size:6vw;
+                font-size:5vw;
                 padding-bottom:30px;
-                line-height:35px;
+                line-height:50px;
             }
             .heading3{
-                font-size:3.5vw;
-                line-height:35px;
+                font-size:3vw;
+                line-height:50px;
                 padding-bottom:100px;
                 padding-left:30px;
                 padding-right:30px;
             }
-            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .atov2{
+            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2{
                 flex-direction: column;
                 text-align: center;
                 /*스크롤효과*/
@@ -292,18 +291,20 @@
                 transform:translateY(50px);
                 margin-bottom:50px;
             }
-            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100, .atov2 .dis8 {
+            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8 {
                 padding-left: 0;
                 margin-top: 15px;
             }
             .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8{
                 margin-right: 0;
             }
-            .routefinder img, .scooter img, .crawller img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img{
+            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img
+            {
                 width: 90%;
                 max-width: 400px;
                 margin: 10px auto; /* 모바일에서는 중앙 정렬 */
             }
+
             .heading .robotics {
                 font-size: 8vw;  /* 모바일에서 글씨 크기 커지게 */
             }
@@ -319,9 +320,20 @@
 
             /*me 반응형 디자인*/
             .me img{
-                width:50%;
-                max-width:300px;
+                width:30%;
+                max-width:100px;
                 margin:10px auto;
+            }
+            .awards img
+            {
+                width:70%;
+                max-width:350px;
+                margin:10px auto;
+            }
+
+            .dis2, .dis4, .dis6, .dis8
+            { 
+                width: auto !important;
             }
         
        /*smp, sju 그림 반응형 디자인*/
@@ -344,13 +356,24 @@
          .heading2, .heading3{
             line-height:20px;
          }
-         
+         .awards img
+         {
+            width:50%;
+            max-width:250px;
+            margin:10px auto;
+         } 
+        .me img
+        {
+            width:40%;
+            max-width:150px;
+            margin:10px auto;
+        }
     }
 
     
     @media (min-width: 2560px)  /*큰 화면*/
     {
-       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2
+       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2
        {
            flex-direction: column !important; /* 세로 배치 강제 */
            text-align: center; 
@@ -381,7 +404,7 @@
     </div>
 
     <div class="heading2">
-        <p>Back<br/>To<br/>The<br/>Basic</p>
+        <p>from<br/>HARDWARE<br/>to<br/>SOFTWARE</p>
     </div>
 
     <div class="heading3">
@@ -399,6 +422,15 @@
         </a>
         <div class="dis100">
             <h3 class="title100">Seung Min Kim</h3>
+        </div>
+    </div>
+
+        <div class="awards">
+        <a href="awards.html">
+            <img src="IMG_0017.png" class="picture101" alt="awards">
+        </a>
+        <div class="dis101">
+            <h3 class="title101">AWARDS</h3>
         </div>
     </div>
 
@@ -501,7 +533,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .atov2");
+            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {

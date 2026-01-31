@@ -11,7 +11,7 @@
         body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
         .title{color:yellow;}
         /*서서히 효과*/
-        .robo,.title, .subtitle, .heading, .works, .video-container, .usage,.development, .videos
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award
         { 
             margin-bottom:50px;
             opacity:0;/*기본 설정은 안보이게*/
@@ -105,6 +105,13 @@
         </iframe>
     </div>
 
+
+     <div class="code">
+    <h2>algorithm for leg movement</h2>
+    <p> 
+        <a href="arduion_code.pdf" target="_blank">Code for robot leg movement</a>
+    </p>
+    </div>
   
 
     <div class="usage">
@@ -124,6 +131,12 @@
     </p>
     </div>
 
+    <div class="award">
+    <h2>Award</h2>
+    <p>This project advanced to the finals of the 2025 International Mathematical and Scientific Creativity Contest (2025 국제수리창의과학대회)
+    </p>
+    </div>
+
 
     <div class="videos">
     <h2>Videos</h2>
@@ -134,7 +147,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .video-container, .usage,.development, .videos");
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
