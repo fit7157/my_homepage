@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center;font-style:italic; color:black;background-color:white;}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
+        .title{color:yellow;}
+        /*서서히 효과*/
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award
+        { 
+            margin-bottom:50px;
+            opacity:0;/*기본 설정은 안보이게*/
+            transform: translateY(50px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;margin-bottom:5px;}
+        .discription {color:black; background-color:rgb(222, 222, 247);}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px;margin-top:5px;border-radius:10px;}
+        p b{font-size:1.5rem}
+        @media (max-width: 768px) 
+        {
+            .robo {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 50px; /* 아래 여백도 줄이기 */
+               }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            
+        }
+
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <div class="toomany">
+    <h1 class="title">SPLIT</h1>
+    <h2 class="subtitle">How can we combine Joystick and computer mouse?</h2>
+    <div class="heading">
+    <img src="IMG_22.png" width="200" class="picture">
+    <h2 class="discription">
+        This mouse has 3 modes:<br/>Vertical , Horizantal, Gamepad mode</h2>
+    </div>
+    </div>
+
+    
+
+    <div class="main">
+    <div class="works">
+    <h2>How it works</h2>
+    <p> 
+        "SPLIT" is a design of multi-mode mouse.
+        This mouse has 4 features<br/>
+        <b >1. There are 3 parts consisting the mouse</b><br/>
+        Each conponents are designed to include PCB boards, batteries and other necessary parts.<br/>
+        <img src="split_mouse_IMG_1.png" width="600" class="picture"><br/>
+
+        <b>2. The push twist mechanism.</b><br/>
+        a pin which is located next to the mouse's upper part fits to the groove on the lower part, joining the two parts together.<br/>
+        <img src="split_mouse_IMG_2.2.png" width="500" class="picture">
+        <img src="split_mouse_IMG_2.3.png" width="500" class="picture"><br/>
+
+        <b>3. joy stick is used as a connector</b><br/>
+        Joy stick is located on the lower part of the mouse. It is used as a connector between upper part and lower part of the mouse.
+        Groove exists on the side of the joy stick, which makes the pin (on the upper part) fit into it.<br/>
+        <img src="split_mouse_IMG_2.png" width="600" class="picture"><br/>
+        
+        <b>4. 3 modes of a mouse</b><br/>
+        There are 3 modes of this mouse.<br/>
+        <img src="split_mouse_IMG_3.1.png" width="500" class="picture"><br/>
+        Horizontal mode<br/>
+        <img src="split_mouse_IMG_3.2.png" width="500" class="picture"><br/>
+        Vertical mode<br/>
+        <img src="split_mouse_IMG_3.3.png" width="600" class="picture"><br/>
+        Game pad mode<br/>
+
+
+    </p>
+    </div>
+
+
+
+
+     <div class="sketches">
+    <h2>Early sketches using Solidworks</h2>
+    <p> 
+        <img src="split_mouse_IMG_4.png" width="300" class="picture">
+        <img src="split_mouse_IMG_4.1.png" width="300" class="picture">
+        <img src="split_mouse_IMG_4.2.png" width="300" class="picture"><br/>        
+    </p>
+    </div>
+  
+
+    <div class="usage">
+    <h2>PPT</h2>
+    <p>
+        <a href="split_pdf.pdf" target="_blank">PPT : presentation"</a>
+    </p>
+    </div>
+
+
+    
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

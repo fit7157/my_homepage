@@ -51,32 +51,46 @@
             transform:translateY(50px);
             transition:opacity 1.5s ease-out, transform 1.5s ease-out;
         }
-        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2{
+        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2, .split{
             display: flex;
             align-items: center;
             padding: 20px;
             opacity:0;/*기본 설정은 안보이게*/
             transform: translateY(50px);
             transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
-            border-radius:15px;
+            border-radius:25px;
             margin-bottom:150px;
             background-color: rgb(237, 237, 235);
-            margin-left:10px;
-            margin-right:10px;
+            margin-left:15px;
+            margin-right:15px;
+            justify-content: center; /* 아이템들을 가운데로 밀착 */
+            gap: 20px; /* 이미지와 글자 사이 간격 */
+
         }
+
+        /*이미지 영역과 글자 영역의 비율을 1:1로 맞춤 */
+        .routefinder .dis1,.routefinder a, .scooter .dis2 ,.scooter a, .crawller .dis3,.crawller a, .atov .dis4,.atov a, .RiderGuard .dis5,.RiderGuard a, .yolo .dis6,.yolo a, .paperreview .dis7,.paperreview a, .atov2 .dis8,.atov2 a,
+        .split a, .split .dis9 
+        {
+        flex: 1; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 내부 아이템 중앙 정렬 */
+        text-align: center;
+        }
+        
         /*스크롤 효과  javascript에서 스크롤이 감지되면 이것을 불러온다다*/
         .fade-in {
             opacity: 1 !important;  
             transform: translateY(0) !important;
         }
-        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8{
+        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8, .split .dis9{
             display: flex;
             flex-direction: column;
             border-radius:15px;
             text-align:center;
-            
         }
-        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8{
+        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8, .split .title9{
             font-size: 8vw;  /* 반응형으로 글씨 크기 조정 */
             margin-bottom: 10px;
             margin-top: 20px;
@@ -85,15 +99,15 @@
                  "Helvetica Neue", Arial, sans-serif;
             text-shadow: 3px 3px 5px gray; 
         }
-        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8{
+        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8, .discription9{
             padding-top: 5px;
             background-color:rgb(193, 177, 207);
             border-radius:10px;
             text-align:center;
         }
    
-        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img{
-            max-width: 80%;
+        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img{
+            max-width: 70%;
             height: auto;
             border-radius: 100px;
             transition: transform 0.3s ease;
@@ -127,6 +141,11 @@
         }
         /*이미지 크기 조정*/
         .scooter img, .atov img, .RiderGuard img, .atov2 img {
+            max-width:80%;
+        }
+        /*split 이미지 크기 조정*/
+        .split img
+        {
             max-width:80%;
         }
 
@@ -183,12 +202,12 @@
     
         /*scooter는 사진이 커서 크기만 따로 조정*/
         .scooter img  {
-            width: 300px;    
-            max-width: 80%;
+            width: 200px;    
+            max-width: 70%;
             height: auto;
             
         }
-        .me img, .awards .img{
+        .me img, .awards img{
             width: 300px;
             border-style:none;
             border-width:5px;
@@ -250,7 +269,7 @@
             transition: transform 0.3s ease;
             border-style:none;
             margin-top:2px;
-            margin-right:10px;
+            margin-right:3px;
             filter:none; /*그림자효과 제거*/
             -webkit-box-reflect: none; /*확대효과 제거*/
         }
@@ -260,7 +279,7 @@
             border-radius: 0%;
             transition: transform 0.3s ease;
             border-style:none;
-            margin-top:25px;
+            padding-top:27px;
             margin-right:10px;
             filter:none; /*그림자효과 제거*/
             -webkit-box-reflect: none; /*확대효과 제거*/
@@ -295,7 +314,7 @@
                 padding-left:30px;
                 padding-right:30px;
             }
-            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2{
+            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split{
                 flex-direction: column;
                 text-align: center;
                 /*스크롤효과*/
@@ -303,14 +322,14 @@
                 transform:translateY(50px);
                 margin-bottom:50px;
             }
-            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8 {
+            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8, .split .dis9{
                 padding-left: 0;
                 margin-top: 15px;
             }
-            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8{
+            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8, .split .title9{
                 margin-right: 0;
             }
-            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img
+            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img
             {
                 width: 90%;
                 max-width: 400px;
@@ -321,7 +340,7 @@
                 font-size: 8vw;  /* 모바일에서 글씨 크기 커지게 */
             }
     
-            .dis2, .dis4, .dis6, .dis8 {
+            .dis2, .dis4, .dis6, .dis8{
                 margin: 10px 0; /* 모바일에서 간격 추가 */
             }
 
@@ -350,13 +369,20 @@
         
        /*smp, sju 그림 반응형 디자인*/
        /* 태블릿 및 모바일 */
-        .picture_smp, .picture_sju, .picture_mail {
+        .picture_smp, .picture_sju, .picture_mail, .picture_github {
         max-width: 80px; /* 작은 화면에서는 크기를 줄임 */
          }
+         .picture_github {
+        max-width: 80px;
+        padding-top:25px; /* 작은 화면에서는 크기를 줄임 */
+         }
+                     
+
+
     }
 
 
-    @media (max-width: 480px) 
+    @media (max-width: 425px) 
     { /* 더 작은 모바일 화면 */
         .picture0 {
         width: 100px; /* 더 작은 화면에서는 더욱 줄이기 */
@@ -364,6 +390,10 @@
          }
         .picture_smp, .picture_sju, .picture_mail {
         max-width: 50px; /* 더 작은 화면에서는 더욱 줄임 */
+         }
+        .picture_github {
+        max-width: 50px; 
+        padding-top:20px; /* 작은 화면에서는 크기를 줄임 */
          }
          .heading2, .heading3{
             line-height:20px;
@@ -380,19 +410,20 @@
             max-width:150px;
             margin:10px auto;
         }
+
     }
 
     
     @media (min-width: 2560px)  /*큰 화면*/
     {
-       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2
+       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2, .split
        {
            flex-direction: column !important; /* 세로 배치 강제 */
            text-align: center; 
            gap: 20px; /* 그림과 설명 사이 간격 */
        }
     
-       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img
+       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img, .split img
        {
            margin: 0 auto; /* 중앙 정렬 */
            margin-top:50px;
@@ -462,7 +493,7 @@
             <img src="IMG_0015.jpg" class="picture2" alt="Scooter Safety Belt">
         </a>
         <div class="dis2">
-            <h3 class="title2">The smart school cafetaria</h3>
+            <h3 class="title2">Smart school cafetaria</h3>
             <h3 class="discription2">This improves school cafeteria system.</h3>
         </div>
     </div>
@@ -530,6 +561,19 @@
         </div>
     </div>
 
+
+
+
+        <div class="split">
+        <a href="split.html">
+            <img src="IMG_22.png" class="picture9" alt="split" align="center";>
+        </a>
+        <div class="dis9">
+            <h3 class="title9">SPLIT</h3>
+            <h3 class="discription9">3D designed mouse</h3>
+        </div>
+    </div>
+
     
     <div class ="bottom_line">
         <a href="https://github.com/fit7157">
@@ -546,7 +590,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2");
+            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
