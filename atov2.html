@@ -1,9 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    on progress
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center;font-style:italic; color:black;background-color:white;}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
+        .title{color:yellow;}
+        /*서서히 효과*/
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award
+        { 
+            margin-bottom:50px;
+            opacity:0;/*기본 설정은 안보이게*/
+            transform: translateY(50px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;margin-bottom:5px;}
+        .discription {color:black; background-color:rgb(222, 222, 247);}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px;margin-top:5px;border-radius:10px;}
+        @media (max-width: 768px) {
+            .robo {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 50px; /* 아래 여백도 줄이기 */
+               }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            
+        }
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
+    </style>
 </head>
+
 <body>
+    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <div class="toomany">
+    <h1 class="title">ATOV 2.0</h1>
+    <h2 class="subtitle">A robot that can track people.</h2>
+    <div class="heading">
+    <img src="IMG_23.jpg" width="200" class="picture">
+    <h2 class="discription">
+        This robot moves by tracking people.<br/>
+        It can detect collapse of a person and huma gestures using camera.
+    </h2>
+    </div>
+    </div>
+
     
+
+    <div class="main">
+    <div class="works">
+    <h2>Camera argorithm</h2>
+    <p> 
+        <b>MEDIAPIPE</b><br/>
+        Mediapipe is the framework for detecting pose of person made by GOOGLE. Mediapipe can recognize the coordiante data of every joints of a person.<br/>
+        Mediapipe uses pose module in order to detect human joints.<br/><br/>
+        <b>MEDIAPIPE structure</b><br/>
+
+        
+        <b>Python code for Mediapipe</b><br/>
+
+    </div>
+
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/t2eNUdQ_sms" allowfullscreen>
+        </iframe>
+    </div>
+
+
+     <div class="code">
+    <h2>Software(Rasberrypi) argorithm</h2>
+    <p> 
+        When the camera argorithm returns the x coordinate of the shoulder joints of a person (Shoulder[1] and Shoulder[2]), 
+        rasberrypi calculates the center coordinate of shoulder coordinates by (M = Shoulder[1]+Soulder[2])/2.
+        By detecting the difference between center of the frame and M coordinate, Rasberrypi sends the error to Arduino.<br/>
+        <a href="rasberry_code_1.pdf" target="_blank">Code for rasberrypi argorithm _1</a><br/>
+        <a href="rasberry_code_2.pdf" target="_blank">Code for rasberrypi argorithm_2</a><br/>
+        <a href="rasberry_code_3.pdf" target="_blank">Code for rasberrypi argorithm_2</a><br/>
+    </p>
+    </div>
+  
+
+    <div class="usage">
+    <h2>Hardware(Arduino) argorithm</h2>
+    <p>
+        When Arduino receives the error from Rasberrypi Arduino controls the 2 DC motors based on the erro. When error is smaller than 0, It means the human is located on the left side of the frame.
+        Then the speed of the right motor raises while left motor slows down. Therefore the vehicle turns left and aligns the person's location to the center of the frame.
+        This is the basic mechanism of harware control and this process is repeated on the real time.<br/>
+        <a href="atov_2.0_ardunio_code.pdf" target="_blank">Code for arduino argorithm</a><br/>
+
+    </p>
+    </div>
+
+
+    <div class="development">
+    <h2>Future development</h2>
+    <p>
+        Tracking can be an important technology for unmanned vehicles. I want to add lots of functions using camera in this robot.
+        This robot can do diverse functions while it follows a person.
+    </p>
+    </div>
+
+    <div class="award">
+    <h2>Award</h2>
+    <p>
+    </p>
+    </div>
+
+
+    <div class="videos">
+    <h2>Videos</h2>
+    <a href="https://youtube.com/shorts/t2eNUdQ_sms?si=ZD1Hql7oCpxZZrwc">video</a></br>
+
+   
+    </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
-</html> 
+</html>
