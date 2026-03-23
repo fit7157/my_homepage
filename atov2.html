@@ -82,7 +82,7 @@
     <img src="IMG_23.jpg" width="200" class="picture">
     <h2 class="discription">
         This robot moves by tracking people.<br/>
-        It can detect collapse of a person and huma gestures using camera.
+        It can detect collapse of a person and human gestures using a camera.
     </h2>
     </div>
     </div>
@@ -94,13 +94,8 @@
     <h2>Camera argorithm</h2>
     <p> 
         <b>MEDIAPIPE</b><br/>
-        Mediapipe is the framework for detecting pose of person made by GOOGLE. Mediapipe can recognize the coordiante data of every joints of a person.<br/>
-        Mediapipe uses pose module in order to detect human joints.<br/><br/>
-        <b>MEDIAPIPE structure</b><br/>
-
-        
-        <b>Python code for Mediapipe</b><br/>
-
+        Mediapipe is the framework made by GOOGLE. It is used for detecting pose of a person. Mediapipe can recognize the coordiante data of every joints of a person.<br/>
+        Mediapipe uses multiple modules for multiple functions. In this project, the POSE module is used in order to detect human joints.<br/><br/>
     </div>
 
     <div class="video-container">
@@ -113,11 +108,12 @@
     <h2>Software(Rasberrypi) argorithm</h2>
     <p> 
         When the camera argorithm returns the x coordinate of the shoulder joints of a person (Shoulder[1] and Shoulder[2]), 
-        rasberrypi calculates the center coordinate of shoulder coordinates by (M = Shoulder[1]+Soulder[2])/2.
-        By detecting the difference between center of the frame and M coordinate, Rasberrypi sends the error to Arduino.<br/>
-        <a href="rasberry_code_1.pdf" target="_blank">Code for rasberrypi argorithm _1</a><br/>
-        <a href="rasberry_code_2.pdf" target="_blank">Code for rasberrypi argorithm_2</a><br/>
-        <a href="rasberry_code_3.pdf" target="_blank">Code for rasberrypi argorithm_2</a><br/>
+        rasberrypi calculates the center coordinate of shoulder coordinates by M = (Shoulder[1]+Soulder[2]) / 2 . M becomes the criteria for 
+        recognizing the location of a person.
+        By calculating the difference between center of the frame and M coordinate , Rasberrypi makes the error figure and sends it to Arduino.<br/>
+        <a href="rasberry_code_1.pdf" target="_blank">Code for rasberrypi algorithm _1</a><br/>
+        <a href="rasberry_code_2.pdf" target="_blank">Code for rasberrypi algorithm_2</a><br/>
+        <a href="rasberry_code_gesture.pdf" target="_blank">Gesture algorithm for rasberrypi </a><br/>
     </p>
     </div>
   
@@ -125,10 +121,10 @@
     <div class="usage">
     <h2>Hardware(Arduino) argorithm</h2>
     <p>
-        When Arduino receives the error from Rasberrypi Arduino controls the 2 DC motors based on the erro. When error is smaller than 0, It means the human is located on the left side of the frame.
-        Then the speed of the right motor raises while left motor slows down. Therefore the vehicle turns left and aligns the person's location to the center of the frame.
-        This is the basic mechanism of harware control and this process is repeated on the real time.<br/>
-        <a href="atov_2.0_ardunio_code.pdf" target="_blank">Code for arduino argorithm</a><br/>
+        When Arduino receives the error from Rasberrypi, Arduino controls the 2 DC motors based on the error. When the error is smaller than 0, It means a person is located on the left side of the frame.
+        Then the speed of the right motor goes up while left motor slows down. Therefore the vehicle turns left and aligns the person's location to the center of the frame.
+        This is the basic mechanism of harware control and this process is repeated in the real time.<br/>
+        <a href="atov_2.0_ardunio_code.pdf" target="_blank">Code for Arduino argorithm</a><br/>
 
     </p>
     </div>
