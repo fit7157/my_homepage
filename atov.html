@@ -11,7 +11,7 @@
         body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
         .title{color:yellow;}
         /*서서히 효과*/
-        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award, .operation
         { 
             margin-bottom:50px;
             opacity:0;/*기본 설정은 안보이게*/
@@ -55,7 +55,13 @@
             }
             h1{font-size:25px;}
             h2{font-size:20px;}
+            .operation{width:500px;margin-bottom:30px;}
             
+        }
+
+        @media (max-width: 768px) 
+        {
+            .operation{width:300px;margin-bottom:10px;}
         }
 
 /*영상*/
@@ -88,6 +94,12 @@
     
 
     <div class="main">
+
+    <div style="display: flex; justify-content: center;">
+    <img src="Operation_structure_1.png" width="800" class="operation" >
+    </div>
+
+
     <div class="works">
     <h2>How it works</h2>
     <p> 
@@ -147,7 +159,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award");
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award, .operation");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
