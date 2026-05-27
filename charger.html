@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center;font-style:italic; color:black;background-color:white;}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
+        .title{color:yellow;}
+        /*서서히 효과*/
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award, .operation
+        { 
+            margin-bottom:50px;
+            opacity:0;/*기본 설정은 안보이게*/
+            transform: translateY(50px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;margin-bottom:5px;}
+        .discription {color:black; background-color:rgb(222, 222, 247);}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px;margin-top:5px;border-radius:10px;}
+        @media (max-width: 768px) {
+            .robo {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 50px; /* 아래 여백도 줄이기 */
+               }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            .operation{width:500px;margin-bottom:30px;}
+            
+        }
+
+        @media (max-width: 768px) 
+        {
+            .operation{width:300px;margin-bottom:10px;}
+        }
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <div class="toomany">
+    <h1 class="title">The Charging robot</h1>
+    <h2 class="subtitle">This is an idea for charging robot.</h2>
+    <div class="heading">
+    <img src="IMG_28.png" width="300" class="picture">
+    <h2 class="discription">
+        Apartments are very difficult to charge electric cars. <br/>
+        This charging system can make a car be charged automatically without any human intervention.
+    </h2>
+    </div>
+    </div>
+
+    
+
+    <div class="main">
+    
+    <div style="display: flex; justify-content: center;">
+    <img src="IMG_25.jpg" width="500" class="operation" >
+    </div>
+
+    <div class="works">
+    <h2>Network Logic</h2>
+    <p> 
+    <img src="IMG_26.png" width="500" class="operation" style="display: block; margin: 0 auto;">        
+    <b>BLE</b><br/>
+    Two important missions to consider in this porject is calling the robot arm charger and combining multiple robot arm charger into one controller.
+    In order to acheive this, we used BLE(bluetooth Low energy),which is an network system between smartphone and controller.
+    Also we used WIFI in order to connect local BLE Gateway and contral commander.
+    These network systems connected smartphone, local Gateway  and central commander
+    </div>
+
+
+     <div class="code">
+    <h2>Harware control logic</h2>
+    <p>
+        <img src="IMG_27.png" width="500" class="operation" style="display: block; margin: 0 auto;">        
+        In order to build a robot arm contoller logic, We needed a camera, rasberrypi, arduino and servo motors.<br/>
+        The camera sends the coordinate information of the car's charging port to rasberry pi. Rasberry pi calculates the angle of robot arm based on the coordinate informartion using Inverse Kinematics.
+        Inverse Kinematics is a formula that converts target coordinate into robot arms' angle. than the angle information is sent to arduino and arduino moves the robot arm's servo motor.
+    </p>
+    </div>
+  
+
+
+
+    <div class="development">
+    <h2>Future development</h2>
+    <p>
+        This project was not made into full prototype.
+    </p>
+    </div>
+
+    <div class="award">
+    <h2>Award</h2>
+    <p>
+    </p>
+    </div>
+   
+
+
+        <div class="development">
+    <h2>Poster</h2>
+    <p>
+    <a href="IMG_25.jpg" target="_blank">"Intelligent robot arm charger for electric vehicles"</a>
+    </p>
+    </div>
+
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award, .operation");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

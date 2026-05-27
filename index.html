@@ -51,7 +51,7 @@
             transform:translateY(50px);
             transition:opacity 1.5s ease-out, transform 1.5s ease-out;
         }
-        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2, .split{
+        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2, .split, .charger{
             display: flex;
             align-items: center;
             padding: 20px;
@@ -70,7 +70,7 @@
 
         /*이미지 영역과 글자 영역의 비율을 1:1로 맞춤 */
         .routefinder .dis1,.routefinder a, .scooter .dis2 ,.scooter a, .crawller .dis3,.crawller a, .atov .dis4,.atov a, .RiderGuard .dis5,.RiderGuard a, .yolo .dis6,.yolo a, .paperreview .dis7,.paperreview a, .atov2 .dis8,.atov2 a,
-        .split a, .split .dis9 
+        .split a, .split .dis9, .charger .dis10,.charger a
         {
         flex: 1; 
         display: flex;
@@ -84,13 +84,13 @@
             opacity: 1 !important;  
             transform: translateY(0) !important;
         }
-        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8, .split .dis9{
+        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8, .split .dis9, .charger .dis10{
             display: flex;
             flex-direction: column;
             border-radius:15px;
             text-align:center;
         }
-        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8, .split .title9{
+        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8, .split .title9, .charger .title10{
             font-size: 8vw;  /* 반응형으로 글씨 크기 조정 */
             margin-bottom: 10px;
             margin-top: 20px;
@@ -99,14 +99,14 @@
                  "Helvetica Neue", Arial, sans-serif;
             text-shadow: 3px 3px 5px gray; 
         }
-        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8, .discription9{
+        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8, .discription9, .discription10{
             padding-top: 5px;
             background-color:rgb(193, 177, 207);
             border-radius:10px;
             text-align:center;
         }
    
-        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img{
+        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img{
             max-width: 70%;
             height: auto;
             border-radius: 100px;
@@ -129,14 +129,14 @@
         }
 
         /*2,4번째 조정*/
-        .scooter , .atov, .yolo, .atov2 { /*scooter,atov,yolo는 거꾸로*/
+        .scooter , .atov, .yolo, .atov2, .charger{ /*scooter,atov,yolo는 거꾸로*/
             display:flex;
             flex-direction:row-reverse;
         }
-        .scooter img, .atov img, .yolo img, .atov2 img{
+        .scooter img, .atov img, .yolo img, .atov2 img, .charger img{
             margin-left:10%;
         }
-        .dis2, .dis4, .dis6, .dis8{
+        .dis2, .dis4, .dis6, .dis8, .dis10{
             width:100%;
         }
         /*이미지 크기 조정*/
@@ -317,7 +317,7 @@
                 padding-left:30px;
                 padding-right:30px;
             }
-            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split{
+            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger{
                 flex-direction: column;
                 text-align: center;
                 /*스크롤효과*/
@@ -325,14 +325,14 @@
                 transform:translateY(50px);
                 margin-bottom:50px;
             }
-            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8, .split .dis9{
+            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8, .split .dis9, .charger .dis10{
                 padding-left: 0;
                 margin-top: 15px;
             }
-            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8, .split .title9{
+            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8, .split .title9, .charger .title10{
                 margin-right: 0;
             }
-            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img
+            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img
             {
                 width: 90%;
                 max-width: 400px;
@@ -343,7 +343,7 @@
                 font-size: 8vw;  /* 모바일에서 글씨 크기 커지게 */
             }
     
-            .dis2, .dis4, .dis6, .dis8{
+            .dis2, .dis4, .dis6, .dis8, .dis10{
                 margin: 10px 0; /* 모바일에서 간격 추가 */
             }
 
@@ -365,7 +365,7 @@
                 margin:10px auto;
             }
 
-            .dis2, .dis4, .dis6, .dis8
+            .dis2, .dis4, .dis6, .dis8, .dis10
             { 
                 width: auto !important;
             }
@@ -419,23 +419,23 @@
     
     @media (min-width: 2560px)  /*큰 화면*/
     {
-       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2, .split
+       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2, .split, .charger
        {
            flex-direction: column !important; /* 세로 배치 강제 */
            text-align: center; 
            gap: 20px; /* 그림과 설명 사이 간격 */
        }
     
-       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img, .split img
+       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img, .split img, .charger img
        {
            margin: 0 auto; /* 중앙 정렬 */
            margin-top:50px;
         }
-       .crawller img, .atov img, .atov2 img
+       .crawller img, .atov img, .atov2 img, .charger img
        {
         width:700px;
        }
-       .dis2, .dis4, .dis6, .dis8
+       .dis2, .dis4, .dis6, .dis8, .dis10
        { width: auto !important; }
     }
 
@@ -454,10 +454,10 @@
     </div>
 
     <div class="heading3">
-        <p>We are Sejong.univ based robot making team.<br/>
-        Our aim is to build robots with AI that we want to make.<br/>
-        Robots are made with only one purpose. "To make us fun."<br/>
-        Check our products below</p>
+        <p>I am a student majoring AI robotics in Sejong univ.<br/>
+        My aim is to build unmanned vehicles and devices with AI that I want to make.<br/>
+        Devices are made with only one purpose. "To make people fun."<br/>
+        Check my products below</p>
 
     </div>
 
@@ -490,6 +490,7 @@
             <h3 class="discription1">Finding pathes using 2-ultrasonic sensors</h3>
         </div>
     </div>
+
     
     <div class="scooter">
         <a href="scooter.html">
@@ -501,6 +502,7 @@
         </div>
     </div>
     
+
     <div class="crawller">
         <a href="crawller.html">
             <img src="IMG_0001.jpg" class="picture3" alt="crawller" align:center;>
@@ -577,7 +579,20 @@
         </div>
     </div>
 
+
+
+            <div class="charger">
+        <a href="charger.html">
+            <img src="IMG_28.png" class="picture10" alt="charger" align="center";>
+        </a>
+        <div class="dis10">
+            <h3 class="title10">Charging robot</h3>
+            <h3 class="discription10">robo arm charger</h3>
+        </div>
+    </div>
     
+
+
     <div class ="bottom_line">
         <a href="https://github.com/fit7157">
             <img src ="github_img.png" class="picture_github" alt="github">
@@ -593,7 +608,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split");
+            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
