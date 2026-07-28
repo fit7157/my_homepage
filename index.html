@@ -2,625 +2,1982 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Seung Min Kim robotics portfolio"
+    >
+
+    <title>Seung Min Kim | Robotics Portfolio</title>
+
     <style>
+        /* ==================================================
+           1. 공통 설정
+        ================================================== */
+
+        :root {
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --dark-surface: #101010;
+
+            --text: #1d1d1f;
+            --secondary-text: #6e6e73;
+
+            --accent: #0071e3;
+            --border: rgba(0, 0, 0, 0.08);
+
+            --large-radius: 34px;
+            --medium-radius: 24px;
+
+            --max-width: 1240px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+
+            background-color: var(--background);
+            color: var(--text);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+
+            -webkit-font-smoothing: antialiased;
         }
-        .picture0{
-            display:block; 
-            margin:0 auto; 
-            width:150px; 
-            margin-top:20px;
-            margin-bottom:10px;
-            border-style:none;
-            filter:none; /*그림자효과 제거*/
-            border-radius:0;
+
+        img {
+            display: block;
+            max-width: 100%;
         }
-        .heading {
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(calc(100% - 40px), var(--max-width));
+            margin: 0 auto;
+        }
+
+
+        /* ==================================================
+           2. 상단 메뉴
+        ================================================== */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background-color: rgba(255, 255, 255, 0.82);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border-bottom: 1px solid transparent;
+
+            transition: border-color 0.3s ease;
+        }
+
+        .header.scrolled {
+            border-bottom-color: var(--border);
+        }
+
+        .navigation {
+            min-height: 64px;
+
             display: flex;
-            flex-direction: column;
-            text-align: left;
-            text-shadow: 3px 3px 5px gray;
-            margin-bottom:50px;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 30px;
         }
-        .heading2{
-            text-align:center;
-            padding-bottom:100px;
-            font-size:5vw;
-            font-family: Arial, sans-serif;
-            line-height:100px;
-            font-weight:900;
-            opacity:0;
-            transform:translateY(50px);
-            transition:opacity 1.5s ease-out, transform 1.5s ease-out;
-        }
-        .heading3{
-            text-align:center;
-            padding-bottom:200px;
-            font-size:2vw;
-            font-family: Arial, sans-serif;
-            line-height:80px;
-            font-weight:800;
-            text-decoration:underline;
-            text-decoration-color:yellow;
-            opacity:0;
-            transform:translateY(50px);
-            transition:opacity 1.5s ease-out, transform 1.5s ease-out;
-        }
-        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2, .split, .charger{
+
+        .brand {
             display: flex;
             align-items: center;
-            padding: 20px;
-            opacity:0;/*기본 설정은 안보이게*/
-            transform: translateY(50px);
-            transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
-            border-radius:25px;
-            margin-bottom:150px;
-            background-color: rgb(237, 237, 235);
-            margin-left:15px;
-            margin-right:15px;
-            justify-content: center; /* 아이템들을 가운데로 밀착 */
-            gap: 20px; /* 이미지와 글자 사이 간격 */
+            gap: 10px;
 
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        /*이미지 영역과 글자 영역의 비율을 1:1로 맞춤 */
-        .routefinder .dis1,.routefinder a, .scooter .dis2 ,.scooter a, .crawller .dis3,.crawller a, .atov .dis4,.atov a, .RiderGuard .dis5,.RiderGuard a, .yolo .dis6,.yolo a, .paperreview .dis7,.paperreview a, .atov2 .dis8,.atov2 a,
-        .split a, .split .dis9, .charger .dis10,.charger a
-        {
-        flex: 1; 
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 내부 아이템 중앙 정렬 */
-        text-align: center;
+        .brand img {
+            width: 34px;
+            height: 34px;
+
+            object-fit: contain;
         }
-        
-        /*스크롤 효과  javascript에서 스크롤이 감지되면 이것을 불러온다다*/
-        .fade-in {
-            opacity: 1 !important;  
-            transform: translateY(0) !important;
-        }
-        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8, .split .dis9, .charger .dis10{
+
+        .navigation-links {
             display: flex;
-            flex-direction: column;
-            border-radius:15px;
-            text-align:center;
-        }
-        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8, .split .title9, .charger .title10{
-            font-size: 8vw;  /* 반응형으로 글씨 크기 조정 */
-            margin-bottom: 10px;
-            margin-top: 20px;
-            text-align:center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
-                 "Helvetica Neue", Arial, sans-serif;
-            text-shadow: 3px 3px 5px gray; 
-        }
-        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8, .discription9, .discription10{
-            padding-top: 5px;
-            background-color:rgb(193, 177, 207);
-            border-radius:10px;
-            text-align:center;
-        }
-   
-        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img{
-            max-width: 70%;
-            height: auto;
-            border-radius: 100px;
-            transition: transform 0.3s ease;
-            border-style:none; /*이미지 테두리 변경하려면 여기서 변경*/
-            border-width:10px;
-            border-color:rgb(184, 215, 184);
-            filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));
-            -webkit-box-reflect: below 0px linear-gradient(to top, rgba(255, 255, 255, 0.105), transparent);
+            align-items: center;
+
+            gap: 28px;
+
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        /*바나나 로고 비치는 효과 제거*/
-        img.picture0 {
-           -webkit-box-reflect: none !important;
+        .navigation-links a {
+            transition: color 0.2s ease;
         }
 
-        /*scooter 제목 크기 조정*/
-        .scooter .title2{
-            font-size:6vw;
-        }
-
-        /*2,4번째 조정*/
-        .scooter , .atov, .yolo, .atov2, .charger{ /*scooter,atov,yolo는 거꾸로*/
-            display:flex;
-            flex-direction:row-reverse;
-        }
-        .scooter img, .atov img, .yolo img, .atov2 img, .charger img{
-            margin-left:10%;
-        }
-        .dis2, .dis4, .dis6, .dis8, .dis10{
-            width:100%;
-        }
-        /*이미지 크기 조정*/
-        .scooter img, .atov img, .RiderGuard img{
-            max-width:80%;
-        }
-        .atov2 img {
-            max-width:65%;
-         }
-        /*split 이미지 크기 조정*/
-        .split img
-        {
-            max-width:80%;
+        .navigation-links a:hover {
+            color: var(--accent);
         }
 
 
-        /*me 와 awards 부분 조정------------------------------*/
-        .me, .awards
-        {
+        /* ==================================================
+           3. 첫 화면
+        ================================================== */
+
+        .hero {
+            min-height: 85vh;
+
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            padding: 100px 0;
+
             text-align: center;
-            /*스크롤효과*/
-            opacity: 0;
-            transform:translateY(50px);
-            margin-bottom:150px;     
-            align-items: center;
-            padding: 20px;
-            transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
-            border-radius:500px;
-            margin-bottom:150px;
-           
         }
 
-        .me .picture100, .awards .picture101 {
-            border-radius:1000px;
-            max-width: 80%;
-            height: auto;
-            transition: transform 0.3s ease;
-            filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));
-            -webkit-box-reflect: below 0px linear-gradient(to top, rgba(255, 255, 255, 0.105), transparent);
+        .hero-content {
+            max-width: 980px;
         }
 
+        .hero-category {
+            margin: 0 0 20px;
 
-        .me .dis100, .awards .dis101
-        {
+            color: var(--secondary-text);
+
+            font-size: 18px;
+            font-weight: 650;
+        }
+
+        .hero-title {
+            margin: 0;
+
+            font-size: clamp(58px, 9vw, 116px);
+            line-height: 0.92;
+            letter-spacing: -0.07em;
+            font-weight: 760;
+        }
+
+        .gradient-text {
+            display: block;
+
+            margin-top: 14px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #0071e3,
+                    #5e5ce6,
+                    #bf5af2
+                );
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 730px;
+
+            margin: 34px auto 0;
+
+            color: var(--secondary-text);
+
+            font-size: clamp(18px, 2vw, 24px);
+            line-height: 1.5;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-buttons {
             display: flex;
-            flex-direction: column;
-            border-radius:200px;
-            text-align:center;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+            margin-top: 34px;
         }
 
-        .me .title100, .awards .title101
-        {
-            font-size: 5vw;  /* 반응형으로 글씨 크기 조정 */
-            margin-bottom: 10px;
-            margin-top: 20px;
-            text-align:center;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            text-shadow: 3px 3px 5px gray; 
-        }
-        /*----------------------------------*/
+        .button {
+            min-height: 48px;
 
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
 
+            padding: 0 24px;
 
-    
-        /*scooter는 사진이 커서 크기만 따로 조정*/
-        .scooter img  {
-            width: 200px;    
-            max-width: 70%;
-            height: auto;
-            
-        }
-        .me img, .awards img{
-            width: 300px;
-            border-style:none;
-            border-width:5px;
-    
-        }
-    
-
-        /*하부*/
-        .channel .picture_fin{
-            max-width: 50%;
-            height:auto;
+            border: 1px solid var(--accent);
             border-radius: 100px;
-            transition: transform 0.3s ease;
-            border-style:solid;
-            border-width:10px;
+
+            color: var(--accent);
+
+            font-size: 17px;
+            font-weight: 600;
+
+            transition:
+                transform 0.25s ease,
+                background-color 0.25s ease,
+                color 0.25s ease;
         }
 
-        img:hover{
-            transform:scale(1.2);
+        .button-primary {
+            background-color: var(--accent);
+            color: #ffffff;
         }
 
-        /*하부이미지*/
+        .button:hover {
+            transform: translateY(-2px);
 
-        .bottom_line{
-            border-top:3px solid black;
-            margin-top:200px;
-            display:flex;
-            flex-direction:row-reverse;
+            background-color: var(--accent);
+            color: #ffffff;
         }
 
-        .picture_smp{
-            max-width: 100px;
+
+        /* ==================================================
+           4. 공통 섹션 제목
+        ================================================== */
+
+        .section {
+            padding: 110px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            margin: 0 0 10px;
+
+            color: var(--accent);
+
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .section-title {
+            max-width: 940px;
+
+            margin: 0;
+
+            font-size: clamp(42px, 6vw, 76px);
+            line-height: 1;
+            letter-spacing: -0.055em;
+        }
+
+        .section-description {
+            max-width: 700px;
+
+            margin: 22px 0 0;
+
+            color: var(--secondary-text);
+
+            font-size: 20px;
+            line-height: 1.55;
+        }
+
+
+        /* ==================================================
+           5. 대표 프로젝트
+        ================================================== */
+
+        .featured-list {
+            display: grid;
+            gap: 28px;
+        }
+
+        .featured-card {
+            position: relative;
+
+            min-height: 720px;
+
+            overflow: hidden;
+
+            background-color: var(--surface);
+
+            border: 1px solid var(--border);
+            border-radius: var(--large-radius);
+        }
+
+        /* 검은색 대표 프로젝트 카드 */
+
+        .featured-card-dark {
+            background-color: var(--dark-surface);
+            color: #ffffff;
+        }
+
+        .featured-text {
+            position: relative;
+            z-index: 2;
+
+            max-width: 750px;
+
+            margin: 0 auto;
+            padding: 68px 40px 30px;
+
+            text-align: center;
+        }
+
+        .project-category {
+            margin: 0 0 14px;
+
+            color: var(--accent);
+
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .featured-card-dark .project-category {
+            color: #78b8ff;
+        }
+
+        .featured-title {
+            margin: 0;
+
+            font-size: clamp(46px, 6vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -0.06em;
+        }
+
+        .featured-description {
+            max-width: 630px;
+
+            margin: 22px auto 0;
+
+            color: var(--secondary-text);
+
+            font-size: clamp(18px, 2vw, 23px);
+            line-height: 1.5;
+        }
+
+        .featured-card-dark .featured-description {
+            color: rgba(255, 255, 255, 0.68);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 24px;
+
+            color: var(--accent);
+
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .project-link::after {
+            content: "→";
+
+            transition: transform 0.25s ease;
+        }
+
+        .project-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        .featured-image {
+            position: absolute;
+            top: 310px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
+            padding: 20px 50px 24px;
+        }
+
+        .featured-image img {
+            
+            display: block;
+
+            /* 기존 width: min(...)와 height: 100% 제거 */
+            width: auto;
             height: auto;
-            border-radius: 100%;
-            transition: transform 0.3s ease;
-            border-style:none;
-            padding-top:5px;
-            margin-top:5px;
-            filter:none; /*그림자효과 제거*/
-            -webkit-box-reflect: none; /*확대효과 제거*/
+
+            max-width: min(100%, 980px);
+            max-height: 100%;
+
+            /* 이미지 비율 유지 */
+            object-fit: unset;
+
+            /* 네 모서리를 둥글게 */
+            border-radius: 28px !important;
+
+            /* 브라우저에서 확실하게 잘리도록 설정 */
+            clip-path: inset(0 round 28px);
+
+            transition: transform 0.7s ease;
+
         }
 
-       /* .picture_sju{
-            max-width: 80px;
-            height: auto;
-            border-radius: 100%;
-            transition: transform 0.3s ease;
-            border-style:none;
-            margin-top:5px;
-            filter:none; /*그림자효과 제거
-            -webkit-box-reflect: none; /*확대효과 제거
-        }
-        */
-
-        .picture_mail{
-            max-width: 100px;
-            height: auto;
-            border-radius: 100%;
-            transition: transform 0.3s ease;
-            border-style:none;
-            margin-top:2px;
-            margin-right:3px;
-            filter:none; /*그림자효과 제거*/
-            -webkit-box-reflect: none; /*확대효과 제거*/
-        }
-        .picture_github{
-             max-width: 100px;
-            height: auto;
-            border-radius: 0%;
-            transition: transform 0.3s ease;
-            border-style:none;
-            padding-top:27px;
-            margin-right:10px;
-            filter:none; /*그림자효과 제거*/
-            -webkit-box-reflect: none; /*확대효과 제거*/
+        .featured-card:hover .featured-image img {
+            transform: scale(1.02);
         }
 
 
-        /* hover 시 확대되지 않도록 */
-        .picture_smp:hover, .picture_sju:hover, .picture_mail:hover{
-            transform: none;}
+        /* 대표 프로젝트 아래쪽 2개 */
 
-        .picture_smp :hover, .picture_sju :hover, .picture_mail:hover {
-            transform: scale(1.2);
+        .featured-pair {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 28px;
         }
 
-        /* 반응형 디자인 */
-    @media (max-width: 768px) 
-    {
-            .picture0 {
-            width: 100px; /* 기본 크기보다 줄이기 */
-            margin-bottom: 10px; /* 아래 여백도 줄이기 */
-              }
-            .heading2{
-                font-weight:900;
-                font-size:5vw;
-                padding-bottom:30px;
-                line-height:50px;
+        .featured-pair .featured-card {
+            min-height: 670px;
+        }
+
+        .featured-pair .featured-title {
+            font-size: clamp(38px, 4vw, 62px);
+        }
+
+        .featured-pair .featured-text {
+            padding-right: 28px;
+            padding-left: 28px;
+        }
+
+        .featured-pair .featured-image {
+            top: 305px;
+
+            padding-right: 28px;
+            padding-bottom: 24px;
+            padding-left: 28px;
+        }
+
+
+        /* ==================================================
+           6. 일반 프로젝트 카드
+        ================================================== */
+
+        .projects-section {
+            background-color: var(--surface);
+        }
+
+        .project-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+        .project-card {
+            overflow: hidden;
+
+            background-color: #ffffff;
+
+            border: 1px solid var(--border);
+            border-radius: var(--medium-radius);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 24px 70px rgba(0, 0, 0, 0.09);
+        }
+
+        .project-image {
+            aspect-ratio: 4 / 3;
+
+            overflow: hidden;
+
+            background-color: #ececef;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.6s ease;
+        }
+
+        .project-image img.contain {
+            object-fit: contain;
+            padding: 34px;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.035);
+        }
+
+        .project-content {
+            padding: 30px 30px 34px;
+        }
+
+        .project-type {
+            margin: 0 0 10px;
+
+            color: var(--secondary-text);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .project-name {
+            margin: 0;
+
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+        }
+
+        .project-summary {
+            min-height: 52px;
+
+            margin: 14px 0 0;
+
+            color: var(--secondary-text);
+
+            font-size: 17px;
+            line-height: 1.52;
+        }
+
+
+        /* ==================================================
+           7. About / Awards
+        ================================================== */
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+        .profile-card {
+            position: relative;
+
+            min-height: 430px;
+
+            overflow: hidden;
+
+            padding: 44px;
+
+            background-color: var(--surface);
+
+            border-radius: var(--large-radius);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 22px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-title {
+            max-width: 440px;
+
+            margin: 0;
+
+            font-size: clamp(36px, 4vw, 54px);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+        }
+
+        .profile-description {
+            max-width: 440px;
+
+            margin: 18px 0 0;
+
+            color: var(--secondary-text);
+
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        .profile-card img {
+            position: absolute;
+            right: 28px;
+            bottom: -10px;
+
+            width: min(55%, 270px);
+            max-height: 245px;
+
+            object-fit: contain;
+
+            border-radius: 24px;
+        }
+
+
+        /* ==================================================
+           8. 하단
+        ================================================== */
+
+        .footer {
+            padding: 44px 0 54px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+
+            gap: 24px;
+
+            color: var(--secondary-text);
+
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 22px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+
+        /* ==================================================
+           9. 스크롤 등장 효과
+        ================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+
+            transition:
+                opacity 0.9s ease,
+                transform 0.9s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* ==================================================
+           10. 태블릿 반응형
+        ================================================== */
+
+        @media screen and (max-width: 900px) {
+            .container {
+                width: min(
+                    calc(100% - 28px),
+                    var(--max-width)
+                );
             }
-            .heading3{
-                font-size:3vw;
-                line-height:50px;
-                padding-bottom:100px;
-                padding-left:30px;
-                padding-right:30px;
+
+            .hero {
+                min-height: auto;
+                padding: 110px 0 100px;
             }
-            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger{
+
+            .section {
+                padding: 85px 0;
+            }
+
+            .featured-pair,
+            .project-grid,
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card,
+            .featured-pair .featured-card {
+                min-height: 660px;
+            }
+
+            .featured-image,
+            .featured-pair .featured-image {
+                top: 295px;
+
+                padding-right: 26px;
+                padding-bottom: 22px;
+                padding-left: 26px;
+            }
+        }
+
+
+        /* ==================================================
+           11. 모바일 반응형
+        ================================================== */
+
+        @media screen and (max-width: 600px) {
+            .header .container {
+                width: calc(100% - 24px);
+            }
+
+            .navigation {
+                min-height: 58px;
+            }
+
+            .brand span {
+                display: none;
+            }
+
+            .navigation-links {
+                gap: 16px;
+
+                font-size: 13px;
+            }
+
+            .navigation-links a:nth-child(2),
+            .navigation-links a:nth-child(3) {
+                display: none;
+            }
+
+            .hero {
+                padding: 85px 0 80px;
+            }
+
+            .hero-title {
+                font-size: clamp(52px, 17vw, 78px);
+            }
+
+            .hero-description {
+                font-size: 18px;
+            }
+
+            .button {
+                min-height: 44px;
+
+                padding-right: 20px;
+                padding-left: 20px;
+
+                font-size: 15px;
+            }
+
+            .section-description {
+                font-size: 18px;
+            }
+
+            .featured-card,
+            .featured-pair .featured-card {
+                min-height: 590px;
+
+                border-radius: 26px;
+            }
+
+            .featured-text,
+            .featured-pair .featured-text {
+                padding:
+                    46px
+                    22px
+                    24px;
+            }
+
+            .featured-title,
+            .featured-pair .featured-title {
+                font-size: clamp(38px, 12vw, 56px);
+            }
+
+            .featured-description {
+                font-size: 17px;
+            }
+
+            .featured-image,
+            .featured-pair .featured-image {
+                top: 280px;
+
+                padding-right: 16px;
+                padding-bottom: 18px;
+                padding-left: 16px;
+            }
+
+            .featured-image img {
+                border-radius: 20px;
+            }
+
+            .project-content {
+                padding: 24px;
+            }
+
+            .project-summary {
+                min-height: auto;
+            }
+
+            .profile-card {
+                min-height: 390px;
+
+                padding: 32px 26px;
+            }
+
+            .profile-card img {
+                right: 18px;
+
+                width: min(50%, 210px);
+            }
+
+            .footer-content {
                 flex-direction: column;
-                text-align: center;
-                /*스크롤효과*/
-                opacity: 0;
-                transform:translateY(50px);
-                margin-bottom:50px;
+                align-items: flex-start;
             }
-            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8, .split .dis9, .charger .dis10{
-                padding-left: 0;
-                margin-top: 15px;
-            }
-            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8, .split .title9, .charger .title10{
-                margin-right: 0;
-            }
-            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img
-            {
-                width: 90%;
-                max-width: 400px;
-                margin: 10px auto; /* 모바일에서는 중앙 정렬 */
-            }
-
-            .heading .robotics {
-                font-size: 8vw;  /* 모바일에서 글씨 크기 커지게 */
-            }
-    
-            .dis2, .dis4, .dis6, .dis8, .dis10{
-                margin: 10px 0; /* 모바일에서 간격 추가 */
-            }
-
-            /*riderguard와 scooter은 세로이미지로 세로길이가 크서 크기 조절*/
-            .RiderGuard img, .scooter img{
-                max-height:350px;
-            }
-
-            /*me 반응형 디자인*/
-            .me img{
-                width:30%;
-                max-width:100px;
-                margin:10px auto;
-            }
-            .awards img
-            {
-                width:70%;
-                max-width:350px;
-                margin:10px auto;
-            }
-
-            .dis2, .dis4, .dis6, .dis8, .dis10
-            { 
-                width: auto !important;
-            }
-        
-       /*smp, sju 그림 반응형 디자인*/
-       /* 태블릿 및 모바일 */
-        .picture_smp, .picture_sju, .picture_mail, .picture_github {
-        max-width: 80px; /* 작은 화면에서는 크기를 줄임 */
-         }
-         .picture_github {
-        max-width: 80px;
-        padding-top:25px; /* 작은 화면에서는 크기를 줄임 */
-         }
-                     
-
-
-    }
-
-
-    @media (max-width: 425px) 
-    { /* 더 작은 모바일 화면 */
-        .picture0 {
-        width: 100px; /* 더 작은 화면에서는 더욱 줄이기 */
-        margin-bottom: 10px; /* 여백 줄이기 */
-         }
-        .picture_smp, .picture_sju, .picture_mail {
-        max-width: 50px; /* 더 작은 화면에서는 더욱 줄임 */
-         }
-        .picture_github {
-        max-width: 50px; 
-        padding-top:20px; /* 작은 화면에서는 크기를 줄임 */
-         }
-         .heading2, .heading3{
-            line-height:20px;
-         }
-         .awards img
-         {
-            width:50%;
-            max-width:250px;
-            margin:10px auto;
-         } 
-        .me img
-        {
-            width:40%;
-            max-width:150px;
-            margin:10px auto;
         }
 
-    }
 
-    
-    @media (min-width: 2560px)  /*큰 화면*/
-    {
-       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2, .split, .charger
-       {
-           flex-direction: column !important; /* 세로 배치 강제 */
-           text-align: center; 
-           gap: 20px; /* 그림과 설명 사이 간격 */
-       }
-    
-       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img, .split img, .charger img
-       {
-           margin: 0 auto; /* 중앙 정렬 */
-           margin-top:50px;
+        /* 애니메이션 최소화 설정 */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
-       .crawller img, .atov img, .atov2 img, .charger img
-       {
-        width:700px;
-       }
-       .dis2, .dis4, .dis6, .dis8, .dis10
-       { width: auto !important; }
-    }
-
-
     </style>
 </head>
+
+
 <body>
-    <div class="heading">
-        <a href="index.html">
-        <img src="IMG_0006.png" class="picture0" alt="logo">
-        </a>
-    </div>
 
-    <div class="heading2">
-        <p>from<br/>HARDWARE<br/>to<br/>SOFTWARE</p>
-    </div>
+    <!-- ==================================================
+         상단 메뉴
+    =================================================== -->
 
-    <div class="heading3">
-        <p>I am a student majoring AI robotics in Sejong univ.<br/>
-        My aim is to build unmanned vehicles and devices with AI that I want to make.<br/>
-        Devices are made with only one purpose. "To make people fun."<br/>
-        Check my products below</p>
+    <header class="header" id="top">
 
-    </div>
+        <div class="container navigation">
+
+            <a
+                class="brand"
+                href="index.html"
+                aria-label="Homepage"
+            >
+                <img
+                    src="IMG_0006.png"
+                    alt="Banana logo"
+                >
+
+                <span>Seung Min Kim</span>
+            </a>
 
 
-    <div class="me">
-        <a href="me.html">
-            <img src="IMG_0013.jpg" class="picture100" alt="Seung Min Kim">
-        </a>
-        <div class="dis100">
-            <h3 class="title100">Seung Min Kim</h3>
+            <nav
+                class="navigation-links"
+                aria-label="Main navigation"
+            >
+                <a href="#featured">Featured</a>
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="awards.html">Awards</a>
+            </nav>
+
         </div>
-    </div>
 
-        <div class="awards">
-        <a href="awards.html">
-            <img src="IMG_0017.png" class="picture101" alt="awards">
-        </a>
-        <div class="dis101">
-            <h3 class="title101">Competitions</h3>
+    </header>
+
+
+    <main>
+
+        <!-- ==================================================
+             첫 화면
+        =================================================== -->
+
+        <section class="hero container reveal">
+
+            <div class="hero-content">
+
+                <p class="hero-category"></p>
+
+                <h1 class="hero-title">
+
+                    From hardware
+
+                    <span class="gradient-text">
+                        to Intelligence.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    I build mobile robots by combining
+                    mechanical design, embedded control,
+                    computer vision, and real-world experimentation.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        class="button button-primary"
+                        href="#featured"
+                    >
+                        View featured work
+                    </a>
+
+
+                    <a
+                        class="button"
+                        href="me.html"
+                    >
+                        About me
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             대표 프로젝트
+        =================================================== -->
+
+        <section
+            class="section"
+            id="featured"
+        >
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <p class="section-label">
+                        Featured
+                    </p>
+
+
+                    <h2 class="section-title">
+                        Featured Projects
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        3 big projects
+
+                    </p>
+
+                </div>
+
+
+                <div class="featured-list">
+
+                    <!-- ==================================================
+                         대표 프로젝트 1: ATOV 3.0
+                    =================================================== -->
+
+                    <article
+                        class="featured-card featured-card-dark reveal"
+                    >
+
+                        <div class="featured-text">
+
+                            <p class="project-category">
+                                Patient tracking robot
+                            </p>
+
+
+                            <h3 class="featured-title">
+                                ATOV 3.0
+                            </h3>
+
+
+                            <p class="featured-description">
+
+                                A mobile robot platform developed
+                                to connect human tracking,
+                                posture monitoring, robot control,
+                                and IoT-based status reporting.
+
+                            </p>
+
+
+                            <a
+                                class="project-link"
+                                href="atov3.html"
+                            >
+                                Explore the project
+                            </a>
+
+                        </div>
+
+
+                        <a
+                            class="featured-image"
+                            href="atov3.html"
+                            aria-label="Open ATOV 3.0 project"
+                        >
+
+                            <img
+                                src="IMG_32.jpg"
+                                alt="ATOV 3.0 mobile robot"
+                            >
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- ==================================================
+                         대표 프로젝트 아래쪽 2개
+                    =================================================== -->
+
+                    <div class="featured-pair">
+
+                        <!-- ==================================================
+                             대표 프로젝트 2: Charging Robot
+                        =================================================== -->
+
+                        <article
+                            class="featured-card featured-card-dark reveal"
+                        >
+
+                            <div class="featured-text">
+
+                                <p class="project-category">
+                                    Mars inverstigation robot
+                                </p>
+
+
+                                <h3 class="featured-title">
+                                    ATOV
+                                </h3>
+
+
+                                <p class="featured-description">
+
+                                    A robot that has 2 legs and 2 wheels.
+                                    It is a hybrid locomotidon robot, which moves in 2 ways.
+
+                                </p>
+
+
+                                <a
+                                    class="project-link"
+                                    href="atov.html"
+                                >
+                                    Explore the project
+                                </a>
+
+                            </div>
+
+
+                            <a
+                                class="featured-image"
+                                href="atov.html"
+                                aria-label="Open Charging Robot project"
+                            >
+
+                                <img
+                                    src="IMG_0004.jpg"
+                                    alt="atov"
+                                >
+
+                            </a>
+
+                        </article>
+
+
+                        <!-- ==================================================
+                             대표 프로젝트 3: Rider Guard
+                        =================================================== -->
+
+                        <article
+                            class="featured-card featured-card-dark reveal"
+                        >
+
+                            <div class="featured-text">
+
+                                <p class="project-category">
+                                    Safety Device for riders
+                                </p>
+
+
+                                <h3 class="featured-title">
+                                    Rider Guard
+                                </h3>
+
+
+                                <p class="featured-description">
+
+                                    A portable safety device designed
+                                    to help riders recognize surrounding
+                                    vehicles and react earlier.
+
+                                </p>
+
+
+                                <a
+                                    class="project-link"
+                                    href="RiderGuard.html"
+                                >
+                                    Explore the project
+                                </a>
+
+                            </div>
+
+
+                            <a
+                                class="featured-image"
+                                href="RiderGuard.html"
+                                aria-label="Open Rider Guard project"
+                            >
+
+                                <img
+                                    src="IMG_0009.png"
+                                    alt="Rider Guard safety device"
+                                >
+
+                            </a>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             일반 프로젝트 목록
+        =================================================== -->
+
+        <section
+            class="section projects-section"
+            id="projects"
+        >
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <p class="section-label">
+                        ALL
+                    </p>
+
+
+                    <h2 class="section-title">
+
+                    All projects
+
+                    </h2>
+
+
+                    <p class="section-description">
+
+                        All projects that I've done so far
+
+                    </p>
+
+                </div>
+
+
+                <div class="project-grid">
+
+                    <!-- Route Finder -->
+
+                    <article class="project-card reveal">
+
+                        <a href="route_finder.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_9149.JPG"
+                                    alt="Route Finder robot"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Autonomous Mobile Robot
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    Route Finder
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    Path finding using two
+                                    ultrasonic sensors.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Smart School Cafeteria -->
+
+                    <article class="project-card reveal">
+
+                        <a href="scooter.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_0015.jpg"
+                                    alt="Smart school cafeteria model"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Embedded System
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    Smart School Cafeteria
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    A system designed to improve
+                                    the school cafeteria experience.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- CRAWLLER -->
+
+                    <article class="project-card reveal">
+
+                        <a href="crawller.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_0001.jpg"
+                                    alt="CRAWLLER robot"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Leg-Wheel Robot
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    CRAWLLER
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    A mobile robot using two legs
+                                    and one wheel movement concept.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- ATOV -->
+
+                    <article class="project-card reveal">
+
+                        <a href="atov.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_0004.jpg"
+                                    alt="ATOV all-terrain robot"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    All-Terrain Robotics
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    ATOV
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                 Introducing th All-Terrain Robot with remote control
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- YOLO -->
+
+                    <article class="project-card reveal">
+
+                        <a href="yolo.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_0011.png"
+                                    alt="YOLO computer vision project"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Computer Vision
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    YOLO
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    Object-detection
+                                    for visual perception.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Paper Reviews -->
+
+                    <article class="project-card reveal">
+
+                        <a href="paperreview.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    class="contain"
+                                    src="IMG_0012.png"
+                                    alt="Computer vision paper reviews"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Research Study
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    Paper Reviews
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    Reviews and notes on
+                                    computer-vision research papers.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- ATOV 2.0 -->
+
+                    <article class="project-card reveal">
+
+                        <a href="atov2.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    src="IMG_23.jpg"
+                                    alt="ATOV 2.0 robot"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    Robot Development
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    ATOV 2.0
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    The second version of the ATOV
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- SPLIT -->
+
+                    <article class="project-card reveal">
+
+                        <a href="split.html">
+
+                            <div class="project-image">
+
+                                <img
+                                    class="contain"
+                                    src="IMG_22.png"
+                                    alt="SPLIT 3D designed mouse"
+                                >
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <p class="project-type">
+                                    3D Product Design
+                                </p>
+
+
+                                <h3 class="project-name">
+                                    SPLIT
+                                </h3>
+
+
+                                <p class="project-summary">
+
+                                    A mouse concept created through
+                                    3D design and prototyping.
+
+                                </p>
+
+
+                                <span class="project-link">
+                                    View project
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+<!-- Charging robot -->
+<article class="project-card reveal">
+
+    <a href="charger.html">
+
+        <div class="project-image">
+            <img
+                src="IMG_28.png"
+                alt="charger"
+            >
         </div>
-    </div>
 
+        <div class="project-content">
 
-    <div class="routefinder">
-        <a href="route_finder.html">
-            <img src="IMG_9149.JPG" class="picture1" alt="Route Finder Robot">
-        </a>
-        <div class="dis1">
-            <h3 class="title1">Route Finder</h3>
-            <h3 class="discription1">Finding pathes using 2-ultrasonic sensors</h3>
+            <p class="project-type">
+                Design and operation sketch
+            </p>
+
+            <h3 class="project-name">
+                Charging robot
+            </h3>
+
+            <p class="project-summary">
+                A robot arm for charging.
+            </p>
+
+            <span class="project-link">
+                View project
+            </span>
+
         </div>
-    </div>
 
-    
-    <div class="scooter">
-        <a href="scooter.html">
-            <img src="IMG_0015.jpg" class="picture2" alt="Scooter Safety Belt">
-        </a>
-        <div class="dis2">
-            <h3 class="title2">Smart school cafetaria</h3>
-            <h3 class="discription2">This improves school cafeteria system.</h3>
+    </a>
+
+</article>
+
+
+
+
+
+<!-- atov_3.0 -->
+<article class="project-card reveal">
+
+    <a href="atov3.html">
+
+        <div class="project-image">
+            <img
+                src="IMG_32.jpg"
+                alt="atov3"
+            >
         </div>
-    </div>
-    
 
-    <div class="crawller">
-        <a href="crawller.html">
-            <img src="IMG_0001.jpg" class="picture3" alt="crawller" align:center;>
-        </a>
-        <div class="dis3">
-            <h3 class="title3">CRAWLLER</h3>
-            <h3 class="discription3">2 legs, 1 wheel movement.</h3>
+        <div class="project-content">
+
+            <p class="project-type">
+                Robot development
+            </p>
+
+            <h3 class="project-name">
+                ATOV 3.0
+            </h3>
+
+            <p class="project-summary">
+                A robot for tracking patients.
+            </p>
+
+            <span class="project-link">
+                View project
+            </span>
+
         </div>
-    </div>
 
-    <div class="atov">
-        <a href="atov.html">
-            <img src="IMG_0004.jpg" class="picture4" alt="atov" align="center";>
-        </a>
-        <div class="dis4">
-            <h3 class="title4">ATOV</h3>
-            <h3 class="discription4">Introducing the all-terrain robot with remote control.</h3>
+    </a>
+
+</article>
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             About / Awards
+        =================================================== -->
+
+        <section
+            class="section"
+            id="about"
+        >
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <p class="section-label">
+                        Beyond the Projects
+                    </p>
+
+
+                    <h2 class="section-title">
+
+                        ABOUT ME
+
+                    </h2>
+
+                </div>
+
+
+                <div class="profile-grid">
+
+                    <!-- About -->
+
+                    <a
+                        class="profile-card reveal"
+                        href="me.html"
+                    >
+
+                        <h3 class="profile-title">
+                             Seung Min Kim
+                        </h3>
+
+
+                        <p class="profile-description">
+
+                            An AI robotics student building
+                            intelligent mobile robots.
+
+                        </p>
+
+
+                        <span class="project-link">
+                            Read more
+                        </span>
+
+
+                        <img
+                            src="IMG_0013.jpg"
+                            alt="Seung Min Kim"
+                        >
+
+                    </a>
+
+
+                    <!-- Awards -->
+
+                    <a
+                        class="profile-card reveal"
+                        href="awards.html"
+                    >
+
+                        <h3 class="profile-title">
+                            Competitions and Awards
+                        </h3>
+
+
+                        <p class="profile-description">
+
+                            Projects developed for engineering
+                            competitions, design awards.
+
+                        </p>
+
+
+                        <span class="project-link">
+                            View achievements
+                        </span>
+
+
+                        <img
+                            src="IMG_0017.png"
+                            alt="Competitions and awards"
+                        >
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         하단
+    =================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <p>
+
+                © <span id="currentYear"></span>
+                Seung Min Kim
+
+            </p>
+
+
+            <div class="footer-links">
+
+                <a
+                    href="https://github.com/fit7157"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+
+
+                <a
+                    href="https://www.youtube.com/@smpictures1234"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    YouTube
+                </a>
+
+
+                <a href="mailto:fit7157@naver.com">
+                    Email
+                </a>
+
+
+                <a href="#top">
+                    Back to top
+                </a>
+
+            </div>
+
         </div>
-    </div>
 
-    
-    <div class="RiderGuard">
-        <a href="RiderGuard.html">
-            <img src="IMG_0009.png" class="picture5" alt="RiderGuard" align:center;>
-        </a>
-        <div class="dis5">
-            <h3 class="title5">Rider Guard</h3>
-            <h3 class="discription5">Portable safety device for riders.</h3>
-        </div>
-    </div>
+    </footer>
 
 
-    <div class="yolo">
-        <a href="yolo.html">
-            <img src="IMG_0011.png" class="picture6" alt="yolo" align="center";>
-        </a>
-        <div class="dis6">
-            <h3 class="title6">YOLO</h3>
-            <h3 class="discription6">you look only once.</h3>
-        </div>
-    </div>
-
-     <div class="paperreview">
-        <a href="paperreview.html">
-            <img src="IMG_0012.png" class="picture7" alt="Paper" align:center;>
-        </a>
-        <div class="dis7">
-            <h3 class="title7">Paper reviews</h3>
-            <h3 class="discription7">Study for papers regarding Computer Vision.</h3>
-        </div>
-    </div>
-
-
-        <div class="atov2">
-        <a href="atov2.html">
-            <img src="IMG_23.jpg" class="picture8" alt="atov2" align="center";>
-        </a>
-        <div class="dis8">
-            <h3 class="title8">ATOV 2.0</h3>
-            <h3 class="discription8">atov version 2</h3>
-        </div>
-    </div>
-
-
-
-
-        <div class="split">
-        <a href="split.html">
-            <img src="IMG_22.png" class="picture9" alt="split" align="center";>
-        </a>
-        <div class="dis9">
-            <h3 class="title9">SPLIT</h3>
-            <h3 class="discription9">3D designed mouse</h3>
-        </div>
-    </div>
-
-
-
-            <div class="charger">
-        <a href="charger.html">
-            <img src="IMG_28.png" class="picture10" alt="charger" align="center";>
-        </a>
-        <div class="dis10">
-            <h3 class="title10">Charging robot</h3>
-            <h3 class="discription10">robo arm charger</h3>
-        </div>
-    </div>
-    
-
-
-    <div class ="bottom_line">
-        <a href="https://github.com/fit7157">
-            <img src ="github_img.png" class="picture_github" alt="github">
-        </a>
-        <a href="https://www.youtube.com/@smpictures1234">
-            <img src ="IMG_0002.png" class="picture_smp" alt="SMP">
-        </a>
-
-        <a href="mailto:fit7157@naver.com">
-            <img src = "IMG_0010.png" class="picture_mail" alt="mail">
-        </a>
-    </div>
+    <!-- ==================================================
+         JavaScript
+    =================================================== -->
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger");
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("fade-in");
-                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                const header =
+                    document.querySelector(".header");
+
+                const revealElements =
+                    document.querySelectorAll(".reveal");
+
+                const currentYear =
+                    document.getElementById("currentYear");
+
+
+                /* 현재 연도를 자동으로 표시 */
+
+                currentYear.textContent =
+                    new Date().getFullYear();
+
+
+                /* 스크롤 시 상단 메뉴 아래 선 표시 */
+
+                function updateHeader() {
+
+                    if (window.scrollY > 8) {
+
+                        header.classList.add(
+                            "scrolled"
+                        );
+
+                    } else {
+
+                        header.classList.remove(
+                            "scrolled"
+                        );
+
                     }
-                });
-            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
 
-            fadeElements.forEach(el => observer.observe(el));
-        });
+                }
+
+
+                updateHeader();
+
+
+                window.addEventListener(
+                    "scroll",
+                    updateHeader,
+                    {
+                        passive: true
+                    }
+                );
+
+
+                /* IntersectionObserver 미지원 브라우저 */
+
+                if (!("IntersectionObserver" in window)) {
+
+                    revealElements.forEach(
+                        function (element) {
+
+                            element.classList.add(
+                                "visible"
+                            );
+
+                        }
+                    );
+
+                    return;
+
+                }
+
+
+                /* 스크롤 등장 효과 */
+
+                const observer =
+                    new IntersectionObserver(
+
+                        function (entries) {
+
+                            entries.forEach(
+                                function (entry) {
+
+                                    if (entry.isIntersecting) {
+
+                                        entry.target.classList.add(
+                                            "visible"
+                                        );
+
+                                        observer.unobserve(
+                                            entry.target
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        },
+
+                        {
+                            threshold: 0.12,
+
+                            rootMargin:
+                                "0px 0px -60px 0px"
+                        }
+
+                    );
+
+
+                revealElements.forEach(
+                    function (element) {
+
+                        observer.observe(
+                            element
+                        );
+
+                    }
+                );
+
+            }
+        );
     </script>
+
 </body>
 </html>
