@@ -2,173 +2,1728 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style type="text/css">
-        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
-        .robo:hover{transform:scale(1.2);}
-        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center;font-style:italic; color:black;background-color:white;}       
-        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
-        .title{color:yellow;}
-        /*서서히 효과*/
-        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award, .operation
-        { 
-            margin-bottom:50px;
-            opacity:0;/*기본 설정은 안보이게*/
-            transform: translateY(50px);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ATOV 3.0 is a patient-following robot that monitors posture, swaying, and falls in real time."
+    >
+
+    <title>ATOV 3.0 | Patient Monitoring Robot</title>
+
+    <style>
+        /* ==================================================
+           기본 설정
+        ================================================== */
+
+        :root {
+            --background: #f5f5f7;
+            --surface: #ffffff;
+            --surface-dark: #000000;
+
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-light: #f5f5f7;
+
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+
+            --border: rgba(0, 0, 0, 0.08);
+            --dark-border: rgba(255, 255, 255, 0.15);
+
+            --shadow:
+                0 20px 60px rgba(0, 0, 0, 0.08);
+
+            --large-radius: 36px;
+            --medium-radius: 24px;
+            --small-radius: 16px;
+
+            --content-width: 1200px;
         }
-        .fade-in {/*서서히 효과*/
-            opacity: 1 !important;  
-            transform: translateY(0) !important;
+
+        * {
+            box-sizing: border-box;
         }
-        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
-        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;}
-        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
-        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
-        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;margin-bottom:5px;}
-        .discription {color:black; background-color:rgb(222, 222, 247);}
-        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px;margin-top:5px;border-radius:10px;}
-        @media (max-width: 768px) {
-            .robo {
-            width: 100px; /* 기본 크기보다 줄이기 */
-            margin-bottom: 50px; /* 아래 여백도 줄이기 */
-               }
-            .subtitle{
-                font-size:30px;
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text-primary);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* ==================================================
+           상단 내비게이션
+        ================================================== */
+
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+
+            width: 100%;
+            height: 58px;
+
+            background: rgba(250, 250, 252, 0.78);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+
+            transition:
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .navigation.scrolled {
+            background: rgba(250, 250, 252, 0.92);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .navigation-inner {
+            width: min(calc(100% - 40px), var(--content-width));
+            height: 100%;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+
+            transition: transform 0.3s ease;
+        }
+
+        .brand:hover .brand-logo {
+            transform: scale(1.08);
+        }
+
+        .navigation-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            color: rgba(0, 0, 0, 0.72);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .navigation-links a {
+            transition: color 0.25s ease;
+        }
+
+        .navigation-links a:hover {
+            color: var(--accent);
+        }
+
+
+        /* ==================================================
+           공통 레이아웃
+        ================================================== */
+
+        .section {
+            padding: 130px 24px;
+        }
+
+        .section-inner {
+            width: min(100%, var(--content-width));
+            margin: 0 auto;
+        }
+
+        .section-label {
+            margin: 0 0 14px;
+
+            color: var(--accent);
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title {
+            max-width: 900px;
+            margin: 0 auto;
+
+            font-size: clamp(42px, 6vw, 76px);
+            font-weight: 700;
+            line-height: 1.03;
+            text-align: center;
+            letter-spacing: -0.055em;
+        }
+
+        .section-description {
+            max-width: 730px;
+            margin: 28px auto 0;
+
+            color: var(--text-secondary);
+            font-size: clamp(18px, 2.2vw, 24px);
+            line-height: 1.55;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+
+        /* ==================================================
+           첫 화면 Hero
+        ================================================== */
+
+        .hero {
+            min-height: 100vh;
+            padding: 145px 24px 70px;
+
+            display: flex;
+            align-items: center;
+
+            color: var(--text-light);
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(70, 105, 255, 0.28),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(131, 63, 255, 0.2),
+                    transparent 30%
+                ),
+                #000000;
+
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            width: min(100%, var(--content-width));
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            margin: 0 0 18px;
+
+            color: #a9c7ff;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title {
+            margin: 0;
+
+            font-size: clamp(64px, 11vw, 145px);
+            font-weight: 750;
+            line-height: 0.9;
+            letter-spacing: -0.075em;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 10%,
+                    #b7b7bd 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            max-width: 850px;
+            margin: 30px auto 0;
+
+            color: rgba(255, 255, 255, 0.78);
+            font-size: clamp(26px, 4vw, 50px);
+            font-weight: 600;
+            line-height: 1.12;
+            letter-spacing: -0.045em;
+        }
+
+        .hero-description {
+            max-width: 670px;
+            margin: 26px auto 0;
+
+            color: rgba(255, 255, 255, 0.56);
+            font-size: clamp(17px, 2vw, 22px);
+            line-height: 1.55;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-buttons {
+            margin-top: 38px;
+
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            min-height: 48px;
+            padding: 12px 24px;
+            border-radius: 999px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            font-size: 17px;
+            font-weight: 500;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: #ffffff;
+            background: var(--accent);
+        }
+
+        .button-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .button-secondary {
+            color: #ffffff;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        .hero-device {
+            position: relative;
+
+            width: min(860px, 92%);
+            margin: 75px auto 0;
+            padding: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.34),
+                    rgba(255, 255, 255, 0.06)
+                );
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 38px;
+
+            box-shadow:
+                0 50px 110px rgba(0, 0, 0, 0.65),
+                0 0 80px rgba(51, 104, 255, 0.16);
+
+            transform: perspective(1200px) rotateX(3deg);
+        }
+
+        .hero-device::before {
+            content: "";
+
+            position: absolute;
+            left: 15%;
+            right: 15%;
+            bottom: -55px;
+
+            height: 80px;
+            border-radius: 50%;
+
+            background: rgba(65, 112, 255, 0.34);
+            filter: blur(50px);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: min(58vw, 590px);
+            object-fit: cover;
+            object-position: center;
+
+            border-radius: 28px;
+        }
+
+
+        /* ==================================================
+           주요 기능 요약
+        ================================================== */
+
+        .overview {
+            background: var(--surface);
+        }
+
+        .overview-grid {
+            margin-top: 75px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .overview-item {
+            min-height: 230px;
+            padding: 34px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            background: var(--background);
+            border-radius: var(--medium-radius);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .overview-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .overview-number {
+            color: var(--accent);
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.055em;
+        }
+
+        .overview-text {
+            margin: 30px 0 0;
+
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+        }
+
+
+        /* ==================================================
+           영상
+        ================================================== */
+
+        .film-section {
+            color: var(--text-light);
+            background: var(--surface-dark);
+        }
+
+        .film-section .section-description {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .video-frame {
+            position: relative;
+
+            width: min(100%, 1080px);
+            margin: 70px auto 0;
+            padding: 9px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.28),
+                    rgba(255, 255, 255, 0.05)
+                );
+
+            border: 1px solid var(--dark-border);
+            border-radius: 32px;
+
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.65);
+        }
+
+        .video-frame iframe {
+            width: 100%;
+            border: 0;
+            border-radius: 23px;
+            aspect-ratio: 16 / 9;
+            display: block;
+        }
+
+
+        /* ==================================================
+           작동 방식
+        ================================================== */
+
+        .process-grid {
+            margin-top: 75px;
+
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .process-card {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 440px;
+            padding: 42px;
+
+            background: var(--surface);
+            border-radius: var(--large-radius);
+
+            box-shadow:
+                0 1px 0 rgba(0, 0, 0, 0.02);
+
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .process-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .process-card.large {
+            grid-column: span 7;
+        }
+
+        .process-card.small {
+            grid-column: span 5;
+        }
+
+        .process-card.full {
+            grid-column: span 12;
+            min-height: 370px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .process-card.dark {
+            color: var(--text-light);
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(60, 118, 255, 0.4),
+                    transparent 35%
+                ),
+                #050505;
+        }
+
+        .card-number {
+            margin-bottom: 70px;
+
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .dark .card-number {
+            color: #9fc1ff;
+        }
+
+        .card-title {
+            max-width: 560px;
+            margin: 0;
+
+            font-size: clamp(32px, 4vw, 52px);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+
+        .card-description {
+            max-width: 590px;
+            margin: 24px 0 0;
+
+            color: var(--text-secondary);
+            font-size: 18px;
+            line-height: 1.65;
+            letter-spacing: -0.015em;
+        }
+
+        .dark .card-description {
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .process-visual {
+            min-height: 220px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .joint-visual {
+            position: relative;
+            width: 240px;
+            height: 240px;
+        }
+
+        .joint-ring {
+            position: absolute;
+            inset: 20px;
+
+            border: 1px solid rgba(0, 113, 227, 0.35);
+            border-radius: 50%;
+
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        .joint-ring:nth-child(2) {
+            inset: 55px;
+            animation-delay: 0.5s;
+        }
+
+        .joint-ring:nth-child(3) {
+            inset: 90px;
+            animation-delay: 1s;
+        }
+
+        .joint-point {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+
+            background: var(--accent);
+            box-shadow: 0 0 30px rgba(0, 113, 227, 0.8);
+
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse-ring {
+            0%,
+            100% {
+                opacity: 0.35;
+                transform: scale(0.96);
             }
-            .heading {
+
+            50% {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+        }
+
+
+        /* ==================================================
+           하드웨어 디자인
+        ================================================== */
+
+        .hardware-section {
+            color: var(--text-light);
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(65, 98, 255, 0.18),
+                    transparent 30%
+                ),
+                #000000;
+        }
+
+        .hardware-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .hardware-label {
+            margin: 0 0 16px;
+
+            color: #9fc1ff;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .hardware-title {
+            margin: 0;
+
+            font-size: clamp(48px, 7vw, 86px);
+            line-height: 0.98;
+            letter-spacing: -0.06em;
+        }
+
+        .hardware-description {
+            max-width: 530px;
+            margin: 30px 0 0;
+
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 20px;
+            line-height: 1.65;
+            letter-spacing: -0.02em;
+        }
+
+        .hardware-points {
+            margin-top: 34px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hardware-point {
+            padding: 10px 16px;
+
+            color: rgba(255, 255, 255, 0.76);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .hardware-image-wrapper {
+            padding: 10px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.25),
+                    rgba(255, 255, 255, 0.04)
+                );
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--large-radius);
+
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.55);
+        }
+
+        .hardware-image {
+            width: 100%;
+            min-height: 520px;
+            object-fit: cover;
+
+            border-radius: 27px;
+        }
+
+
+        /* ==================================================
+           활용 과정
+        ================================================== */
+
+        .flow {
+            background: var(--surface);
+        }
+
+        .flow-list {
+            max-width: 950px;
+            margin: 80px auto 0;
+        }
+
+        .flow-item {
+            padding: 44px 0;
+
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 30px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .flow-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .flow-number {
+            color: var(--accent);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .flow-title {
+            margin: 0;
+
+            font-size: clamp(28px, 3vw, 38px);
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+        }
+
+        .flow-description {
+            margin: 14px 0 0;
+
+            color: var(--text-secondary);
+            font-size: 18px;
+            line-height: 1.65;
+        }
+
+
+        /* ==================================================
+           Future Development
+        ================================================== */
+
+        .future-section {
+            padding-top: 40px;
+            background: var(--background);
+        }
+
+        .future-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 100px 60px;
+
+            color: var(--text-light);
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at 50% 110%,
+                    rgba(0, 113, 227, 0.8),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    circle at 80% 10%,
+                    rgba(126, 74, 255, 0.35),
+                    transparent 35%
+                ),
+                #050505;
+
+            border-radius: 44px;
+        }
+
+        .future-label {
+            margin: 0 0 18px;
+
+            color: #aac8ff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .future-title {
+            max-width: 900px;
+            margin: 0 auto;
+
+            font-size: clamp(48px, 7vw, 88px);
+            line-height: 1;
+            letter-spacing: -0.06em;
+        }
+
+        .future-description {
+            max-width: 670px;
+            margin: 28px auto 0;
+
+            color: rgba(255, 255, 255, 0.64);
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+
+        /* ==================================================
+           Footer
+        ================================================== */
+
+        .footer {
+            padding: 46px 24px 35px;
+        }
+
+        .footer-inner {
+            width: min(100%, var(--content-width));
+            margin: 0 auto;
+            padding-top: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+
+        /* ==================================================
+           스크롤 애니메이션
+        ================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(55px);
+
+            transition:
+                opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+
+        /* ==================================================
+           태블릿 화면
+        ================================================== */
+
+        @media (max-width: 900px) {
+            .section {
+                padding: 100px 22px;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .overview-item {
+                min-height: 190px;
+            }
+
+            .process-card.large,
+            .process-card.small,
+            .process-card.full {
+                grid-column: span 12;
+            }
+
+            .process-card.full {
+                grid-template-columns: 1fr;
+            }
+
+            .hardware-layout {
+                grid-template-columns: 1fr;
+                gap: 55px;
+            }
+
+            .hardware-description {
+                max-width: 700px;
+            }
+
+            .hardware-image {
+                min-height: 400px;
+            }
+        }
+
+
+        /* ==================================================
+           스마트폰 화면
+        ================================================== */
+
+        @media (max-width: 700px) {
+            .navigation {
+                height: 54px;
+            }
+
+            .navigation-inner {
+                width: min(calc(100% - 28px), var(--content-width));
+            }
+
+            .navigation-links {
+                gap: 16px;
+            }
+
+            .navigation-links a:nth-child(2),
+            .navigation-links a:nth-child(3) {
+                display: none;
+            }
+
+            .brand {
+                font-size: 15px;
+            }
+
+            .brand-logo {
+                width: 28px;
+                height: 28px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 125px 18px 80px;
+            }
+
+            .hero-title {
+                font-size: clamp(60px, 22vw, 90px);
+            }
+
+            .hero-subtitle {
+                margin-top: 24px;
+            }
+
+            .hero-description {
+                font-size: 17px;
+            }
+
+            .hero-device {
+                width: 100%;
+                margin-top: 55px;
+                padding: 6px;
+                border-radius: 23px;
+                transform: none;
+            }
+
+            .hero-image {
+                height: 66vw;
+                min-height: 260px;
+                border-radius: 17px;
+            }
+
+            .section {
+                padding: 85px 18px;
+            }
+
+            .section-title {
+                font-size: clamp(38px, 12vw, 56px);
+            }
+
+            .section-description {
+                margin-top: 22px;
+                font-size: 18px;
+            }
+
+            .overview-grid,
+            .process-grid {
+                margin-top: 50px;
+            }
+
+            .overview-item {
+                padding: 27px;
+                border-radius: 22px;
+            }
+
+            .process-card {
+                min-height: auto;
+                padding: 30px 25px;
+                border-radius: 26px;
+            }
+
+            .card-number {
+                margin-bottom: 45px;
+            }
+
+            .card-description {
+                font-size: 16px;
+            }
+
+            .video-frame {
+                margin-top: 50px;
+                padding: 5px;
+                border-radius: 20px;
+            }
+
+            .video-frame iframe {
+                border-radius: 15px;
+            }
+
+            .hardware-layout {
+                gap: 45px;
+            }
+
+            .hardware-title {
+                font-size: clamp(46px, 14vw, 65px);
+            }
+
+            .hardware-description {
+                font-size: 17px;
+            }
+
+            .hardware-image-wrapper {
+                padding: 6px;
+                border-radius: 24px;
+            }
+
+            .hardware-image {
+                min-height: 330px;
+                border-radius: 18px;
+            }
+
+            .flow-list {
+                margin-top: 55px;
+            }
+
+            .flow-item {
+                padding: 32px 0;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .future-section {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .future-card {
+                padding: 75px 25px;
+                border-radius: 32px;
+            }
+
+            .future-description {
+                font-size: 17px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
                 flex-direction: column;
-                text-align: center;
             }
-            
-            .heading .discription {
-                font-size:20px;
-                max-width:90%;
-                margin-top: 15px;
-                margin-left: 0;
-            }
-            .picture {
-                width: 80%;
-                max-width: 300px;
-                margin:0 auto;
-            }
-            h1{font-size:25px;}
-            h2{font-size:20px;}
-            .operation{width:500px;margin-bottom:30px;}
-            
         }
 
-        @media (max-width: 768px) 
-        {
-            .operation{width:300px;margin-bottom:10px;}
+
+        /* ==================================================
+           애니메이션 최소화 설정 사용자 지원
+        ================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
-
-/*영상*/
-.video-container {
-    width: 90vw; /* 전체 너비의 90% */
-    max-width: 1200px; /* 최대 크기 제한 */
-    margin: 0 auto; /* 가운데 정렬 */
-}
-.video-container iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
-}
-
     </style>
 </head>
 
 <body>
-    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
-    <div class="toomany">
-    <h1 class="title">The Charging robot</h1>
-    <h2 class="subtitle">This is an idea for charging robot.</h2>
-    <div class="heading">
-    <img src="IMG_28.png" width="300" class="picture">
-    <h2 class="discription">
-        Apartments makes it very difficult to charge electric cars. <br/>
-        This charging system can make a car be charged automatically without any human intervention.
-    </h2>
-    </div>
-    </div>
 
-    
+    <!-- ==================================================
+         상단 내비게이션
+    =================================================== -->
 
-    <div class="main">
-    
-    <div style="display: flex; justify-content: center;">
-    <img src="IMG_25.jpg" width="500" class="operation" >
-    </div>
+    <nav class="navigation" id="navigation">
+        <div class="navigation-inner">
 
-    <div class="works">
-    <h2>Network Logic</h2>
-    <p> 
-    <img src="IMG_26.png" width="500" class="operation" style="display: block; margin: 0 auto;">        
-    <b>BLE</b><br/>
-    Two important missions to consider in this porject is calling the robot arm charger and combining multiple robot arm charger into one controller.
-    In order to acheive this, we used BLE(bluetooth Low energy),which is an network system between smartphone and controller.
-    Also we used WIFI in order to connect local BLE Gateway and contral commander.
-    These network systems connected smartphone, local Gateway  and central commander
-    </div>
+            <a href="index.html" class="brand">
+                <img
+                    src="IMG_0006.png"
+                    alt="ATOV robot logo"
+                    class="brand-logo"
+                >
+
+                <span>ATOV 3.0</span>
+            </a>
+
+            <div class="navigation-links">
+                <a href="#overview">Overview</a>
+                <a href="#film">Film</a>
+                <a href="#technology">Technology</a>
+                <a href="#hardware">Design</a>
+            </div>
+
+        </div>
+    </nav>
 
 
-     <div class="code">
-    <h2>Hardware control logic</h2>
-    <p>
-        <img src="IMG_27.png" width="500" class="operation" style="display: block; margin: 0 auto;">        
-        In order to build a robot arm contoller logic, We needed a camera, rasberrypi, arduino and servo motors.<br/>
-        The camera sends the coordinate information of the car's charging port to rasberry pi. Rasberry pi calculates the angle of robot arm based on the coordinate informartion using Inverse Kinematics.
-        Inverse Kinematics is a formula that converts target coordinate into robot arms' angle. than the angle information is sent to arduino and arduino moves the robot arm's servo motor.
-    </p>
-    </div>
-  
+    <!-- ==================================================
+         첫 화면
+    =================================================== -->
+
+    <header class="hero">
+        <div class="hero-inner">
+
+            <p class="hero-eyebrow reveal">
+                Patient monitoring robot
+            </p>
+
+            <h1 class="hero-title reveal reveal-delay-1">
+                ATOV 3.0
+            </h1>
+
+            <h2 class="hero-subtitle reveal reveal-delay-2">
+                Patient monitoring.<br>
+                Reimagined.
+            </h2>
+
+            <p class="hero-description reveal reveal-delay-3">
+                A mobile robot that follows patients, analyzes their
+                posture and movement, and delivers important information
+                to medical staff in real time.
+            </p>
+
+            <div class="hero-buttons reveal reveal-delay-3">
+                <a href="#film" class="button button-primary">
+                    Watch the film
+                    <span aria-hidden="true">▶</span>
+                </a>
+
+                <a href="#technology" class="button button-secondary">
+                    Learn more
+                    <span aria-hidden="true">↓</span>
+                </a>
+            </div>
+
+            <div class="hero-device reveal">
+                <img
+                    src="IMG_32.jpg"
+                    alt="ATOV 3.0 patient tracking robot"
+                    class="hero-image"
+                >
+            </div>
+
+        </div>
+    </header>
 
 
+    <main>
 
-    <div class="development">
-    <h2>Experiments</h2>
-    <p>
-        <img src="IMG_29.jpg" width="300" class="operation" style="display: block; margin: 0 auto;">
-        <img src="IMG_30.jpg" width="300" class="operation" style="display: block; margin: 0 auto;">
-        <img src="IMG_31.jpg" width="300" class="operation" style="display: block; margin: 0 auto;">
+        <!-- ==================================================
+             소개
+        =================================================== -->
 
-    </p>
-    </div>
+        <section class="section overview" id="overview">
+            <div class="section-inner">
 
-    <div class="award">
-    <h2>Award</h2>
-    <p>
-    </p>
-    </div>
-   
+                <p class="section-label reveal">
+                    Built for patient care
+                </p>
+
+                <h2 class="section-title reveal">
+                    More than a robot that simply follows.
+                </h2>
+
+                <p class="section-description reveal">
+                    ATOV observes a patient's movement while traveling
+                    alongside them. It can detect unusual posture,
+                    swaying, and possible falls without requiring
+                    medical staff to remain beside the patient.
+                </p>
+
+                <div class="overview-grid">
+
+                    <article class="overview-item reveal">
+                        <span class="overview-number">01</span>
+
+                        <p class="overview-text">
+                            Follows a patient using camera-based
+                            human tracking.
+                        </p>
+                    </article>
+
+                    <article class="overview-item reveal reveal-delay-1">
+                        <span class="overview-number">02</span>
+
+                        <p class="overview-text">
+                            Analyzes shoulder position and body movement.
+                        </p>
+                    </article>
+
+                    <article class="overview-item reveal reveal-delay-2">
+                        <span class="overview-number">03</span>
+
+                        <p class="overview-text">
+                            Sends condition, time, and location data
+                            to caregivers.
+                        </p>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
 
 
-        <div class="development">
-    <h2>Poster</h2>
-    <p>
-    <a href="IMG_25.jpg" target="_blank">"Intelligent robot arm charger for electric vehicles"</a>
-    </p>
-    </div>
+        <!-- ==================================================
+             영상
+        =================================================== -->
 
-    </div>
+        <section class="section film-section" id="film">
+            <div class="section-inner">
+
+                <p class="section-label reveal">
+                    ATOV in action
+                </p>
+
+                <h2 class="section-title reveal">
+                    See how it works.
+                </h2>
+
+                <p class="section-description reveal">
+                    Watch ATOV track a patient, recognize unusual
+                    movement, and share the detected information
+                    through the monitoring system.
+                </p>
+
+                <div class="video-frame reveal">
+                    <iframe
+                        src="https://www.youtube.com/embed/UKN3Y9sJNR8"
+                        title="ATOV 3.0 demonstration video"
+                        loading="lazy"
+                        allow="
+                            accelerometer;
+                            autoplay;
+                            clipboard-write;
+                            encrypted-media;
+                            gyroscope;
+                            picture-in-picture;
+                            web-share
+                        "
+                        allowfullscreen
+                    ></iframe>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             작동 방식
+        =================================================== -->
+
+        <section class="section" id="technology">
+            <div class="section-inner">
+
+                <p class="section-label reveal">
+                    Technology
+                </p>
+
+                <h2 class="section-title reveal">
+                    From human movement to meaningful data.
+                </h2>
+
+                <p class="section-description reveal">
+                    Camera recognition, robot control, and IoT
+                    communication work together as one connected system.
+                </p>
+
+                <div class="process-grid">
+
+                    <!-- 사람 추적 -->
+
+                    <article class="process-card large reveal">
+                        <div>
+                            <div class="card-number">
+                                HUMAN TRACKING
+                            </div>
+
+                            <h3 class="card-title">
+                                It sees where the patient is.
+                            </h3>
+
+                            <p class="card-description">
+                                MediaPipe detects the coordinates of the
+                                patient's body joints. ATOV calculates the
+                                difference between the center of the camera
+                                frame and the patient's center position.
+                                This tracking error is sent to the Arduino,
+                                which controls the motors and keeps the
+                                robot aligned with the patient.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <!-- 관절 인식 시각화 -->
+
+                    <article class="process-card small dark reveal reveal-delay-1">
+                        <div class="card-number">
+                            COMPUTER VISION
+                        </div>
+
+                        <div class="process-visual">
+                            <div
+                                class="joint-visual"
+                                aria-label="Human joint detection animation"
+                            >
+                                <div class="joint-ring"></div>
+                                <div class="joint-ring"></div>
+                                <div class="joint-ring"></div>
+                                <div class="joint-point"></div>
+                            </div>
+                        </div>
+
+                        <h3 class="card-title">
+                            Joint coordinates become control signals.
+                        </h3>
+                    </article>
+
+
+                    <!-- 자세 인식 -->
+
+                    <article class="process-card small reveal">
+                        <div class="card-number">
+                            POSTURE ANALYSIS
+                        </div>
+
+                        <h3 class="card-title">
+                            It notices movement that looks unusual.
+                        </h3>
+
+                        <p class="card-description">
+                            ATOV compares the vertical positions of the
+                            patient's left and right shoulders. A repeated
+                            shoulder imbalance may indicate an abnormal
+                            posture. The system can also analyze body
+                            movement to identify swaying or instability.
+                        </p>
+                    </article>
+
+
+                    <!-- 서버 전송 -->
+
+                    <article class="process-card large dark reveal reveal-delay-1">
+                        <div class="card-number">
+                            ONE M2M COMMUNICATION
+                        </div>
+
+                        <h3 class="card-title">
+                            Important information reaches caregivers.
+                        </h3>
+
+                        <p class="card-description">
+                            When ATOV detects a fall, abnormal posture, or
+                            swaying, the result is sent to a oneM2M-based
+                            IoT server. The server stores the event together
+                            with its time and location. A smartphone or web
+                            application can then display the patient's
+                            current condition to doctors and caregivers.
+                        </p>
+                    </article>
+
+
+                    <!-- 데이터 흐름 -->
+
+                    <article class="process-card full reveal">
+                        <div>
+                            <div class="card-number">
+                                CONNECTED SYSTEM
+                            </div>
+
+                            <h3 class="card-title">
+                                Three types of data.<br>
+                                One clear view.
+                            </h3>
+                        </div>
+
+                        <div>
+                            <p class="card-description">
+                                The server organizes monitoring information
+                                into separate containers for falls, posture
+                                abnormalities, and swaying. This structure
+                                allows the application to retrieve and
+                                display each type of patient data clearly.
+                            </p>
+
+                            <div class="hardware-points">
+                                <span class="hardware-point">FALL</span>
+                                <span class="hardware-point">POSTURE</span>
+                                <span class="hardware-point">SWAYING</span>
+                                <span class="hardware-point">TIME</span>
+                                <span class="hardware-point">LOCATION</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             하드웨어
+        =================================================== -->
+
+        <section class="section hardware-section" id="hardware">
+            <div class="section-inner hardware-layout">
+
+                <div class="reveal">
+                    <p class="hardware-label">
+                        Hardware design
+                    </p>
+
+                    <h2 class="hardware-title">
+                        Designed.<br>
+                        Printed.<br>
+                        Built.
+                    </h2>
+
+                    <p class="hardware-description">
+                        The main body of ATOV was modeled in SolidWorks
+                        and manufactured with a 3D printer. The structure
+                        was designed to reduce weight while maintaining
+                        enough strength to protect the robot's internal
+                        components.
+                    </p>
+
+                    <div class="hardware-points">
+                        <span class="hardware-point">SolidWorks</span>
+                        <span class="hardware-point">3D Printing</span>
+                        <span class="hardware-point">Lightweight Body</span>
+                        <span class="hardware-point">Mobile Platform</span>
+                    </div>
+                </div>
+
+                <div class="hardware-image-wrapper reveal reveal-delay-1">
+                    <img
+                        src="IMG_32.jpg"
+                        alt="ATOV 3.0 hardware design"
+                        class="hardware-image"
+                    >
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             시스템 작동 순서
+        =================================================== -->
+
+        <section class="section flow">
+            <div class="section-inner">
+
+                <p class="section-label reveal">
+                    Monitoring process
+                </p>
+
+                <h2 class="section-title reveal">
+                    Follow. Detect. Report.
+                </h2>
+
+                <div class="flow-list">
+
+                    <article class="flow-item reveal">
+                        <div class="flow-number">01</div>
+
+                        <div>
+                            <h3 class="flow-title">
+                                The patient begins walking.
+                            </h3>
+
+                            <p class="flow-description">
+                                ATOV identifies the patient through its
+                                camera and automatically follows while
+                                maintaining the required direction.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="flow-item reveal">
+                        <div class="flow-number">02</div>
+
+                        <div>
+                            <h3 class="flow-title">
+                                The robot analyzes movement.
+                            </h3>
+
+                            <p class="flow-description">
+                                Body-joint coordinates are processed
+                                continuously to check shoulder imbalance,
+                                swaying, and possible falls.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="flow-item reveal">
+                        <div class="flow-number">03</div>
+
+                        <div>
+                            <h3 class="flow-title">
+                                The event is saved to the server.
+                            </h3>
+
+                            <p class="flow-description">
+                                Detected information is uploaded together
+                                with the event time and the patient's
+                                approximate indoor location.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="flow-item reveal">
+                        <div class="flow-number">04</div>
+
+                        <div>
+                            <h3 class="flow-title">
+                                Medical staff check the patient's condition.
+                            </h3>
+
+                            <p class="flow-description">
+                                Doctors or caregivers can review the
+                                information through a smartphone application
+                                or monitoring website and respond when needed.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================================================
+             향후 발전
+        =================================================== -->
+
+        <section class="section future-section">
+            <div class="section-inner">
+
+                <div class="future-card reveal">
+                    <p class="future-label">
+                        Future development
+                    </p>
+
+                    <h2 class="future-title">
+                        A continuous connection between patients and care.
+                    </h2>
+
+                    <p class="future-description">
+                        Future versions of ATOV can improve autonomous
+                        navigation, fall-detection accuracy, indoor
+                        localization, and real-time communication with
+                        hospital monitoring systems.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         Footer
+    =================================================== -->
+
+    <footer class="footer">
+        <div class="footer-inner">
+
+            <span class="footer-brand">
+                ATOV 3.0
+            </span>
+
+            <span>
+                Patient Tracking and Monitoring Robot
+            </span>
+
+            <span>
+                © 2026 ATOV Project
+            </span>
+
+        </div>
+    </footer>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award, .operation");
+            const navigation = document.getElementById("navigation");
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("fade-in");
-                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
-                    }
-                });
-            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+            /*
+             * 스크롤 시 상단 내비게이션 효과
+             */
+            function updateNavigation() {
+                if (window.scrollY > 20) {
+                    navigation.classList.add("scrolled");
+                } else {
+                    navigation.classList.remove("scrolled");
+                }
+            }
 
-            fadeElements.forEach(el => observer.observe(el));
+            updateNavigation();
+
+            window.addEventListener("scroll", updateNavigation, {
+                passive: true
+            });
+
+
+            /*
+             * 화면에 요소가 들어올 때 나타나는 애니메이션
+             */
+            const revealElements =
+                document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver(
+                function (entries, currentObserver) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            currentObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -40px 0px"
+                }
+            );
+
+            revealElements.forEach(function (element) {
+                observer.observe(element);
+            });
         });
     </script>
-</body>
+
+</body> 
 </html>
