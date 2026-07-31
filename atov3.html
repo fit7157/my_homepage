@@ -494,6 +494,44 @@
             display: block;
         }
 
+        /*================================
+         MediaPipe 작동 이미지==================================================== */
+
+        .mediapipe-visual {
+           width: 100%;
+           min-height: 230px;
+           margin: 20px 0 35px;
+           overflow: hidden;
+
+           display: flex;
+           align-items: center;
+           justify-content: center;
+
+           background: rgba(255, 255, 255, 0.06);
+           border: 1px solid rgba(255, 255, 255, 0.12);
+           border-radius: 24px;
+           }
+
+        .mediapipe-image {
+            width: 100%;
+            height: 280px;
+            display: block;
+
+            object-fit: cover;
+            object-position: center;
+
+            border-radius: 23px;
+
+            transition:
+             transform 0.5s ease,
+             filter 0.5s ease;
+            }
+
+            .process-card:hover .mediapipe-image {
+              transform: scale(1.04);
+              filter: brightness(1.08);
+            }
+
 
         /* ==================================================
            작동 방식
@@ -1127,6 +1165,18 @@
                 align-items: flex-start;
                 flex-direction: column;
             }
+
+            .mediapipe-visual {
+            min-height: 190px;
+            margin: 15px 0 28px;
+            border-radius: 18px;
+            }
+
+            .mediapipe-image {
+            height: 210px;
+            border-radius: 17px;
+            }
+
         }
 
 
@@ -1385,48 +1435,45 @@
 
                     <!-- 관절 인식 시각화 -->
 
-                    <article class="process-card small dark reveal reveal-delay-1">
-                        <div class="card-number">
-                            COMPUTER VISION
-                        </div>
+              <article class="process-card small dark reveal reveal-delay-1">
+              <div class="card-number">
+                   COMPUTER VISION
+              </div>
 
-                        <div class="process-visual">
-                            <div
-                                class="joint-visual"
-                                aria-label="Human joint detection animation"
-                            >
-                                <div class="joint-ring"></div>
-                                <div class="joint-ring"></div>
-                                <div class="joint-ring"></div>
-                                <div class="joint-point"></div>
-                            </div>
-                        </div>
+              <div class="process-visual mediapipe-visual">
+              <img
+            src="IMG_0018.png"
+            alt="MediaPipe detecting the patient's body joints"
+            class="mediapipe-image"
+                >
+              </div>
 
-                        <h3 class="card-title">
-                            Joint coordinates become control signals.
-                        </h3>
-                    </article>
+             <h3 class="card-title">
+             Joint coordinates become control signals.
+             </h3>
+            </article>
 
 
-                    <!-- 자세 인식 -->
+             <!-- 자세 인식 -->
 
-                    <article class="process-card small reveal">
-                        <div class="card-number">
-                            POSTURE ANALYSIS
-                        </div>
+            <article class="process-card small reveal">
+             <div class="card-number">
+              POSTURE ANALYSIS
+             </div>
 
-                        <h3 class="card-title">
-                            It notices movement that looks unusual.
-                        </h3>
+            <h3 class="card-title">
+             It notices movement that looks unusual.
+            </h3>
 
-                        <p class="card-description">
-                            ATOV compares the vertical positions of the
-                            patient's left and right shoulders. A repeated
-                            shoulder imbalance may indicate an abnormal
-                            posture. The system can also analyze body
-                            movement to identify swaying or instability.
-                        </p>
-                    </article>
+            <p class="card-description">
+              ATOV compares the vertical positions of the
+              patient's left and right shoulders. A repeated
+              shoulder imbalance may indicate an abnormal
+              posture. The system can also analyze body
+              movement to identify swaying or instability.
+            </p>
+            </article>
+
 
 
                     <!-- 서버 전송 -->
