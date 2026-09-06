@@ -1,0 +1,5435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Scout Mini RGB-D human following project using separate RGB and depth processing with ROS2 and CAN communication."
+  >
+
+  <title>Scout Mini | RGB-D Human Following</title>
+
+
+  <style>
+
+    :root {
+
+      --bg: #f5f5f7;
+
+      --surface: #ffffff;
+
+      --dark: #050505;
+
+      --text: #1d1d1f;
+
+      --sub: #6e6e73;
+
+      --accent: #0a84ff;
+
+      --border:
+        rgba(0, 0, 0, 0.08);
+
+      --shadow:
+        0 24px 70px
+        rgba(0, 0, 0, 0.10);
+
+      --radius:
+        36px;
+
+      --content:
+        1200px;
+
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+      line-height: 1.5;
+
+      overflow-x: hidden;
+
+      -webkit-font-smoothing:
+        antialiased;
+
+    }
+
+
+    img {
+
+      display: block;
+
+      max-width: 100%;
+
+    }
+
+
+    a {
+
+      color: inherit;
+
+      text-decoration: none;
+
+    }
+
+
+    code {
+
+      font-family:
+        Consolas,
+        "SFMono-Regular",
+        monospace;
+
+    }
+
+
+
+    /* ==================================================
+       NAVIGATION
+    ================================================== */
+
+    .navigation {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      z-index: 1000;
+
+      width: 100%;
+
+      height: 58px;
+
+      background:
+        rgba(
+          250,
+          250,
+          252,
+          0.78
+        );
+
+      border-bottom:
+        1px solid
+        rgba(
+          0,
+          0,
+          0,
+          0.05
+        );
+
+      backdrop-filter:
+        blur(24px);
+
+      -webkit-backdrop-filter:
+        blur(24px);
+
+      transition:
+        0.3s;
+
+    }
+
+
+    .navigation.scrolled {
+
+      background:
+        rgba(
+          250,
+          250,
+          252,
+          0.94
+        );
+
+      box-shadow:
+        0 4px 25px
+        rgba(
+          0,
+          0,
+          0,
+          0.05
+        );
+
+    }
+
+
+    .navigation-inner {
+
+      width:
+        min(
+          calc(100% - 40px),
+          var(--content)
+        );
+
+      height: 100%;
+
+      margin:
+        0 auto;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+    }
+
+
+    .brand {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        10px;
+
+      font-size:
+        16px;
+
+      font-weight:
+        700;
+
+    }
+
+
+    .brand-logo {
+
+      width:
+        32px;
+
+      height:
+        32px;
+
+      object-fit:
+        contain;
+
+    }
+
+
+    .navigation-links {
+
+      display:
+        flex;
+
+      gap:
+        28px;
+
+      font-size:
+        13px;
+
+      font-weight:
+        500;
+
+      color:
+        rgba(
+          0,
+          0,
+          0,
+          0.72
+        );
+
+    }
+
+
+    .navigation-links a:hover {
+
+      color:
+        var(--accent);
+
+    }
+
+
+
+    /* ==================================================
+       COMMON
+    ================================================== */
+
+    .section {
+
+      padding:
+        125px 24px;
+
+    }
+
+
+    .section-inner {
+
+      width:
+        min(
+          100%,
+          var(--content)
+        );
+
+      margin:
+        0 auto;
+
+    }
+
+
+    .section-label {
+
+      margin:
+        0 0 14px;
+
+      color:
+        var(--accent);
+
+      font-size:
+        17px;
+
+      font-weight:
+        700;
+
+      text-align:
+        center;
+
+    }
+
+
+    .section-title {
+
+      max-width:
+        920px;
+
+      margin:
+        0 auto;
+
+      font-size:
+        clamp(
+          42px,
+          6vw,
+          76px
+        );
+
+      font-weight:
+        750;
+
+      line-height:
+        1.02;
+
+      letter-spacing:
+        -0.055em;
+
+      text-align:
+        center;
+
+    }
+
+
+    .section-description {
+
+      max-width:
+        760px;
+
+      margin:
+        28px auto 0;
+
+      color:
+        var(--sub);
+
+      font-size:
+        clamp(
+          18px,
+          2.1vw,
+          24px
+        );
+
+      line-height:
+        1.6;
+
+      text-align:
+        center;
+
+      letter-spacing:
+        -0.02em;
+
+    }
+
+
+
+    /* ==================================================
+       HERO
+    ================================================== */
+
+    .hero {
+
+      min-height:
+        100vh;
+
+      padding:
+        145px 24px 90px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      color:
+        #f5f5f7;
+
+      background:
+
+        radial-gradient(
+          circle at 50% 30%,
+          rgba(
+            10,
+            132,
+            255,
+            0.30
+          ),
+          transparent 30%
+        ),
+
+        radial-gradient(
+          circle at 80% 15%,
+          rgba(
+            100,
+            210,
+            255,
+            0.16
+          ),
+          transparent 28%
+        ),
+
+        #000000;
+
+      overflow:
+        hidden;
+
+    }
+
+
+    .hero-inner {
+
+      width:
+        min(
+          100%,
+          var(--content)
+        );
+
+      margin:
+        0 auto;
+
+      text-align:
+        center;
+
+    }
+
+
+    .hero-eyebrow {
+
+      margin:
+        0 0 18px;
+
+      color:
+        #9fcbff;
+
+      font-size:
+        19px;
+
+      font-weight:
+        650;
+
+    }
+
+
+    .hero-title {
+
+      margin: 0;
+
+      font-size:
+        clamp(
+          60px,
+          10vw,
+          138px
+        );
+
+      font-weight:
+        780;
+
+      line-height:
+        0.9;
+
+      letter-spacing:
+        -0.075em;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 10%,
+          #bdbdc3 100%
+        );
+
+      -webkit-background-clip:
+        text;
+
+      background-clip:
+        text;
+
+      color:
+        transparent;
+
+    }
+
+
+    .hero-subtitle {
+
+      max-width:
+        900px;
+
+      margin:
+        30px auto 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.88
+        );
+
+      font-size:
+        clamp(
+          28px,
+          4vw,
+          52px
+        );
+
+      font-weight:
+        650;
+
+      line-height:
+        1.12;
+
+      letter-spacing:
+        -0.045em;
+
+    }
+
+
+    .hero-description {
+
+      max-width:
+        760px;
+
+      margin:
+        26px auto 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.58
+        );
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          22px
+        );
+
+      line-height:
+        1.6;
+
+    }
+
+
+    .hero-buttons {
+
+      margin-top:
+        38px;
+
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      gap:
+        14px;
+
+      flex-wrap:
+        wrap;
+
+    }
+
+
+    .button {
+
+      min-height:
+        48px;
+
+      padding:
+        12px 24px;
+
+      border-radius:
+        999px;
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        17px;
+
+      font-weight:
+        550;
+
+      transition:
+        0.25s;
+
+    }
+
+
+    .button:hover {
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    .button-primary {
+
+      background:
+        var(--accent);
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .button-secondary {
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.5
+        );
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .button-secondary:hover {
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.1
+        );
+
+    }
+
+
+
+    /* ==================================================
+       HERO RGB / DEPTH / SCOUT MINI
+    ================================================== */
+
+    .hero-visual {
+
+      width:
+        min(
+          980px,
+          94%
+        );
+
+      margin:
+        72px auto 0;
+
+      padding:
+        10px;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.18
+        );
+
+      border-radius:
+        34px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(
+            255,
+            255,
+            255,
+            0.22
+          ),
+          rgba(
+            255,
+            255,
+            255,
+            0.04
+          )
+        );
+
+      box-shadow:
+
+        0 45px 120px
+        rgba(
+          0,
+          0,
+          0,
+          0.6
+        ),
+
+        0 0 90px
+        rgba(
+          10,
+          132,
+          255,
+          0.14
+        );
+
+    }
+
+
+    .hero-system {
+
+      min-height:
+        420px;
+
+      padding:
+        26px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          1fr
+        );
+
+      gap:
+        14px;
+
+      border-radius:
+        25px;
+
+      background:
+
+        linear-gradient(
+          180deg,
+          rgba(
+            255,
+            255,
+            255,
+            0.03
+          ),
+          rgba(
+            255,
+            255,
+            255,
+            0.01
+          )
+        ),
+
+        #0c0c0e;
+
+    }
+
+
+    .hero-system-card {
+
+      padding:
+        28px 22px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
+
+      border-radius:
+        20px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.04
+        );
+
+    }
+
+
+    .hero-system-card strong {
+
+      color:
+        #ffffff;
+
+      font-size:
+        clamp(
+          24px,
+          3vw,
+          38px
+        );
+
+      letter-spacing:
+        -0.04em;
+
+    }
+
+
+    .hero-system-card span {
+
+      margin-top:
+        12px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.54
+        );
+
+      font-size:
+        16px;
+
+      line-height:
+        1.55;
+
+    }
+
+
+
+    /* ==================================================
+       OVERVIEW
+    ================================================== */
+
+    .overview {
+
+      background:
+        #ffffff;
+
+    }
+
+
+    .overview-grid {
+
+      margin-top:
+        72px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          1fr
+        );
+
+      gap:
+        18px;
+
+    }
+
+
+    .overview-item {
+
+      min-height:
+        250px;
+
+      padding:
+        34px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        space-between;
+
+      background:
+        var(--bg);
+
+      border-radius:
+        24px;
+
+      transition:
+        0.35s;
+
+    }
+
+
+    .overview-item:hover {
+
+      transform:
+        translateY(-8px);
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .overview-number {
+
+      color:
+        var(--accent);
+
+      font-size:
+        52px;
+
+      font-weight:
+        750;
+
+      letter-spacing:
+        -0.055em;
+
+    }
+
+
+    .overview-text {
+
+      margin:
+        30px 0 0;
+
+      font-size:
+        22px;
+
+      font-weight:
+        650;
+
+      line-height:
+        1.35;
+
+      letter-spacing:
+        -0.03em;
+
+    }
+
+
+
+    /* ==================================================
+       VIDEO
+    ================================================== */
+
+    .film-section {
+
+      background:
+        #000000;
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .film-section
+    .section-description {
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.58
+        );
+
+    }
+
+
+    .video-frame {
+
+      width:
+        min(
+          100%,
+          1080px
+        );
+
+      margin:
+        70px auto 0;
+
+      padding:
+        9px;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.14
+        );
+
+      border-radius:
+        32px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(
+            255,
+            255,
+            255,
+            0.22
+          ),
+          rgba(
+            255,
+            255,
+            255,
+            0.04
+          )
+        );
+
+      box-shadow:
+        0 40px 100px
+        rgba(
+          0,
+          0,
+          0,
+          0.65
+        );
+
+    }
+
+
+    .video-frame iframe {
+
+      width:
+        100%;
+
+      aspect-ratio:
+        16 / 9;
+
+      display:
+        block;
+
+      border:
+        0;
+
+      border-radius:
+        23px;
+
+    }
+
+
+
+    /* ==================================================
+       RGB / DEPTH ARCHITECTURE
+    ================================================== */
+
+    .architecture-grid {
+
+      margin-top:
+        74px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          12,
+          1fr
+        );
+
+      gap:
+        20px;
+
+    }
+
+
+    .architecture-card {
+
+      min-height:
+        400px;
+
+      padding:
+        42px;
+
+      background:
+        #ffffff;
+
+      border-radius:
+        var(--radius);
+
+      transition:
+        0.35s;
+
+    }
+
+
+    .architecture-card:hover {
+
+      transform:
+        translateY(-7px);
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .architecture-card.large {
+
+      grid-column:
+        span 7;
+
+    }
+
+
+    .architecture-card.small {
+
+      grid-column:
+        span 5;
+
+    }
+
+
+    .architecture-card.full {
+
+      grid-column:
+        span 12;
+
+    }
+
+
+    .architecture-card.dark {
+
+      color:
+        #ffffff;
+
+      background:
+
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(
+            10,
+            132,
+            255,
+            0.30
+          ),
+          transparent 34%
+        ),
+
+        #050505;
+
+    }
+
+
+    .card-kicker {
+
+      color:
+        var(--accent);
+
+      font-size:
+        15px;
+
+      font-weight:
+        750;
+
+      letter-spacing:
+        0.08em;
+
+    }
+
+
+    .dark
+    .card-kicker {
+
+      color:
+        #a9d1ff;
+
+    }
+
+
+    .card-title {
+
+      max-width:
+        640px;
+
+      margin:
+        55px 0 0;
+
+      font-size:
+        clamp(
+          32px,
+          4vw,
+          52px
+        );
+
+      line-height:
+        1.04;
+
+      letter-spacing:
+        -0.05em;
+
+    }
+
+
+    .card-description {
+
+      max-width:
+        650px;
+
+      margin:
+        22px 0 0;
+
+      color:
+        var(--sub);
+
+      font-size:
+        18px;
+
+      line-height:
+        1.68;
+
+    }
+
+
+    .dark
+    .card-description {
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.62
+        );
+
+    }
+
+
+    .pipeline {
+
+      margin-top:
+        38px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        12px;
+
+    }
+
+
+    .pipeline-box {
+
+      padding:
+        12px 16px;
+
+      border:
+        1px solid
+        rgba(
+          10,
+          132,
+          255,
+          0.18
+        );
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(
+          10,
+          132,
+          255,
+          0.09
+        );
+
+      color:
+        #0067c8;
+
+      font-size:
+        14px;
+
+      font-weight:
+        650;
+
+    }
+
+
+    .dark
+    .pipeline-box {
+
+      color:
+        #c7e4ff;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.07
+        );
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          0.12
+        );
+
+    }
+
+
+    .pipeline-arrow {
+
+      color:
+        var(--accent);
+
+      font-weight:
+        800;
+
+    }
+
+
+
+    /* ==================================================
+       RGB / DEPTH SPLIT
+    ================================================== */
+
+    .split-section {
+
+      background:
+        #ffffff;
+
+    }
+
+
+    .split-layout {
+
+      margin-top:
+        76px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:
+        24px;
+
+    }
+
+
+    .stream-card {
+
+      min-height:
+        470px;
+
+      padding:
+        44px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        #ffffff;
+
+    }
+
+
+    .stream-card.depth {
+
+      color:
+        #ffffff;
+
+      background:
+
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(
+            100,
+            210,
+            255,
+            0.25
+          ),
+          transparent 30%
+        ),
+
+        #09090b;
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
+
+    }
+
+
+    .stream-label {
+
+      color:
+        var(--accent);
+
+      font-size:
+        15px;
+
+      font-weight:
+        750;
+
+      letter-spacing:
+        0.08em;
+
+    }
+
+
+    .depth
+    .stream-label {
+
+      color:
+        #8cd5ff;
+
+    }
+
+
+    .stream-title {
+
+      margin:
+        60px 0 0;
+
+      font-size:
+        clamp(
+          38px,
+          5vw,
+          62px
+        );
+
+      line-height:
+        1.02;
+
+      letter-spacing:
+        -0.055em;
+
+    }
+
+
+    .stream-description {
+
+      margin:
+        24px 0 0;
+
+      color:
+        var(--sub);
+
+      font-size:
+        18px;
+
+      line-height:
+        1.67;
+
+    }
+
+
+    .depth
+    .stream-description {
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.62
+        );
+
+    }
+
+
+    .stream-result {
+
+      margin-top:
+        34px;
+
+      padding-top:
+        24px;
+
+      border-top:
+        1px solid
+        var(--border);
+
+      font-size:
+        17px;
+
+      font-weight:
+        650;
+
+    }
+
+
+    .depth
+    .stream-result {
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          0.12
+        );
+
+    }
+
+
+
+    /* ==================================================
+       ROS2 + CAN
+       전부 HTML/CSS로 생성
+    ================================================== */
+
+    .ros2-can-section {
+
+      padding:
+        70px 24px;
+
+      background:
+        var(--bg);
+
+    }
+
+
+    .ros2-can-card {
+
+      width:
+        min(
+          100%,
+          var(--content)
+        );
+
+      margin:
+        0 auto;
+
+      padding:
+        26px;
+
+      overflow:
+        hidden;
+
+      background:
+
+        radial-gradient(
+          circle at 18% 10%,
+          rgba(
+            10,
+            132,
+            255,
+            0.08
+          ),
+          transparent 26%
+        ),
+
+        linear-gradient(
+          180deg,
+          #071015,
+          #030506 72%
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.06
+        );
+
+      border-radius:
+        38px;
+
+      box-shadow:
+        0 28px 80px
+        rgba(
+          0,
+          0,
+          0,
+          0.12
+        );
+
+    }
+
+
+    /* 위쪽 메인 구조 */
+
+    .ros2-diagram {
+
+      display:
+        grid;
+
+      grid-template-columns:
+
+        minmax(
+          150px,
+          1fr
+        )
+
+        minmax(
+          150px,
+          0.95fr
+        )
+
+        minmax(
+          150px,
+          1fr
+        )
+
+        minmax(
+          150px,
+          0.95fr
+        )
+
+        minmax(
+          150px,
+          1fr
+        );
+
+      gap:
+        14px;
+
+      align-items:
+        center;
+
+    }
+
+
+
+    /* 노드 */
+
+    .ros-node {
+
+      min-height:
+        180px;
+
+      padding:
+        20px 16px;
+
+      border-radius:
+        20px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.025
+        );
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        flex-start;
+
+      text-align:
+        center;
+
+    }
+
+
+    .ros-node.camera {
+
+      border:
+        2px solid
+        #2391ff;
+
+    }
+
+
+    .ros-node.tracking {
+
+      border:
+        2px solid
+        #8b5cf6;
+
+    }
+
+
+    .ros-node.scout {
+
+      border:
+        2px solid
+        #35d39d;
+
+    }
+
+
+    .ros-node-title {
+
+      color:
+        #ffffff;
+
+      font-size:
+        15px;
+
+      font-weight:
+        750;
+
+    }
+
+
+    .ros-node-subtitle {
+
+      margin-top:
+        5px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.65
+        );
+
+      font-size:
+        12px;
+
+    }
+
+
+
+    /* 카메라 그림 */
+
+    .camera-drawing {
+
+      width:
+        92px;
+
+      height:
+        34px;
+
+      margin-top:
+        26px;
+
+      border-radius:
+        999px;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.16
+        );
+
+      background:
+        linear-gradient(
+          180deg,
+          #37393d,
+          #111316
+        );
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      gap:
+        8px;
+
+      box-shadow:
+        0 8px 18px
+        rgba(
+          0,
+          0,
+          0,
+          0.35
+        );
+
+    }
+
+
+    .camera-drawing span {
+
+      width:
+        14px;
+
+      height:
+        14px;
+
+      border-radius:
+        50%;
+
+      background:
+
+        radial-gradient(
+          circle at 35% 35%,
+          #7f8791 0 16%,
+          #1e2228 36%,
+          #050607 70%
+        );
+
+      box-shadow:
+
+        inset
+        0 0 0 1px
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
+
+    }
+
+
+
+    /* 사람 그림 */
+
+    .person-drawing {
+
+      position:
+        relative;
+
+      width:
+        62px;
+
+      height:
+        76px;
+
+      margin-top:
+        19px;
+
+      border:
+        2px dashed
+        #75bdff;
+
+      border-radius:
+        13px;
+
+    }
+
+
+    .person-drawing
+    .head {
+
+      position:
+        absolute;
+
+      top:
+        13px;
+
+      left:
+        50%;
+
+      width:
+        14px;
+
+      height:
+        14px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius:
+        50%;
+
+      background:
+        #bfe1ff;
+
+    }
+
+
+    .person-drawing
+    .body {
+
+      position:
+        absolute;
+
+      top:
+        32px;
+
+      left:
+        50%;
+
+      width:
+        19px;
+
+      height:
+        29px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius:
+        10px 10px 6px 6px;
+
+      background:
+
+        linear-gradient(
+          180deg,
+          #bfe1ff,
+          #6ab6ff
+        );
+
+    }
+
+
+    .person-drawing::before,
+    .person-drawing::after {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      top:
+        36px;
+
+      width:
+        15px;
+
+      height:
+        3px;
+
+      border-radius:
+        3px;
+
+      background:
+        #91caff;
+
+    }
+
+
+    .person-drawing::before {
+
+      left:
+        11px;
+
+      transform:
+        rotate(-18deg);
+
+    }
+
+
+    .person-drawing::after {
+
+      right:
+        11px;
+
+      transform:
+        rotate(18deg);
+
+    }
+
+
+
+    /* Scout Mini Node 기어 */
+
+    .gear-drawing {
+
+      width:
+        54px;
+
+      height:
+        54px;
+
+      margin-top:
+        26px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      color:
+        #35d39d;
+
+      font-size:
+        46px;
+
+      line-height:
+        1;
+
+      text-shadow:
+        0 0 18px
+        rgba(
+          53,
+          211,
+          157,
+          0.22
+        );
+
+    }
+
+
+
+    /* ROS2 topic 영역 */
+
+    .topic-column {
+
+      align-self:
+        stretch;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
+
+      gap:
+        22px;
+
+      min-width:
+        0;
+
+    }
+
+
+    .topic-item {
+
+      min-width:
+        0;
+
+    }
+
+
+    .topic-label {
+
+      margin-bottom:
+        7px;
+
+      font-size:
+        11px;
+
+      font-weight:
+        750;
+
+      line-height:
+        1.25;
+
+      word-break:
+        break-word;
+
+    }
+
+
+    .topic-label small {
+
+      display:
+        block;
+
+      margin-top:
+        2px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.5
+        );
+
+      font-size:
+        9px;
+
+      font-weight:
+        500;
+
+    }
+
+
+    .topic-item.rgb
+    .topic-label {
+
+      color:
+        #2391ff;
+
+    }
+
+
+    .topic-item.depth
+    .topic-label {
+
+      color:
+        #35d39d;
+
+    }
+
+
+    .topic-item.cmd
+    .topic-label {
+
+      color:
+        #ffb020;
+
+      text-align:
+        center;
+
+    }
+
+
+
+    /* 화살표 */
+
+    .topic-arrow {
+
+      position:
+        relative;
+
+      height:
+        3px;
+
+      border-radius:
+        999px;
+
+      margin-right:
+        13px;
+
+    }
+
+
+    .topic-arrow::after {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      right:
+        -13px;
+
+      transform:
+        translateY(-50%);
+
+      width:
+        0;
+
+      height:
+        0;
+
+      border-top:
+        7px solid
+        transparent;
+
+      border-bottom:
+        7px solid
+        transparent;
+
+    }
+
+
+    .rgb
+    .topic-arrow {
+
+      background:
+        #2391ff;
+
+    }
+
+
+    .rgb
+    .topic-arrow::after {
+
+      border-left:
+        13px solid
+        #2391ff;
+
+    }
+
+
+    .depth
+    .topic-arrow {
+
+      background:
+        #35d39d;
+
+    }
+
+
+    .depth
+    .topic-arrow::after {
+
+      border-left:
+        13px solid
+        #35d39d;
+
+    }
+
+
+    .cmd
+    .topic-arrow {
+
+      background:
+        #ffb020;
+
+    }
+
+
+    .cmd
+    .topic-arrow::after {
+
+      border-left:
+        13px solid
+        #ffb020;
+
+    }
+
+
+    .cmd-detail {
+
+      margin-top:
+        12px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.68
+        );
+
+      font-size:
+        10px;
+
+      line-height:
+        1.6;
+
+    }
+
+
+
+    /* 아래쪽 legend + Scout Mini */
+
+    .ros-lower {
+
+      margin-top:
+        22px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+
+        minmax(
+          340px,
+          1.15fr
+        )
+
+        minmax(
+          230px,
+          0.85fr
+        );
+
+      gap:
+        28px;
+
+      align-items:
+        end;
+
+    }
+
+
+
+    /* topic legend */
+
+    .ros-legend {
+
+      padding:
+        18px 18px 17px;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.09
+        );
+
+      border-radius:
+        16px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.018
+        );
+
+    }
+
+
+    .ros-legend-title {
+
+      margin-bottom:
+        12px;
+
+      color:
+        #ffffff;
+
+      font-size:
+        14px;
+
+      font-weight:
+        750;
+
+    }
+
+
+    .ros-legend-row {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        64px 1fr;
+
+      align-items:
+        center;
+
+      gap:
+        12px;
+
+      margin:
+        10px 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.70
+        );
+
+      font-size:
+        11px;
+
+    }
+
+
+    .legend-arrow {
+
+      position:
+        relative;
+
+      height:
+        3px;
+
+      border-radius:
+        999px;
+
+      margin-right:
+        10px;
+
+    }
+
+
+    .legend-arrow::after {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      right:
+        -10px;
+
+      transform:
+        translateY(-50%);
+
+      border-top:
+        6px solid
+        transparent;
+
+      border-bottom:
+        6px solid
+        transparent;
+
+    }
+
+
+    .legend-arrow.blue {
+
+      background:
+        #2391ff;
+
+    }
+
+
+    .legend-arrow.blue::after {
+
+      border-left:
+        10px solid
+        #2391ff;
+
+    }
+
+
+    .legend-arrow.green {
+
+      background:
+        #35d39d;
+
+    }
+
+
+    .legend-arrow.green::after {
+
+      border-left:
+        10px solid
+        #35d39d;
+
+    }
+
+
+    .legend-arrow.yellow {
+
+      background:
+        #ffb020;
+
+    }
+
+
+    .legend-arrow.yellow::after {
+
+      border-left:
+        10px solid
+        #ffb020;
+
+    }
+
+
+
+    /* CAN + 실제 Scout Mini 구조 */
+
+    .robot-area {
+
+      position:
+        relative;
+
+      min-height:
+        205px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        flex-end;
+
+    }
+
+
+    .can-column {
+
+      position:
+        absolute;
+
+      top:
+        0;
+
+      left:
+        50%;
+
+      transform:
+        translateX(-50%);
+
+      text-align:
+        center;
+
+    }
+
+
+    .can-label {
+
+      color:
+        #35d39d;
+
+      font-size:
+        12px;
+
+      font-weight:
+        750;
+
+      line-height:
+        1.25;
+
+    }
+
+
+    .can-label small {
+
+      display:
+        block;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.52
+        );
+
+      font-size:
+        9px;
+
+      font-weight:
+        500;
+
+    }
+
+
+    .can-line {
+
+      position:
+        relative;
+
+      width:
+        3px;
+
+      height:
+        55px;
+
+      margin:
+        8px auto 0;
+
+      background:
+        #35d39d;
+
+      border-radius:
+        999px;
+
+    }
+
+
+    .can-line::before,
+    .can-line::after {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      transform:
+        translateX(-50%);
+
+      width:
+        0;
+
+      height:
+        0;
+
+      border-left:
+        6px solid
+        transparent;
+
+      border-right:
+        6px solid
+        transparent;
+
+    }
+
+
+    .can-line::before {
+
+      top:
+        -8px;
+
+      border-bottom:
+        9px solid
+        #35d39d;
+
+    }
+
+
+    .can-line::after {
+
+      bottom:
+        -8px;
+
+      border-top:
+        9px solid
+        #35d39d;
+
+    }
+
+
+
+    /* CSS Scout Mini */
+
+    .scout-css-robot {
+
+      position:
+        relative;
+
+      width:
+        190px;
+
+      height:
+        100px;
+
+      margin-top:
+        58px;
+
+    }
+
+
+    .robot-chassis {
+
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      bottom:
+        22px;
+
+      width:
+        112px;
+
+      height:
+        46px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius:
+        10px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.72
+        );
+
+      font-size:
+        10px;
+
+      font-weight:
+        750;
+
+      background:
+        linear-gradient(
+          180deg,
+          #31343a,
+          #101216
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
+
+      box-shadow:
+        0 10px 25px
+        rgba(
+          0,
+          0,
+          0,
+          0.42
+        );
+
+      z-index:
+        2;
+
+    }
+
+
+    .robot-sensor {
+
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      top:
+        0;
+
+      width:
+        62px;
+
+      height:
+        18px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius:
+        8px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #41444a,
+          #111317
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
+
+      z-index:
+        3;
+
+    }
+
+
+    .robot-sensor::before {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      top:
+        100%;
+
+      width:
+        6px;
+
+      height:
+        14px;
+
+      transform:
+        translateX(-50%);
+
+      background:
+        #22252a;
+
+    }
+
+
+    .robot-wheel {
+
+      position:
+        absolute;
+
+      bottom:
+        8px;
+
+      width:
+        42px;
+
+      height:
+        75px;
+
+      border-radius:
+        20px;
+
+      background:
+
+        repeating-linear-gradient(
+          90deg,
+          #0c0d0f 0 5px,
+          #25282c 5px 9px
+        );
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.06
+        );
+
+      box-shadow:
+        0 6px 20px
+        rgba(
+          0,
+          0,
+          0,
+          0.5
+        );
+
+      z-index:
+        1;
+
+    }
+
+
+    .robot-wheel.left {
+
+      left:
+        12px;
+
+      transform:
+        rotate(13deg);
+
+    }
+
+
+    .robot-wheel.right {
+
+      right:
+        12px;
+
+      transform:
+        rotate(-13deg);
+
+    }
+
+
+    .robot-caption {
+
+      margin-top:
+        7px;
+
+      text-align:
+        center;
+
+    }
+
+
+    .robot-caption strong {
+
+      display:
+        block;
+
+      color:
+        #ffffff;
+
+      font-size:
+        13px;
+
+    }
+
+
+    .robot-caption span {
+
+      display:
+        block;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.55
+        );
+
+      font-size:
+        10px;
+
+    }
+
+
+
+    /* ==================================================
+       CONTROL FLOW
+    ================================================== */
+
+    .flow {
+
+      background:
+        #ffffff;
+
+    }
+
+
+    .flow-list {
+
+      max-width:
+        960px;
+
+      margin:
+        76px auto 0;
+
+    }
+
+
+    .flow-item {
+
+      padding:
+        42px 0;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        90px 1fr;
+
+      gap:
+        30px;
+
+      border-top:
+        1px solid
+        var(--border);
+
+    }
+
+
+    .flow-item:last-child {
+
+      border-bottom:
+        1px solid
+        var(--border);
+
+    }
+
+
+    .flow-number {
+
+      color:
+        var(--accent);
+
+      font-size:
+        20px;
+
+      font-weight:
+        750;
+
+    }
+
+
+    .flow-title {
+
+      margin:
+        0;
+
+      font-size:
+        clamp(
+          28px,
+          3vw,
+          38px
+        );
+
+      line-height:
+        1.15;
+
+      letter-spacing:
+        -0.04em;
+
+    }
+
+
+    .flow-description {
+
+      margin:
+        14px 0 0;
+
+      color:
+        var(--sub);
+
+      font-size:
+        18px;
+
+      line-height:
+        1.65;
+
+    }
+
+
+
+    /* ==================================================
+       RESULT
+    ================================================== */
+
+    .result-section {
+
+      padding-top:
+        40px;
+
+    }
+
+
+    .result-card {
+
+      padding:
+        96px 58px;
+
+      color:
+        #ffffff;
+
+      text-align:
+        center;
+
+      border-radius:
+        44px;
+
+      background:
+
+        radial-gradient(
+          circle at 50% 110%,
+          rgba(
+            10,
+            132,
+            255,
+            0.78
+          ),
+          transparent 46%
+        ),
+
+        radial-gradient(
+          circle at 85% 10%,
+          rgba(
+            100,
+            210,
+            255,
+            0.20
+          ),
+          transparent 32%
+        ),
+
+        #050505;
+
+    }
+
+
+    .result-title {
+
+      max-width:
+        900px;
+
+      margin:
+        0 auto;
+
+      font-size:
+        clamp(
+          48px,
+          7vw,
+          88px
+        );
+
+      line-height:
+        1;
+
+      letter-spacing:
+        -0.06em;
+
+    }
+
+
+    .result-description {
+
+      max-width:
+        720px;
+
+      margin:
+        28px auto 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.64
+        );
+
+      font-size:
+        20px;
+
+      line-height:
+        1.65;
+
+    }
+
+
+
+    /* ==================================================
+       FOOTER
+    ================================================== */
+
+    .footer {
+
+      padding:
+        46px 24px 35px;
+
+    }
+
+
+    .footer-inner {
+
+      width:
+        min(
+          100%,
+          var(--content)
+        );
+
+      margin:
+        0 auto;
+
+      padding-top:
+        28px;
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        20px;
+
+      color:
+        var(--sub);
+
+      border-top:
+        1px solid
+        var(--border);
+
+      font-size:
+        13px;
+
+    }
+
+
+    .footer-brand {
+
+      color:
+        var(--text);
+
+      font-weight:
+        700;
+
+    }
+
+
+
+    /* ==================================================
+       SCROLL ANIMATION
+    ================================================== */
+
+    .reveal {
+
+      opacity:
+        0;
+
+      transform:
+        translateY(52px);
+
+      transition:
+
+        opacity
+        1s
+        cubic-bezier(
+          0.22,
+          1,
+          0.36,
+          1
+        ),
+
+        transform
+        1s
+        cubic-bezier(
+          0.22,
+          1,
+          0.36,
+          1
+        );
+
+    }
+
+
+    .reveal.visible {
+
+      opacity:
+        1;
+
+      transform:
+        translateY(0);
+
+    }
+
+
+    .reveal-delay-1 {
+
+      transition-delay:
+        0.1s;
+
+    }
+
+
+    .reveal-delay-2 {
+
+      transition-delay:
+        0.2s;
+
+    }
+
+
+    .reveal-delay-3 {
+
+      transition-delay:
+        0.3s;
+
+    }
+
+
+
+    /* ==================================================
+       TABLET
+    ================================================== */
+
+    @media
+    (max-width: 1000px) {
+
+
+      .overview-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .architecture-card.large,
+      .architecture-card.small,
+      .architecture-card.full {
+
+        grid-column:
+          span 12;
+
+      }
+
+
+      .split-layout {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .hero-system {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      /* ROS 구조도 모바일/태블릿 */
+
+      .ros2-diagram {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .topic-column {
+
+        width:
+          100%;
+
+        min-height:
+          100px;
+
+        padding:
+          10px 0;
+
+      }
+
+
+      .ros-lower {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .robot-area {
+
+        min-height:
+          240px;
+
+      }
+
+    }
+
+
+
+    /* ==================================================
+       MOBILE
+    ================================================== */
+
+    @media
+    (max-width: 700px) {
+
+
+      .navigation {
+
+        height:
+          54px;
+
+      }
+
+
+      .navigation-inner {
+
+        width:
+          min(
+            calc(100% - 28px),
+            var(--content)
+          );
+
+      }
+
+
+      .brand {
+
+        font-size:
+          14px;
+
+      }
+
+
+      .brand-logo {
+
+        width:
+          28px;
+
+        height:
+          28px;
+
+      }
+
+
+      .navigation-links {
+
+        gap:
+          15px;
+
+      }
+
+
+      .navigation-links
+      a:nth-child(2),
+
+      .navigation-links
+      a:nth-child(3) {
+
+        display:
+          none;
+
+      }
+
+
+      .hero {
+
+        min-height:
+          auto;
+
+        padding:
+          120px 18px 78px;
+
+      }
+
+
+      .hero-title {
+
+        font-size:
+          clamp(
+            56px,
+            20vw,
+            88px
+          );
+
+      }
+
+
+      .hero-description {
+
+        font-size:
+          17px;
+
+      }
+
+
+      .hero-visual {
+
+        width:
+          100%;
+
+        margin-top:
+          52px;
+
+        padding:
+          6px;
+
+        border-radius:
+          22px;
+
+      }
+
+
+      .hero-system {
+
+        padding:
+          16px;
+
+      }
+
+
+      .section {
+
+        padding:
+          84px 18px;
+
+      }
+
+
+      .section-title {
+
+        font-size:
+          clamp(
+            38px,
+            12vw,
+            56px
+          );
+
+      }
+
+
+      .overview-item,
+      .architecture-card,
+      .stream-card {
+
+        min-height:
+          auto;
+
+        padding:
+          28px 24px;
+
+      }
+
+
+      .card-title,
+      .stream-title {
+
+        margin-top:
+          42px;
+
+      }
+
+
+      .video-frame {
+
+        margin-top:
+          50px;
+
+        padding:
+          5px;
+
+        border-radius:
+          20px;
+
+      }
+
+
+      .video-frame iframe {
+
+        border-radius:
+          15px;
+
+      }
+
+
+      .ros2-can-section {
+
+        padding:
+          55px 10px;
+
+      }
+
+
+      .ros2-can-card {
+
+        padding:
+          18px;
+
+        border-radius:
+          24px;
+
+      }
+
+
+      .flow-item {
+
+        grid-template-columns:
+          1fr;
+
+        gap:
+          10px;
+
+      }
+
+
+      .result-card {
+
+        padding:
+          72px 24px;
+
+        border-radius:
+          30px;
+
+      }
+
+
+      .footer-inner {
+
+        flex-direction:
+          column;
+
+        align-items:
+          flex-start;
+
+      }
+
+    }
+
+
+
+    /* ==================================================
+       REDUCED MOTION
+    ================================================== */
+
+    @media
+    (prefers-reduced-motion: reduce) {
+
+
+      html {
+
+        scroll-behavior:
+          auto;
+
+      }
+
+
+      *,
+
+      *::before,
+
+      *::after {
+
+        animation-duration:
+          0.01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.01ms !important;
+
+      }
+
+
+      .reveal {
+
+        opacity:
+          1;
+
+        transform:
+          none;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+  <!-- ==================================================
+       NAVIGATION
+  ================================================== -->
+
+  <nav
+    class="navigation"
+    id="navigation"
+  >
+
+    <div class="navigation-inner">
+
+
+      <a
+        href="index.html"
+        class="brand"
+      >
+
+        <img
+          src="IMG_0006.png"
+          alt="Portfolio logo"
+          class="brand-logo"
+        >
+
+        <span>
+          Scout Mini RGB-D Following
+        </span>
+
+      </a>
+
+
+      <div class="navigation-links">
+
+
+        <a href="#overview">
+
+          Overview
+
+        </a>
+
+
+        <a href="#film">
+
+          Film
+
+        </a>
+
+
+        <a href="#architecture">
+
+          Architecture
+
+        </a>
+
+
+        <a href="#ros2">
+
+          ROS2 + CAN
+
+        </a>
+
+
+      </div>
+
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- ==================================================
+       HERO
+  ================================================== -->
+
+  <header class="hero">
+
+
+    <div class="hero-inner">
+
+
+      <p class="hero-eyebrow reveal">
+
+        RGB-D Human Following Project
+
+      </p>
+
+
+      <h1
+        class="
+          hero-title
+          reveal
+          reveal-delay-1
+        "
+      >
+
+        Scout Mini
+
+      </h1>
+
+
+      <h2
+        class="
+          hero-subtitle
+          reveal
+          reveal-delay-2
+        "
+      >
+
+        See the person.<br>
+
+        Measure the distance.<br>
+
+        Follow in real time.
+
+      </h2>
+
+
+      <p
+        class="
+          hero-description
+          reveal
+          reveal-delay-3
+        "
+      >
+
+        A human-following mobile robot built around
+        RGB-D perception.
+
+        RGB and depth frames are processed separately
+        so the robot can keep visual tracking responsive
+        while using depth information to control
+        following speed.
+
+      </p>
+
+
+      <div
+        class="
+          hero-buttons
+          reveal
+          reveal-delay-3
+        "
+      >
+
+
+        <a
+          href="#film"
+          class="
+            button
+            button-primary
+          "
+        >
+
+          Watch the demo ▶
+
+        </a>
+
+
+        <a
+          href="#architecture"
+          class="
+            button
+            button-secondary
+          "
+        >
+
+          See the architecture ↓
+
+        </a>
+
+
+      </div>
+
+
+
+      <div class="hero-visual reveal">
+
+
+        <div class="hero-system">
+
+
+          <div class="hero-system-card">
+
+            <strong>
+
+              RGB
+
+            </strong>
+
+            <span>
+
+              Detect the person and estimate
+              horizontal tracking error.
+
+            </span>
+
+          </div>
+
+
+          <div class="hero-system-card">
+
+            <strong>
+
+              Depth
+
+            </strong>
+
+            <span>
+
+              Estimate the distance to the
+              tracked person independently.
+
+            </span>
+
+          </div>
+
+
+          <div class="hero-system-card">
+
+            <strong>
+
+              Scout Mini
+
+            </strong>
+
+            <span>
+
+              Convert tracking error and distance
+              into angular and linear motion.
+
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </header>
+
+
+
+  <main>
+
+
+    <!-- ==================================================
+         OVERVIEW
+    ================================================== -->
+
+    <section
+      class="
+        section
+        overview
+      "
+      id="overview"
+    >
+
+
+      <div class="section-inner">
+
+
+        <p class="section-label reveal">
+
+          Project overview
+
+        </p>
+
+
+        <h2 class="section-title reveal">
+
+          Human following without forcing
+          RGB and depth into one heavy pipeline.
+
+        </h2>
+
+
+        <p class="section-description reveal">
+
+          The key idea was to separate visual tracking
+          and distance processing.
+
+          The RGB stream handles person tracking,
+          while the depth stream is processed independently
+          for distance estimation.
+
+          This reduces unnecessary processing and improves
+          the responsiveness of the human-following system.
+
+        </p>
+
+
+
+        <div class="overview-grid">
+
+
+          <article class="overview-item reveal">
+
+            <span class="overview-number">
+
+              01
+
+            </span>
+
+
+            <p class="overview-text">
+
+              RGB frames are used for
+              human tracking and steering.
+
+            </p>
+
+          </article>
+
+
+
+          <article
+            class="
+              overview-item
+              reveal
+              reveal-delay-1
+            "
+          >
+
+            <span class="overview-number">
+
+              02
+
+            </span>
+
+
+            <p class="overview-text">
+
+              Depth frames are processed
+              independently for
+              distance estimation.
+
+            </p>
+
+          </article>
+
+
+
+          <article
+            class="
+              overview-item
+              reveal
+              reveal-delay-2
+            "
+          >
+
+            <span class="overview-number">
+
+              03
+
+            </span>
+
+
+            <p class="overview-text">
+
+              Distance and tracking error
+              become motion commands
+              for Scout Mini.
+
+            </p>
+
+          </article>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         DEMONSTRATION
+    ================================================== -->
+
+    <section
+      class="
+        section
+        film-section
+      "
+      id="film"
+    >
+
+
+      <div class="section-inner">
+
+
+        <p class="section-label reveal">
+
+          Demonstration
+
+        </p>
+
+
+        <h2 class="section-title reveal">
+
+          Scout Mini following a person.
+
+        </h2>
+
+
+        <p class="section-description reveal">
+
+          The robot keeps the target near the center
+          of the camera frame while estimating the
+          distance from the RGB-D camera and adjusting
+          its motion in real time.
+
+        </p>
+
+
+        <div class="video-frame reveal">
+
+
+          <iframe
+
+            src="https://www.youtube.com/embed/9VvoTgbrtrU"
+
+            title="Scout Mini RGB-D human following demonstration"
+
+            loading="lazy"
+
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share
+            "
+
+            allowfullscreen
+
+          ></iframe>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PROCESSING ARCHITECTURE
+    ================================================== -->
+
+    <section
+      class="section"
+      id="architecture"
+    >
+
+
+      <div class="section-inner">
+
+
+        <p class="section-label reveal">
+
+          Processing architecture
+
+        </p>
+
+
+        <h2 class="section-title reveal">
+
+          One camera.<br>
+
+          Two processing paths.
+
+        </h2>
+
+
+        <p class="section-description reveal">
+
+          RGB and depth are not forced into one
+          synchronized processing callback.
+
+          Each stream has its own role and can be
+          processed at an appropriate rate.
+
+        </p>
+
+
+
+        <div class="architecture-grid">
+
+
+          <!-- RGB -->
+
+          <article
+            class="
+              architecture-card
+              large
+              reveal
+            "
+          >
+
+
+            <div class="card-kicker">
+
+              RGB PIPELINE
+
+            </div>
+
+
+            <h3 class="card-title">
+
+              Visual tracking stays
+              focused on direction.
+
+            </h3>
+
+
+            <p class="card-description">
+
+              The RGB frame is used to detect the person
+              and calculate the horizontal difference
+              between the center of the person and the
+              center of the camera frame.
+
+              This tracking error is used to calculate
+              angular velocity.
+
+            </p>
+
+
+            <div class="pipeline">
+
+              <span class="pipeline-box">
+                RGB frame
+              </span>
+
+              <span class="pipeline-arrow">
+                →
+              </span>
+
+              <span class="pipeline-box">
+                Human detection
+              </span>
+
+              <span class="pipeline-arrow">
+                →
+              </span>
+
+              <span class="pipeline-box">
+                Center error
+              </span>
+
+              <span class="pipeline-arrow">
+                →
+              </span>
+
+              <span class="pipeline-box">
+                Angular velocity
+              </span>
+
+            </div>
+
+
+          </article>
+
+
+
+          <!-- DEPTH -->
+
+          <article
+            class="
+              architecture-card
+              small
+              dark
+              reveal
+              reveal-delay-1
+            "
+          >
+
+
+            <div class="card-kicker">
+
+              DEPTH PIPELINE
+
+            </div>
+
+
+            <h3 class="card-title">
+
+              Distance is calculated
+              independently.
+
+            </h3>
+
+
+            <p class="card-description">
+
+              Depth frames are processed separately.
+
+              Depth values around the detected target
+              position are used to estimate the distance
+              between Scout Mini and the person.
+
+            </p>
+
+
+            <div class="pipeline">
+
+              <span class="pipeline-box">
+
+                Depth frame
+
+              </span>
+
+              <span class="pipeline-arrow">
+
+                →
+
+              </span>
+
+              <span class="pipeline-box">
+
+                Target ROI
+
+              </span>
+
+              <span class="pipeline-arrow">
+
+                →
+
+              </span>
+
+              <span class="pipeline-box">
+
+                Distance
+
+              </span>
+
+            </div>
+
+
+          </article>
+
+
+
+          <!-- WHY SEPARATE -->
+
+          <article
+            class="
+              architecture-card
+              full
+              reveal
+            "
+          >
+
+
+            <div class="card-kicker">
+
+              WHY SEPARATE THEM?
+
+            </div>
+
+
+            <h3 class="card-title">
+
+              Not every sensing task needs
+              to run at the same rate.
+
+            </h3>
+
+
+            <p class="card-description">
+
+              Person direction can change quickly,
+              so RGB tracking should remain responsive.
+
+              Distance generally changes more gradually,
+              allowing depth processing to run independently.
+
+              Separating the RGB and depth processing
+              paths reduces unnecessary computation
+              and improves control responsiveness.
+
+            </p>
+
+
+          </article>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         CORE IMPLEMENTATION
+    ================================================== -->
+
+    <section
+      class="
+        section
+        split-section
+      "
+    >
+
+
+      <div class="section-inner">
+
+
+        <p class="section-label reveal">
+
+          Core implementation
+
+        </p>
+
+
+        <h2 class="section-title reveal">
+
+          RGB for steering.<br>
+
+          Depth for following distance.
+
+        </h2>
+
+
+
+        <div class="split-layout">
+
+
+          <article class="stream-card reveal">
+
+
+            <div class="stream-label">
+
+              RGB STREAM
+
+            </div>
+
+
+            <h3 class="stream-title">
+
+              Where is the person?
+
+            </h3>
+
+
+            <p class="stream-description">
+
+              The center position of the detected person
+              is compared with the center of the camera frame.
+
+              If the person moves left or right,
+              Scout Mini rotates toward the target.
+
+              A dead zone around the center prevents
+              unnecessary small steering corrections.
+
+            </p>
+
+
+            <div class="stream-result">
+
+              Output → angular velocity
+
+            </div>
+
+
+          </article>
+
+
+
+          <article
+            class="
+              stream-card
+              depth
+              reveal
+              reveal-delay-1
+            "
+          >
+
+
+            <div class="stream-label">
+
+              DEPTH STREAM
+
+            </div>
+
+
+            <h3 class="stream-title">
+
+              How far away is the person?
+
+            </h3>
+
+
+            <p class="stream-description">
+
+              Depth values near the detected person
+              are sampled to estimate target distance.
+
+              This distance can be used to increase
+              forward speed when the person is far away
+              and reduce the speed as Scout Mini approaches
+              the desired following distance.
+
+            </p>
+
+
+            <div class="stream-result">
+
+              Output → linear velocity
+
+            </div>
+
+
+          </article>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         ROS2 + CAN
+         그림 파일이 아니라 코드로 생성
+    ================================================== -->
+
+    <section
+      class="ros2-can-section"
+      id="ros2"
+    >
+
+
+      <div
+        class="
+          ros2-can-card
+          reveal
+        "
+      >
+
+
+        <!-- 위쪽 ROS 노드 -->
+
+        <div class="ros2-diagram">
+
+
+          <!-- Camera Node -->
+
+          <div
+            class="
+              ros-node
+              camera
+            "
+          >
+
+
+            <div class="ros-node-title">
+
+              Camera Node
+
+            </div>
+
+
+            <div class="ros-node-subtitle">
+
+              RGB-D Camera
+
+            </div>
+
+
+            <div
+              class="camera-drawing"
+              aria-hidden="true"
+            >
+
+              <span></span>
+
+              <span></span>
+
+              <span></span>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- Camera topics -->
+
+          <div class="topic-column">
+
+
+            <div
+              class="
+                topic-item
+                rgb
+              "
+            >
+
+
+              <div class="topic-label">
+
+                /camera/rgb/image
+
+                <small>
+
+                  (sensor_msgs/Image)
+
+                </small>
+
+              </div>
+
+
+              <div class="topic-arrow"></div>
+
+
+            </div>
+
+
+
+            <div
+              class="
+                topic-item
+                depth
+              "
+            >
+
+
+              <div class="topic-label">
+
+                /camera/depth/image
+
+                <small>
+
+                  (sensor_msgs/Image)
+
+                </small>
+
+              </div>
+
+
+              <div class="topic-arrow"></div>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- People Tracking Node -->
+
+          <div
+            class="
+              ros-node
+              tracking
+            "
+          >
+
+
+            <div class="ros-node-title">
+
+              People Tracking Node
+
+            </div>
+
+
+            <div class="ros-node-subtitle">
+
+              Person estimation
+
+            </div>
+
+
+            <div
+              class="person-drawing"
+              aria-hidden="true"
+            >
+
+              <div class="head"></div>
+
+              <div class="body"></div>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- cmd_vel -->
+
+          <div class="topic-column">
+
+
+            <div
+              class="
+                topic-item
+                cmd
+              "
+            >
+
+
+              <div class="topic-label">
+
+                /cmd_vel
+
+                <small>
+
+                  (geometry_msgs/Twist)
+
+                </small>
+
+              </div>
+
+
+              <div class="topic-arrow"></div>
+
+
+              <div class="cmd-detail">
+
+                • linear velocity (x)<br>
+
+                • angular velocity (z)
+
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- Scout Mini Node -->
+
+          <div
+            class="
+              ros-node
+              scout
+            "
+          >
+
+
+            <div class="ros-node-title">
+
+              Scout Mini Node
+
+            </div>
+
+
+            <div class="ros-node-subtitle">
+
+              CAN Interface
+
+            </div>
+
+
+            <div
+              class="gear-drawing"
+              aria-hidden="true"
+            >
+
+              ⚙
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- 아래쪽 legend / CAN / robot -->
+
+        <div class="ros-lower">
+
+
+          <!-- ROS2 legend -->
+
+          <div class="ros-legend">
+
+
+            <div class="ros-legend-title">
+
+              ROS2 Topics
+
+            </div>
+
+
+            <div class="ros-legend-row">
+
+              <div
+                class="
+                  legend-arrow
+                  blue
+                "
+              ></div>
+
+              <div>
+
+                RGB image
+                (sensor_msgs/Image)
+
+              </div>
+
+            </div>
+
+
+            <div class="ros-legend-row">
+
+              <div
+                class="
+                  legend-arrow
+                  green
+                "
+              ></div>
+
+              <div>
+
+                Depth image
+                (sensor_msgs/Image)
+
+              </div>
+
+            </div>
+
+
+            <div class="ros-legend-row">
+
+              <div
+                class="
+                  legend-arrow
+                  yellow
+                "
+              ></div>
+
+              <div>
+
+                Velocity command
+                (geometry_msgs/Twist)
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- CAN + Scout Mini -->
+
+          <div class="robot-area">
+
+
+            <div class="can-column">
+
+
+              <div class="can-label">
+
+                CAN Bus
+
+                <small>
+
+                  (Velocity command)
+
+                </small>
+
+              </div>
+
+
+              <div class="can-line"></div>
+
+
+            </div>
+
+
+
+            <div
+              class="scout-css-robot"
+              aria-hidden="true"
+            >
+
+
+              <div class="robot-sensor"></div>
+
+
+              <div
+                class="
+                  robot-wheel
+                  left
+                "
+              ></div>
+
+
+              <div
+                class="
+                  robot-wheel
+                  right
+                "
+              ></div>
+
+
+              <div class="robot-chassis">
+
+                SCOUT
+
+              </div>
+
+
+            </div>
+
+
+
+            <div class="robot-caption">
+
+
+              <strong>
+
+                Scout Mini
+
+              </strong>
+
+
+              <span>
+
+                Mobile Robot
+
+              </span>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         CONTROL FLOW
+    ================================================== -->
+
+    <section
+      class="
+        section
+        flow
+      "
+    >
+
+
+      <div class="section-inner">
+
+
+        <p class="section-label reveal">
+
+          Control flow
+
+        </p>
+
+
+        <h2 class="section-title reveal">
+
+          Detect.
+          Measure.
+          Publish.
+          Move.
+
+        </h2>
+
+
+        <div class="flow-list">
+
+
+
+          <article class="flow-item reveal">
+
+
+            <div class="flow-number">
+
+              01
+
+            </div>
+
+
+            <div>
+
+
+              <h3 class="flow-title">
+
+                Receive RGB and depth streams.
+
+              </h3>
+
+
+              <p class="flow-description">
+
+                The RGB-D camera publishes visual information
+                and distance information as separate
+                ROS2 image streams.
+
+              </p>
+
+
+            </div>
+
+
+          </article>
+
+
+
+          <article class="flow-item reveal">
+
+
+            <div class="flow-number">
+
+              02
+
+            </div>
+
+
+            <div>
+
+
+              <h3 class="flow-title">
+
+                Track the person in RGB.
+
+              </h3>
+
+
+              <p class="flow-description">
+
+                The target's center is estimated from
+                the RGB image and compared with
+                the camera center to calculate
+                steering error.
+
+              </p>
+
+
+            </div>
+
+
+          </article>
+
+
+
+          <article class="flow-item reveal">
+
+
+            <div class="flow-number">
+
+              03
+
+            </div>
+
+
+            <div>
+
+
+              <h3 class="flow-title">
+
+                Estimate target distance
+                from depth.
+
+              </h3>
+
+
+              <p class="flow-description">
+
+                Depth values near the tracked target
+                provide the distance required
+                for forward-motion control.
+
+              </p>
+
+
+            </div>
+
+
+          </article>
+
+
+
+          <article class="flow-item reveal">
+
+
+            <div class="flow-number">
+
+              04
+
+            </div>
+
+
+            <div>
+
+
+              <h3 class="flow-title">
+
+                Publish /cmd_vel and send
+                the command through CAN.
+
+              </h3>
+
+
+              <p class="flow-description">
+
+                The human-following node publishes
+                linear and angular velocity through
+                <code>/cmd_vel</code>.
+
+                The Scout Mini ROS2 driver subscribes
+                to this topic and sends the motion
+                command to the robot through
+                CAN communication.
+
+              </p>
+
+
+            </div>
+
+
+          </article>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         RESULT
+    ================================================== -->
+
+    <section
+      class="
+        section
+        result-section
+      "
+    >
+
+
+      <div class="section-inner">
+
+
+        <div class="result-card reveal">
+
+
+          <h2 class="result-title">
+
+            Separate perception.<br>
+
+            Connected control.
+
+          </h2>
+
+
+          <p class="result-description">
+
+            By processing RGB and depth independently,
+            the system avoids forcing every perception
+            task into one synchronized processing cycle.
+
+            ROS2 connects perception and control through
+            topics, while CAN communication delivers
+            the final velocity commands to Scout Mini.
+
+          </p>
+
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- ==================================================
+       FOOTER
+  ================================================== -->
+
+  <footer class="footer">
+
+
+    <div class="footer-inner">
+
+
+      <span class="footer-brand">
+
+        Scout Mini RGB-D Following
+
+      </span>
+
+
+      <span>
+
+        Human Following Robot Project
+
+      </span>
+
+
+      <span>
+
+        © 2026 Seung Min Kim
+
+      </span>
+
+
+    </div>
+
+
+  </footer>
+
+
+
+  <!-- ==================================================
+       JAVASCRIPT
+  ================================================== -->
+
+  <script>
+
+
+    document.addEventListener(
+
+      "DOMContentLoaded",
+
+      function () {
+
+
+        const navigation =
+
+          document.getElementById(
+            "navigation"
+          );
+
+
+
+        function updateNavigation() {
+
+
+          if (
+            window.scrollY > 20
+          ) {
+
+
+            navigation.classList.add(
+              "scrolled"
+            );
+
+
+          } else {
+
+
+            navigation.classList.remove(
+              "scrolled"
+            );
+
+
+          }
+
+
+        }
+
+
+
+        updateNavigation();
+
+
+
+        window.addEventListener(
+
+          "scroll",
+
+          updateNavigation,
+
+          {
+
+            passive:
+              true
+
+          }
+
+        );
+
+
+
+        const revealElements =
+
+          document.querySelectorAll(
+            ".reveal"
+          );
+
+
+
+        if (
+          !(
+            "IntersectionObserver"
+            in window
+          )
+        ) {
+
+
+          revealElements.forEach(
+
+            function (element) {
+
+
+              element.classList.add(
+                "visible"
+              );
+
+
+            }
+
+          );
+
+
+          return;
+
+
+        }
+
+
+
+        const observer =
+
+          new IntersectionObserver(
+
+
+            function (
+              entries,
+              currentObserver
+            ) {
+
+
+              entries.forEach(
+
+                function (entry) {
+
+
+                  if (
+                    entry.isIntersecting
+                  ) {
+
+
+                    entry.target
+                      .classList
+                      .add(
+                        "visible"
+                      );
+
+
+                    currentObserver
+                      .unobserve(
+                        entry.target
+                      );
+
+
+                  }
+
+
+                }
+
+              );
+
+
+            },
+
+
+            {
+
+              threshold:
+                0.12,
+
+              rootMargin:
+                "0px 0px -40px 0px"
+
+            }
+
+
+          );
+
+
+
+        revealElements.forEach(
+
+          function (element) {
+
+
+            observer.observe(
+              element
+            );
+
+
+          }
+
+        );
+
+
+      }
+
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>
