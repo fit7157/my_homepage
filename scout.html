@@ -2950,6 +2950,876 @@
 
 
 
+
+    /* ==================================================
+       HUMAN FOLLOWING + OBSTACLE AVOIDANCE
+    ================================================== */
+
+    .avoidance-section {
+
+      padding:
+        120px 24px;
+
+      background:
+        #0a0a0b;
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .avoidance-section
+    .section-label {
+
+      color:
+        #78c8ff;
+
+    }
+
+
+    .avoidance-section
+    .section-title {
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .avoidance-section
+    .section-description {
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.60
+        );
+
+    }
+
+
+    /* 첫 번째 블록: 논문 정리 */
+
+    .paper-review-card {
+
+      margin-top:
+        72px;
+
+      padding:
+        34px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr;
+
+      gap:
+        24px;
+
+      align-items:
+        stretch;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
+
+      border-radius:
+        38px;
+
+      background:
+
+        radial-gradient(
+          circle at 10% 5%,
+          rgba(
+            10,
+            132,
+            255,
+            0.16
+          ),
+          transparent 30%
+        ),
+
+        #111214;
+
+      box-shadow:
+        0 30px 90px
+        rgba(
+          0,
+          0,
+          0,
+          0.28
+        );
+
+    }
+
+
+    .paper-copy {
+
+      padding:
+        12px 8px 12px 8px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
+
+    }
+
+
+    .paper-kicker {
+
+      margin:
+        0 0 12px;
+
+      color:
+        #79c9ff;
+
+      font-size:
+        14px;
+
+      font-weight:
+        750;
+
+      letter-spacing:
+        0.08em;
+
+    }
+
+
+    .paper-title {
+
+      margin:
+        0;
+
+      font-size:
+        clamp(
+          32px,
+          4.1vw,
+          56px
+        );
+
+      line-height:
+        1.02;
+
+      letter-spacing:
+        -0.05em;
+
+    }
+
+
+    .paper-summary {
+
+      margin:
+        24px 0 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.68
+        );
+
+      font-size:
+        17px;
+
+      line-height:
+        1.72;
+
+    }
+
+
+    .paper-flow-list {
+
+      margin:
+        28px 0 0;
+
+      padding:
+        0;
+
+      list-style:
+        none;
+
+      display:
+        grid;
+
+      gap:
+        12px;
+
+    }
+
+
+    .paper-flow-list li {
+
+      position:
+        relative;
+
+      padding:
+        14px 16px 14px 42px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.78
+        );
+
+      font-size:
+        14px;
+
+      line-height:
+        1.55;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.07
+        );
+
+      border-radius:
+        16px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.025
+        );
+
+    }
+
+
+    .paper-flow-list li::before {
+
+      content:
+        attr(data-step);
+
+      position:
+        absolute;
+
+      top:
+        13px;
+
+      left:
+        14px;
+
+      width:
+        20px;
+
+      height:
+        20px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      border-radius:
+        50%;
+
+      background:
+        rgba(
+          10,
+          132,
+          255,
+          0.16
+        );
+
+      color:
+        #7dc9ff;
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .paper-note {
+
+      margin:
+        22px 0 0;
+
+      padding:
+        15px 17px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.60
+        );
+
+      font-size:
+        13px;
+
+      line-height:
+        1.6;
+
+      border-left:
+        3px solid
+        #ffb020;
+
+      background:
+        rgba(
+          255,
+          176,
+          32,
+          0.06
+        );
+
+      border-radius:
+        0 12px 12px 0;
+
+    }
+
+
+    .paper-figure {
+
+      min-width:
+        0;
+
+      padding:
+        18px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      border-radius:
+        26px;
+
+      background:
+        #ffffff;
+
+      overflow:
+        hidden;
+
+    }
+
+
+    .paper-figure img {
+
+      width:
+        100%;
+
+      height:
+        auto;
+
+      max-height:
+        650px;
+
+      object-fit:
+        contain;
+
+      display:
+        block;
+
+    }
+
+
+    /* 두 번째 블록: APF 원리 */
+
+    .apf-grid {
+
+      margin-top:
+        26px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          1fr
+        );
+
+      gap:
+        18px;
+
+    }
+
+
+    .apf-card {
+
+      min-height:
+        300px;
+
+      padding:
+        30px;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
+
+      border-radius:
+        28px;
+
+      background:
+        #111214;
+
+    }
+
+
+    .apf-index {
+
+      color:
+        #79c9ff;
+
+      font-size:
+        14px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        0.08em;
+
+    }
+
+
+    .apf-card h3 {
+
+      margin:
+        46px 0 0;
+
+      font-size:
+        30px;
+
+      line-height:
+        1.08;
+
+      letter-spacing:
+        -0.04em;
+
+    }
+
+
+    .apf-card p {
+
+      margin:
+        18px 0 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.60
+        );
+
+      font-size:
+        15px;
+
+      line-height:
+        1.65;
+
+    }
+
+
+    .force-equation {
+
+      margin-top:
+        26px;
+
+      padding:
+        15px 16px;
+
+      color:
+        #dff2ff;
+
+      font-family:
+        Consolas,
+        "SFMono-Regular",
+        monospace;
+
+      font-size:
+        14px;
+
+      text-align:
+        center;
+
+      border:
+        1px solid
+        rgba(
+          121,
+          201,
+          255,
+          0.18
+        );
+
+      border-radius:
+        14px;
+
+      background:
+        rgba(
+          121,
+          201,
+          255,
+          0.05
+        );
+
+    }
+
+
+    /* 세 번째 블록: Scout Mini 적용 예정 */
+
+    .avoidance-next-card {
+
+      margin-top:
+        26px;
+
+      padding:
+        44px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        0.78fr 1.22fr;
+
+      gap:
+        38px;
+
+      align-items:
+        center;
+
+      border-radius:
+        32px;
+
+      background:
+
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(
+            53,
+            211,
+            157,
+            0.16
+          ),
+          transparent 28%
+        ),
+
+        #111214;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
+
+    }
+
+
+    .avoidance-next-title {
+
+      margin:
+        0;
+
+      font-size:
+        clamp(
+          34px,
+          4vw,
+          54px
+        );
+
+      line-height:
+        1.02;
+
+      letter-spacing:
+        -0.05em;
+
+    }
+
+
+    .avoidance-next-text {
+
+      margin:
+        20px 0 0;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.62
+        );
+
+      font-size:
+        16px;
+
+      line-height:
+        1.7;
+
+    }
+
+
+    .avoidance-pipeline {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          5,
+          1fr
+        );
+
+      gap:
+        10px;
+
+      align-items:
+        stretch;
+
+    }
+
+
+    .avoidance-pipeline-item {
+
+      position:
+        relative;
+
+      min-height:
+        120px;
+
+      padding:
+        18px 12px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      text-align:
+        center;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          0.82
+        );
+
+      font-size:
+        13px;
+
+      font-weight:
+        650;
+
+      line-height:
+        1.4;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
+
+      border-radius:
+        18px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.025
+        );
+
+    }
+
+
+    .avoidance-pipeline-item:not(:last-child)::after {
+
+      content:
+        "→";
+
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      right:
+        -16px;
+
+      z-index:
+        2;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        #79c9ff;
+
+      font-size:
+        18px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    @media
+    (max-width: 1000px) {
+
+
+      .paper-review-card {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .apf-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .avoidance-next-card {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .avoidance-pipeline {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .avoidance-pipeline-item:not(:last-child)::after {
+
+        content:
+          "↓";
+
+        top:
+          auto;
+
+        right:
+          50%;
+
+        bottom:
+          -19px;
+
+        transform:
+          translateX(50%);
+
+      }
+
+    }
+
+
+    @media
+    (max-width: 700px) {
+
+
+      .avoidance-section {
+
+        padding:
+          82px 14px;
+
+      }
+
+
+      .paper-review-card {
+
+        margin-top:
+          52px;
+
+        padding:
+          20px;
+
+        border-radius:
+          26px;
+
+      }
+
+
+      .paper-figure {
+
+        padding:
+          10px;
+
+        border-radius:
+          18px;
+
+      }
+
+
+      .apf-card {
+
+        min-height:
+          auto;
+
+        padding:
+          24px;
+
+      }
+
+
+      .avoidance-next-card {
+
+        padding:
+          28px 22px;
+
+      }
+
+    }
+
+
     /* ==================================================
        CONTROL FLOW
     ================================================== */
@@ -3730,6 +4600,12 @@
         <a href="#ros2">
 
           ROS2 + CAN
+
+        </a>
+
+        <a href="#obstacle-avoidance">
+
+          Obstacle Avoidance
 
         </a>
 
@@ -5147,54 +6023,90 @@
 
 
 
+
     <!-- ==================================================
-         RESULT
+         HUMAN FOLLOWING + OBSTACLE AVOIDANCE
     ================================================== -->
 
     <section
-      class="
-        section
-        result-section
-      "
+      class="avoidance-section"
+      id="obstacle-avoidance"
     >
-
 
       <div class="section-inner">
 
 
-        <div class="result-card reveal">
+        <p class="section-label reveal">
+
+          Next development
+
+        </p>
 
 
-          <h2 class="result-title">
+        <h2 class="section-title reveal">
 
-            Separate perception.<br>
+          Follow the person.<br>
 
-            Connected control.
+          Avoid the obstacle.
 
-          </h2>
-
-
-          <p class="result-description">
-
-            By processing RGB and depth independently,
-            the system avoids forcing every perception
-            task into one synchronized processing cycle.
-
-            ROS2 connects perception and control through
-            topics, while CAN communication delivers
-            the final velocity commands to Scout Mini.
-
-          </p>
+        </h2>
 
 
-        </div>
+        <p class="section-description reveal">
+
+          The next stage of the project is to extend human following
+          into a system that can keep tracking the target while
+          simultaneously avoiding obstacles detected by the RGB-D camera.
+
+        </p>
 
 
-      </div>
 
+        <!-- FIRST BLOCK: PAPER REVIEW -->
+
+        <article
+          class="
+            paper-review-card
+            reveal
+          "
+        >
+
+
+          <div class="paper-copy">
+
+
+            <p class="paper-kicker">
+
+              PAPER REVIEW
+
+            </p>
+
+
+            <h3 class="paper-title">
+
+              Control design for Robotic Human-Following
+              and Obstacle Avoidance using an RGB-D camera
+
+            </h3>
+
+
+          </div>
+
+
+
+          <figure class="paper-figure">
+
+            <img
+              src="apf_structure_diagram.png"
+              alt="Paper review diagram for Control design for Robotic Human-Following and Obstacle Avoidance using an RGB-D camera"
+            >
+
+          </figure>
+
+
+        </article>
 
     </section>
-
 
   </main>
 
