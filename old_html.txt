@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .picture0{
+            display:block; 
+            margin:0 auto; 
+            width:150px; 
+            margin-top:20px;
+            margin-bottom:10px;
+            border-style:none;
+            filter:none; /*그림자효과 제거*/
+            border-radius:0;
+        }
+        .heading {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            text-shadow: 3px 3px 5px gray;
+            margin-bottom:50px;
+        }
+        .heading2{
+            text-align:center;
+            padding-bottom:100px;
+            font-size:5vw;
+            font-family: Arial, sans-serif;
+            line-height:100px;
+            font-weight:900;
+            opacity:0;
+            transform:translateY(50px);
+            transition:opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+        .heading3{
+            text-align:center;
+            padding-bottom:200px;
+            font-size:2vw;
+            font-family: Arial, sans-serif;
+            line-height:80px;
+            font-weight:800;
+            text-decoration:underline;
+            text-decoration-color:yellow;
+            opacity:0;
+            transform:translateY(50px);
+            transition:opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+        .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .atov2, .split, .charger, .atov3{
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            opacity:0;/*기본 설정은 안보이게*/
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
+            border-radius:25px;
+            margin-bottom:150px;
+            background-color: rgb(237, 237, 235);
+            margin-left:15px;
+            margin-right:15px;
+            justify-content: center; /* 아이템들을 가운데로 밀착 */
+            gap: 20px; /* 이미지와 글자 사이 간격 */
+
+        }
+
+        /*이미지 영역과 글자 영역의 비율을 1:1로 맞춤 */
+        .routefinder .dis1,.routefinder a, .scooter .dis2 ,.scooter a, .crawller .dis3,.crawller a, .atov .dis4,.atov a, .RiderGuard .dis5,.RiderGuard a, .yolo .dis6,.yolo a, .paperreview .dis7,.paperreview a, .atov2 .dis8,.atov2 a,
+        .split a, .split .dis9, .charger .dis10,.charger a, .atov3 a
+        {
+        flex: 1; 
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 내부 아이템 중앙 정렬 */
+        text-align: center;
+        }
+        
+        /*스크롤 효과  javascript에서 스크롤이 감지되면 이것을 불러온다다*/
+        .fade-in {
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .routefinder .dis1, .scooter .dis2 , .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .atov2 .dis8, .split .dis9, .charger .dis10, .atov3 .dis11{
+            display: flex;
+            flex-direction: column;
+            border-radius:15px;
+            text-align:center;
+        }
+        .routefinder .title1, .scooter .title2, .crawller .title3, .atov .title4, .RiderGuard .title5, .yolo .title6, .paperreview .title7, .atov2 .title8, .split .title9, .charger .title10, .atov3 .title11{
+            font-size: 8vw;  /* 반응형으로 글씨 크기 조정 */
+            margin-bottom: 10px;
+            margin-top: 20px;
+            text-align:center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+                 "Helvetica Neue", Arial, sans-serif;
+            text-shadow: 3px 3px 5px gray; 
+        }
+        .discription1, .discription2, .discription3, .discription4, .discription5, .discription6, .discription7, .discription8, .discription9, .discription10 , .discription11{
+            padding-top: 5px;
+            background-color:rgb(193, 177, 207);
+            border-radius:10px;
+            text-align:center;
+        }
+   
+        .routefinder img, .scooter img, .crawller img , .atov img, .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img, .atov3 img{
+            max-width: 70%;
+            height: auto;
+            border-radius: 100px;
+            transition: transform 0.3s ease;
+            border-style:none; /*이미지 테두리 변경하려면 여기서 변경*/
+            border-width:10px;
+            border-color:rgb(184, 215, 184);
+            filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            -webkit-box-reflect: below 0px linear-gradient(to top, rgba(255, 255, 255, 0.105), transparent);
+        }
+
+        /*바나나 로고 비치는 효과 제거*/
+        img.picture0 {
+           -webkit-box-reflect: none !important;
+        }
+
+        /*scooter 제목 크기 조정*/
+        .scooter .title2{
+            font-size:6vw;
+        }
+
+        /*2,4번째 조정*/
+        .scooter , .atov, .yolo, .atov2, .charger{ /*scooter,atov,yolo는 거꾸로*/
+            display:flex;
+            flex-direction:row-reverse;
+        }
+        .scooter img, .atov img, .yolo img, .atov2 img, .charger img{
+            margin-left:10%;
+        }
+        .dis2, .dis4, .dis6, .dis8, .dis10{
+            width:100%;
+        }
+        /*이미지 크기 조정*/
+        .scooter img, .atov img, .RiderGuard img{
+            max-width:80%;
+        }
+        .atov2 img {
+            max-width:65%;
+         }
+        /*split 이미지 크기 조정*/
+        .split img
+        {
+            max-width:80%;
+        }
+        .atov3 img
+        {
+            max-width:50%;
+        }
+
+
+        /*me 와 awards 부분 조정------------------------------*/
+        .me, .awards
+        {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            /*스크롤효과*/
+            opacity: 0;
+            transform:translateY(50px);
+            margin-bottom:150px;     
+            align-items: center;
+            padding: 20px;
+            transition: opacity 1s ease-out, transform 1s ease-out; /*스크롤효과*/
+            border-radius:500px;
+            margin-bottom:150px;
+           
+        }
+
+        .me .picture100, .awards .picture101 {
+            border-radius:1000px;
+            max-width: 80%;
+            height: auto;
+            transition: transform 0.3s ease;
+            filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            -webkit-box-reflect: below 0px linear-gradient(to top, rgba(255, 255, 255, 0.105), transparent);
+        }
+
+
+        .me .dis100, .awards .dis101
+        {
+            display: flex;
+            flex-direction: column;
+            border-radius:200px;
+            text-align:center;
+        }
+
+        .me .title100, .awards .title101
+        {
+            font-size: 5vw;  /* 반응형으로 글씨 크기 조정 */
+            margin-bottom: 10px;
+            margin-top: 20px;
+            text-align:center;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-shadow: 3px 3px 5px gray; 
+        }
+        /*----------------------------------*/
+
+
+
+    
+        /*scooter는 사진이 커서 크기만 따로 조정*/
+        .scooter img  {
+            width: 200px;    
+            max-width: 70%;
+            height: auto;
+            
+        }
+        .me img, .awards img{
+            width: 300px;
+            border-style:none;
+            border-width:5px;
+    
+        }
+    
+
+        /*하부*/
+        .channel .picture_fin{
+            max-width: 50%;
+            height:auto;
+            border-radius: 100px;
+            transition: transform 0.3s ease;
+            border-style:solid;
+            border-width:10px;
+        }
+
+        img:hover{
+            transform:scale(1.2);
+        }
+
+        /*하부이미지*/
+
+        .bottom_line{
+            border-top:3px solid black;
+            margin-top:200px;
+            display:flex;
+            flex-direction:row-reverse;
+        }
+
+        .picture_smp{
+            max-width: 100px;
+            height: auto;
+            border-radius: 100%;
+            transition: transform 0.3s ease;
+            border-style:none;
+            padding-top:5px;
+            margin-top:5px;
+            filter:none; /*그림자효과 제거*/
+            -webkit-box-reflect: none; /*확대효과 제거*/
+        }
+
+       /* .picture_sju{
+            max-width: 80px;
+            height: auto;
+            border-radius: 100%;
+            transition: transform 0.3s ease;
+            border-style:none;
+            margin-top:5px;
+            filter:none; /*그림자효과 제거
+            -webkit-box-reflect: none; /*확대효과 제거
+        }
+        */
+
+        .picture_mail{
+            max-width: 100px;
+            height: auto;
+            border-radius: 100%;
+            transition: transform 0.3s ease;
+            border-style:none;
+            margin-top:2px;
+            margin-right:3px;
+            filter:none; /*그림자효과 제거*/
+            -webkit-box-reflect: none; /*확대효과 제거*/
+        }
+        .picture_github{
+             max-width: 100px;
+            height: auto;
+            border-radius: 0%;
+            transition: transform 0.3s ease;
+            border-style:none;
+            padding-top:27px;
+            margin-right:10px;
+            filter:none; /*그림자효과 제거*/
+            -webkit-box-reflect: none; /*확대효과 제거*/
+        }
+
+
+        /* hover 시 확대되지 않도록 */
+        .picture_smp:hover, .picture_sju:hover, .picture_mail:hover{
+            transform: none;}
+
+        .picture_smp :hover, .picture_sju :hover, .picture_mail:hover {
+            transform: scale(1.2);
+        }
+
+        /* 반응형 디자인 */
+    @media (max-width: 768px) 
+    {
+            .picture0 {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 10px; /* 아래 여백도 줄이기 */
+              }
+            .heading2{
+                font-weight:900;
+                font-size:5vw;
+                padding-bottom:30px;
+                line-height:50px;
+            }
+            .heading3{
+                font-size:3vw;
+                line-height:50px;
+                padding-bottom:100px;
+                padding-left:30px;
+                padding-right:30px;
+            }
+            .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger, .atov3{
+                flex-direction: column;
+                text-align: center;
+                /*스크롤효과*/
+                opacity: 0;
+                transform:translateY(50px);
+                margin-bottom:50px;
+            }
+            .routefinder .dis1, .scooter .dis2, .crawller .dis3, .atov .dis4, .RiderGuard .dis5, .yolo .dis6, .paperreview .dis7, .me .dis100,.awards .dis101, .atov2 .dis8, .split .dis9, .charger .dis10, .atov3 .dis11{
+                padding-left: 0;
+                margin-top: 15px;
+            }
+            .scooter .title2, .atov .title4, .yolo .title6, .atov2 .title8, .split .title9, .charger .title10, .atov3 .title11{
+                margin-right: 0;
+            }
+            .routefinder img, .crawller img, .scooter img, .atov img , .RiderGuard img, .yolo img, .paperreview img, .atov2 img, .split img, .charger img, .atov3 img
+            {
+                width: 90%;
+                max-width: 400px;
+                margin: 10px auto; /* 모바일에서는 중앙 정렬 */
+            }
+
+            .heading .robotics {
+                font-size: 8vw;  /* 모바일에서 글씨 크기 커지게 */
+            }
+    
+            .dis2, .dis4, .dis6, .dis8, .dis10{
+                margin: 10px 0; /* 모바일에서 간격 추가 */
+            }
+
+            /*riderguard와 scooter은 세로이미지로 세로길이가 크서 크기 조절*/
+            .RiderGuard img, .scooter img{
+                max-height:350px;
+            }
+
+            /*me 반응형 디자인*/
+            .me img{
+                width:30%;
+                max-width:100px;
+                margin:10px auto;
+            }
+            .awards img
+            {
+                width:70%;
+                max-width:350px;
+                margin:10px auto;
+            }
+
+            .dis2, .dis4, .dis6, .dis8, .dis10
+            { 
+                width: auto !important;
+            }
+        
+       /*smp, sju 그림 반응형 디자인*/
+       /* 태블릿 및 모바일 */
+        .picture_smp, .picture_sju, .picture_mail, .picture_github {
+        max-width: 80px; /* 작은 화면에서는 크기를 줄임 */
+         }
+         .picture_github {
+        max-width: 80px;
+        padding-top:25px; /* 작은 화면에서는 크기를 줄임 */
+         }
+                     
+
+
+    }
+
+
+    @media (max-width: 425px) 
+    { /* 더 작은 모바일 화면 */
+        .picture0 {
+        width: 100px; /* 더 작은 화면에서는 더욱 줄이기 */
+        margin-bottom: 10px; /* 여백 줄이기 */
+         }
+        .picture_smp, .picture_sju, .picture_mail {
+        max-width: 50px; /* 더 작은 화면에서는 더욱 줄임 */
+         }
+        .picture_github {
+        max-width: 50px; 
+        padding-top:20px; /* 작은 화면에서는 크기를 줄임 */
+         }
+         .heading2, .heading3{
+            line-height:20px;
+         }
+         .awards img
+         {
+            width:50%;
+            max-width:250px;
+            margin:10px auto;
+         } 
+        .me img
+        {
+            width:40%;
+            max-width:150px;
+            margin:10px auto;
+        }
+
+    }
+
+    
+    @media (min-width: 2560px)  /*큰 화면*/
+    {
+       .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview,.me, .awards, .atov2, .split, .charger, .atov3
+       {
+           flex-direction: column !important; /* 세로 배치 강제 */
+           text-align: center; 
+           gap: 20px; /* 그림과 설명 사이 간격 */
+       }
+    
+       .routefinder img, .scooter img, .crawller img,.atov img, .RiderGuard img, .yolo img, .paperreview img , .atov2 img, .split img, .charger img, .atov3 img
+       {
+           margin: 0 auto; /* 중앙 정렬 */
+           margin-top:50px;
+        }
+       .crawller img, .atov img, .atov2 img, .charger img
+       {
+        width:700px;
+       }
+       .dis2, .dis4, .dis6, .dis8, .dis10
+       { width: auto !important; }
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <a href="index.html">
+        <img src="IMG_0006.png" class="picture0" alt="logo">
+        </a>
+    </div>
+
+    <div class="heading2">
+        <p>from<br/>HARDWARE<br/>to<br/>SOFTWARE</p>
+    </div>
+
+    <div class="heading3">
+        <p>I am a student majoring AI robotics in Sejong univ.<br/>
+        My aim is to build unmanned vehicles and devices with AI that I want to make.<br/>
+        Devices are made with only one purpose. "To make people fun."<br/>
+        Check my products below</p>
+
+    </div>
+
+
+    <div class="me">
+        <a href="me.html">
+            <img src="IMG_0013.jpg" class="picture100" alt="Seung Min Kim">
+        </a>
+        <div class="dis100">
+            <h3 class="title100">Seung Min Kim</h3>
+        </div>
+    </div>
+
+        <div class="awards">
+        <a href="awards.html">
+            <img src="IMG_0017.png" class="picture101" alt="awards">
+        </a>
+        <div class="dis101">
+            <h3 class="title101">Competitions</h3>
+        </div>
+    </div>
+
+
+    <div class="routefinder">
+        <a href="route_finder.html">
+            <img src="IMG_9149.JPG" class="picture1" alt="Route Finder Robot">
+        </a>
+        <div class="dis1">
+            <h3 class="title1">Route Finder</h3>
+            <h3 class="discription1">Finding pathes using 2-ultrasonic sensors</h3>
+        </div>
+    </div>
+
+    
+    <div class="scooter">
+        <a href="scooter.html">
+            <img src="IMG_0015.jpg" class="picture2" alt="Scooter Safety Belt">
+        </a>
+        <div class="dis2">
+            <h3 class="title2">Smart school cafetaria</h3>
+            <h3 class="discription2">This improves school cafeteria system.</h3>
+        </div>
+    </div>
+    
+
+    <div class="crawller">
+        <a href="crawller.html">
+            <img src="IMG_0001.jpg" class="picture3" alt="crawller" align:center;>
+        </a>
+        <div class="dis3">
+            <h3 class="title3">CRAWLLER</h3>
+            <h3 class="discription3">2 legs, 1 wheel movement.</h3>
+        </div>
+    </div>
+
+    <div class="atov">
+        <a href="atov.html">
+            <img src="IMG_0004.jpg" class="picture4" alt="atov" align="center";>
+        </a>
+        <div class="dis4">
+            <h3 class="title4">ATOV</h3>
+            <h3 class="discription4">Introducing the all-terrain robot with remote control.</h3>
+        </div>
+    </div>
+
+    
+    <div class="RiderGuard">
+        <a href="RiderGuard.html">
+            <img src="IMG_0009.png" class="picture5" alt="RiderGuard" align:center;>
+        </a>
+        <div class="dis5">
+            <h3 class="title5">Rider Guard</h3>
+            <h3 class="discription5">Portable safety device for riders.</h3>
+        </div>
+    </div>
+
+
+    <div class="yolo">
+        <a href="yolo.html">
+            <img src="IMG_0011.png" class="picture6" alt="yolo" align="center";>
+        </a>
+        <div class="dis6">
+            <h3 class="title6">YOLO</h3>
+            <h3 class="discription6">you look only once.</h3>
+        </div>
+    </div>
+
+     <div class="paperreview">
+        <a href="paperreview.html">
+            <img src="IMG_0012.png" class="picture7" alt="Paper" align:center;>
+        </a>
+        <div class="dis7">
+            <h3 class="title7">Paper reviews</h3>
+            <h3 class="discription7">Study for papers regarding Computer Vision.</h3>
+        </div>
+    </div>
+
+
+        <div class="atov2">
+        <a href="atov2.html">
+            <img src="IMG_23.jpg" class="picture8" alt="atov2" align="center";>
+        </a>
+        <div class="dis8">
+            <h3 class="title8">ATOV 2.0</h3>
+            <h3 class="discription8">atov version 2</h3>
+        </div>
+    </div>
+
+
+
+
+        <div class="split">
+        <a href="split.html">
+            <img src="IMG_22.png" class="picture9" alt="split" align="center";>
+        </a>
+        <div class="dis9">
+            <h3 class="title9">SPLIT</h3>
+            <h3 class="discription9">3D designed mouse</h3>
+        </div>
+    </div>
+
+
+
+            <div class="charger">
+        <a href="charger.html">
+            <img src="IMG_28.png" class="picture10" alt="charger" align="center";>
+        </a>
+        <div class="dis10">
+            <h3 class="title10">Charging robot</h3>
+            <h3 class="discription10">robo arm charger</h3>
+        </div>
+    </div>
+    
+
+
+            <div class="atov3">
+        <a href="atov3.html">
+            <img src="IMG_32.jpg" class="picture11" alt="atov3" align="center";>
+        </a>
+        <div class="dis11">
+            <h3 class="title11">ATOV 3.0</h3>
+            <h3 class="discription11">ATOV 3.0</h3>
+        </div>
+    </div>
+
+
+
+    <div class ="bottom_line">
+        <a href="https://github.com/fit7157">
+            <img src ="github_img.png" class="picture_github" alt="github">
+        </a>
+        <a href="https://www.youtube.com/@smpictures1234">
+            <img src ="IMG_0002.png" class="picture_smp" alt="SMP">
+        </a>
+
+        <a href="mailto:fit7157@naver.com">
+            <img src = "IMG_0010.png" class="picture_mail" alt="mail">
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".heading2,.heading3, .showyou, .routefinder, .scooter, .crawller, .atov, .RiderGuard, .yolo, .paperreview, .me, .awards, .atov2, .split, .charger, .atov3");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

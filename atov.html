@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .robo{display:block; margin:0 auto; width:150px; margin-bottom:50px; margin-top:20px; transition: transform 0.3s ease;}
+        .robo:hover{transform:scale(1.2);}
+        .subtitle{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:40px; text-align:center;font-style:italic; color:black;background-color:white;}       
+        body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/}
+        .title{color:yellow;}
+        /*서서히 효과*/
+        .robo,.title, .subtitle, .heading, .works, .video-container, .code, .usage,.development, .videos, .award, .operation
+        { 
+            margin-bottom:50px;
+            opacity:0;/*기본 설정은 안보이게*/
+            transform: translateY(50px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /*스크롤효과*/
+        }
+        .fade-in {/*서서히 효과*/
+            opacity: 1 !important;  
+            transform: translateY(0) !important;
+        }
+        .heading{display:flex; flex-direction:row; align-items:center; justify-content:center ;gap:20px;}
+        .heading .discription { display:flex; align-items:center; text-align:center; max-width:50%;}
+        .picture{max-width:100%; height: auto; border-radius:10px; margin-left:50px; margin-bottom:10px;}
+        h1{text-align:center; background-color:rgba(192, 138, 138, 0.808); color:white;border-radius:10px;font-size:35px;}
+        h2{background-color:rgba(192, 138, 138, 0.808);color:white; border-radius:10px; text-align:center;margin-bottom:5px;}
+        .discription {color:black; background-color:rgb(222, 222, 247);}
+        p{border-radius:15px; background-color:rgb(221, 227, 235); padding:10px;margin-top:5px;border-radius:10px;}
+        @media (max-width: 768px) {
+            .robo {
+            width: 100px; /* 기본 크기보다 줄이기 */
+            margin-bottom: 50px; /* 아래 여백도 줄이기 */
+               }
+            .subtitle{
+                font-size:30px;
+            }
+            .heading {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .heading .discription {
+                font-size:20px;
+                max-width:90%;
+                margin-top: 15px;
+                margin-left: 0;
+            }
+            .picture {
+                width: 80%;
+                max-width: 300px;
+                margin:0 auto;
+            }
+            h1{font-size:25px;}
+            h2{font-size:20px;}
+            .operation{width:500px;margin-bottom:30px;}
+            
+        }
+
+        @media (max-width: 768px) 
+        {
+            .operation{width:300px;margin-bottom:10px;}
+        }
+
+/*영상*/
+.video-container {
+    width: 90vw; /* 전체 너비의 90% */
+    max-width: 1200px; /* 최대 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.video-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* 가로세로 비율 유지 */
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="index.html"><img src="IMG_0006.png" width="50" class="robo" ></a>
+    <div class="toomany">
+    <h1 class="title">ATOV</h1>
+    <h2 class="subtitle">Can we use both wheels and legs?</h2>
+    <div class="heading">
+    <img src="IMG_0004.jpg" width="200" class="picture">
+    <h2 class="discription">
+        This robot is basically moving on wheels. but it can also move by legs.</h2>
+    </div>
+    </div>
+
+    
+
+    <div class="main">
+
+    <div style="display: flex; justify-content: center;">
+    <img src="Operation_structure_1.png" width="800" class="operation" >
+    </div>
+
+
+    <div class="works">
+    <h2>How it works</h2>
+    <p> 
+        There are 2 legs and 3wheels with 2motors. Wheels are fast,stable and easy to change moving directions. However it can't overcome obstacles.
+        Legs can overcome obstacles, but they are slow and unstable. Therefore lot's of companies are making robots that combine legs and wheels.
+        ATOV is one of them. However unlike other robots, ATOV can choose whether to move by legs or wheels.<br/>
+        This enables the robot to efficiently move and maximize the stability. Three modes are possible, the wheel mode, wheel mode with legs up and walking mode.
+        These modes can be chosen by the user at the best needed moment.
+        <br/>The remote control system is made by bluetooth. Using the mobile app, you can easily control your robot.
+    </p>
+    </div>
+
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/jdlyeZjY4RU" allowfullscreen>
+        </iframe>
+    </div>
+
+
+     <div class="code">
+    <h2>algorithm for leg movement</h2>
+    <p> 
+        <a href="arduion_code.pdf" target="_blank">Code for robot leg movement</a>
+    </p>
+    </div>
+  
+
+    <div class="usage">
+    <h2>Future usage</h2>
+    <p>
+        You can use this robot at any terrains. In the place where there are many obstacles, like fire-fighting site, or construction site can be a place to use ATOV.
+        If you change ATOV with bigger wheels and bigger legs, this robot will overcome bigger obstacles. If we put the camera at the front, You can seek places that you can not go through.
+        Just control this robot by watching the screen.
+    </p>
+    </div>
+
+
+    <div class="development">
+    <h2>Future development</h2>
+    <p>Overcoming terrains is what ATOV has to develop. However, in order to acheive atuonomous robot, use of AI camera is essential.
+        Vision AI is needed if we try to make ATOV move autonomously move and think. This is our goal for the future.
+    </p>
+    </div>
+
+    <div class="award">
+    <h2>Award</h2>
+    <p>This project advanced to the finals of the 2025 International Mathematical and Scientific Creativity Contest (2025 국제수리창의과학대회)
+    </p>
+    </div>
+
+
+    <div class="videos">
+    <h2>Videos</h2>
+    <a href="https://youtu.be/5-30Ue-lCRw?si=qeD1ccOOYgEcCTcK">video</a></br>
+    </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".robo,.title, .subtitle, .heading, .works, .code, .video-container, .usage,.development, .videos, .award, .operation");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target); // 한 번만 실행되도록 설정
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }); // ✅ 모바일에서도 감지되도록 설정
+
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
