@@ -11,7 +11,7 @@
         text-decoration:underline; text-decoration-color:yellow;}       
         body{font-family:Arial, sans-serif; line-height:1.6; margin:0; padding:0 10px; /*좌우 여백 20*/} 
         .title{color:black;}
-        .title, .subtitle, .contest1, .contest2, .contest3, .video-container
+        .title, .subtitle, .contest1, .contest2, .contest3, .contest4 , .video-container
         {
         margin-bottom:50px;
         /*서서히 효과*/
@@ -147,10 +147,26 @@
     </div>
 
 
+   
+    
+    <div class="contest4">
+    <h2>2026 AI and IOT Challenge -by Sejong university</h2>
+    <p> 
+       <b> I manufactured a robot that can follow patients and send messages to care givers in emergency situations. </b><br/><br/>
+    </p>
+        <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/UKN3Y9sJNR8" allowfullscreen>
+        </iframe>
+    </div>
+    <br/>
+
+
+
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const fadeElements = document.querySelectorAll(".title, .subtitle, .contest1, .contest2, .contest3, .video-container");
+            const fadeElements = document.querySelectorAll(".title, .subtitle, .contest1, .contest2, .contest3, .contest4, .video-container");
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
